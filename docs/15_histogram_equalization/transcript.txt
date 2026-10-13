@@ -1,0 +1,386 @@
+
+Hey everyone.
+Welcome back.
+In this lecture, we are going to learn how to balance our images in terms of brightness as well as
+contrast with the help of histogram equalization.
+So histogram equalization helps us enhance our images making them more vibrant and well distributed
+in terms of brightness as well as contrast.
+So let's get started.
+The definition of histogram is it is a technique to enhance the contrast of an image by redistributing
+its intensity values across the full range of possible values.
+So if we have a higher intensity value present in our image as well as lower intensity values, it will
+try to redistribute those and get a good contrasty image.
+So how do we calculate?
+How do we balance histogram.
+How do we equalize the histogram.
+So let's see the steps of it.
+Step one we first calculate the histogram.
+We all know how to calculate the histogram with the help of OpenCV.
+The histogram will show us the frequency of each intensity values.
+That is frequency of each pixel.
+Each brightness point in the image.
+So once we have that, we will then calculate.
+We will then compute the cumulative distribution function.
+So the CDF accumulates the frequency of intensity values.
+It helps us understand how the intensity values are distributed across the image.
+So we want to know which like the pixel distribution how it is.
+Is it squared.
+Is it not skewed towards right or left or how is it distributed overall?
+And the third point is we then map these intensity values.
+We use the CDF.
+The old intensity values are mapped to the new ones so that the distribution is spread across the entire
+intensity range.
+Okay.
+In the step four, replace the old pixel intensities with the new mapped values, which we have done
+in the step number three.
+So in the step four we will replace those values.
+In step three we will calculate the new ones.
+So let's see how it will look like if you want to perform and write our own function.
+So in step one, suppose this is a function we have flatten our function and these are all the pixel
+values of my image.
+So I have 52, 55, 59 and 52 again again 59 again 55, 63 and 52.
+So I can see I have same numbers.
+That is 52, 52, 52, three times.
+So I'm going to create a table and going to write the intensity.
+Going to write the frequency of each pixel.
+So the intensity is 55.
+And the count that is the frequency of that particular intensity is three times.
+For 55 it is two times for 59 it is two times, for 63 it is one times.
+So I have noted intensity and its frequency.
+Same I will do for the original image.
+Step two I will add a cumulative count.
+So the step two was compute the cumulative distribution function.
+What we will do in step two is this was our intensity.
+We will check for 52.
+Our count was 50.
+Our count was three.
+Total number of intensities that is.
+Values okay.
+Values till 55.
+How many values we have.
+We have three plus two as well.
+Two is the main one.
+Three has been added here.
+Okay.
+You can see this three.
+Right.
+So this three is for 52.
+For 55.
+We have total number of two.
+So two plus three we will add for 59.
+We will add three plus two plus one.
+So this is what we call as cumulative count.
+So we will add each cumulative values before that.
+Because for intensity 59 it will also cover like think of this as a threshold.
+If my values is equal to or smaller than 59 I will add it.
+So for 59 I will add 3 or 52, 2 or 55 and 2 or 59.
+And for 63 I will add all those values.
+That is three plus two plus two plus one.
+That will make as a cumulative count here.
+Then what we will do we will normalize this CDF okay.
+We will normalize this CDF and will get a new value.
+So total number of values are.
+Total number of values we have is three plus two plus two plus two.
+This is four, five, six, seven and eight.
+The total number of values we have is eight.
+So if we calculate the intensity for pixel value 52 it should be three by eight.
+Multiply by 255.
+And this is called normalization.
+We are normalizing this value.
+So it will give us a value of 95.
+We will do the same for 55.
+So total number of values we have here is total count.
+Total cumulative count is five five by eight will give us 159.
+Then this should be seven by eight will give us 233.
+And this this is the highest pixel in our image.
+So think of this as the highest pixel.
+We will normalize this CDF and this pixel will now become 255.
+So whatever was the intensity before which is 63 has now become 255.
+The lowest pixel, which was 52, which is very dark, will now become 95, which is bright in nature.
+So you can see this is our older, darker nature.
+If you plot this exact same image, you will see mostly gray or black kind of image.
+But if you plot this new normalized CDF, you will have white.
+You will have darker black, not darker as compared to our previous image, and we will have something
+in between.
+So from this intensity we have normalized and got this new value.
+Step three we will equalize the image in the step three we have seen.
+We will use this CDF and map.
+This intensity value that is 53 will be mapped to what it will be mapped to 95.
+And then 55 will be mapped to one 5959 will be mapped to two 223, and 63 will be mapped to 225.
+So we will map all those values and then create a new image.
+And this is what we do in histogram equalization.
+It is pretty straightforward but a very powerful tool to balance your brightness and contrast in the
+image.
+So let's head over to VS code and see how to implement this.
+As you can see, I have already imported our libraries and we also have our image of our giraffe image.
+And I forgot this is P and g, so if I load it, if image is none, it will mention that there is some
+issue with the loading, but if it will print image, load it successfully, it means our image is loaded
+successfully.
+You can see our image has been loaded successfully.
+What I will do, I will convert this image.
+I will convert this image to an RGB image.
+I will mention first image underscore RGB.
+Then I will mention cv2 dot.
+It should be cbt cv2 dot cvt color.
+Then I will mention the image which I want to convert.
+Then cv2 dot color underscore.
+BGR and then we should see something.
+Okay we are not able to see the BG to two are and I will mention bg2 dot RGB.
+This is our RGB version of the image.
+What I will do I will also create a grayscale because to calculate histogram.
+To equalize the histogram we are going to use grayscale image.
+That is pixel values ranging from 0 to 255.
+We don't want to equalize RGB.
+We want to equalize the intensity that is the brightness of it.
+So I will just mention grayscale.
+This is image underscore grayscale.
+And I should mention BGR to gray.
+And that will give us a gray image.
+So let us run this and this is successful.
+Then what we will do we will get the original histogram.
+But we need to get the histogram of the flattened image.
+As we have mentioned before, that image pixels should be like a list.
+We should get all the pixels in a single list, and we will get this by flattening our image numpy array.
+And we will do this with NP dot histogram.
+We will use the histogram from NP from numpy.
+That is we will not use from OpenCV.
+I will mention our image grayscale and we will flatten it.
+And there is a function in numpy that is just to flatten.
+And this will give us a single list.
+And what we will do we will mention the range.
+And this will give us the range 0 to 256.
+This will give us what is the number of bins you want.
+Okay.
+So this will provide us total number of 256 bins.
+And then we will mention this will return us a histogram.
+And then this will return us the bins of our image.
+Once this is done we will perform histogram equalization.
+So let me write this code.
+This below code is going to perform histogram equalization.
+And this is very simple code that is cv2 dot equalize hist.
+This will.
+This will perform histogram equalization.
+We have seen the calculation of how it will do, how it will perform the cumulative distribution, and
+then how it will change our pixel values and map older values.
+With the new one image grayscale, we will pass a grayscale image.
+This accepts a grayscale image and at the end we will get a equalized image.
+This is what we will get.
+So once this is done, we will again do the flattening and see and compare the grayscale image as well
+as the histogram of the new image, whether it has changed or not.
+Let me write the histogram.
+I will copy the same code.
+And paste it here and I will get histogram.
+This will be equalized histogram.
+And this will be bins.
+So the next thing we will do is we will plot the results.
+Let me write here.
+Plot the results.
+The first thing I'm going to mention is plt dot figure as always.
+And we have to mention figure size here.
+Figure size.
+And then I will mention plt dot subplot.
+We are going to plot side by side.
+We will plot the grayscale image and then the histogram of the grayscale image.
+Then we will plot the equalized image and then the histogram of the equalized image to see the difference
+between them.
+We will plot.
+We have total number of two rows two columns in first row I will plot our normal image and then in the
+second row I will plot the equalized image with their histogram.
+So two cross two.
+That is two comma two comma one I will plot.
+I have to plot in the first one that is original image.
+I will write image underscore grayscale because we are interested in the grayscale image.
+This should be grayscale and then cmap.
+We have to mention equals to gray.
+And then I will mention plt dot title.
+So now I will do I will copy this.
+Paste paste paste.
+And at the final we have to mention plt dot tightlayout.
+And also plt dot show.
+Then I will change our image names.
+Second image is going to be original image.
+Histogram.
+And here I will mention.
+And this should be equalized image histogram.
+And here I have to mention equalized histogram.
+And the cmap I'm going to use here is let's not use the Cmap.
+Or instead of using plt dot I am show because I want to show this graph with the help of some colors.
+And this is total.
+These are values.
+These are not image.
+So I have to mention instead of I am show I have to mention plot here because this is not a image,
+it's a histogram.
+I have to use plt dot plot and the same I will use here in plt dot plot here and I will use this particular
+histogram.
+Equalized image will go here.
+Cmap should be gray.
+And then in plot we have to mention not Cmap.
+We have to mention the color of our graph, the color of the values which we are going to see.
+So here I will mention gray.
+And for this.
+Should be G are not gray.
+It should be.
+Let's make it blue.
+Blue.
+And then for this one the color I will mention is green.
+Let me write color equals to green.
+So everything looks good.
+We have image grayscale histogram equalized image equalized histogram.
+And also we need to change the index.
+The index should be one, two three and four.
+I want to keep the axis.
+That's why I'm not going to make the axis equals to off.
+So because this is a histogram and we want to see the axis right.
+So let me try to run this code and see whether we get any issues or not.
+So there is no issue.
+And you can see this is the original image, right?
+And this is what the histogram looks like.
+But when we equalize the histogram you can see this graph okay.
+There is some issue in the graph because it looks very similar.
+And the issue is instead of grayscale image we need to pass equalized image here.
+And that's where we will get the correct histogram.
+We did get a equalized image but we were not calculating on the equalized image.
+We were calculating on the original grayscale image.
+That's why both the graphs are looking similar.
+If we run now, we will see a better histogram.
+We will see the original histogram.
+As you can see, the original histogram has like values in the range of 150 to 200.
+And this is what we are getting.
+But here you can see the values have been distributed.
+This is a more distributed gram.
+This is a more equalized gram like more equalized image as compared to the above one.
+And you can see the intensities densities.
+Previously, we were only able to see this, all this dull values, and there are some bright values
+in this image.
+But here in the next image, this image is not bright anymore.
+And the parts of the giraffe which was normal became more dark because of the darker image becomes light,
+the light image becomes darker and the distribution of intensities have been shared have been balanced
+throughout my image.
+And I'm getting a more enhanced effect on my image.
+So this is what histogram equalization does.
+So now it's like I can do this on grayscale.
+But what happens if I want to equalize my image?
+I want to have this kind of effect on my original image on my RGB image.
+What can I do?
+I cannot do this on RGB because RGB has issue.
+If I change any values in r pixel, or if I want to change a color just by slightest, all my RGB values
+changes.
+So I cannot do this on RGB.
+So what are the other channels where we can focus specifically on the brightness part?
+That is a lightness.
+And we can keep the color channel as it is and we will merge it at the end.
+Okay.
+So what are the what are the channels which we can do.
+So there are channels like L a, b it means l means the lightness and a and B carries the color information.
+And also there is another channel called y u v where y will handle the luminance, that is the brightness
+or intensity of the image, the channel u.
+As you can see, the channel U, the channel U is chrominance color okay.
+It handles the blue component of the light of your image and the channel V.
+The V channel contains the red component of your image.
+And this y u v is a color space which is like dominantly used in your media player in your television.
+How we broadcast the television and they calculate C, y, Why you is responsible for blue.
+V is responsible for red.
+And and buy some formula.
+By using some formula, they calculate the value of G as well.
+It's not like they have mentioned only u and v.
+Then how they calculate green color.
+They have a formula and based on this u and v they calculate a color for the green.
+But y means that it is specifically used for brightness.
+So we are going to use this u v color space.
+We will convert from BGR to u v and we will do histogram equalization on y.
+And once it is done we will merge all those channels that is y u, v together and convert to RGB again.
+So let's see how to convert because histogram equalization can be done only on grayscale image only
+on one channel.
+So how can we do on three.
+Let's see that.
+So first of all we need to convert to our color space.
+So let me copy this code.
+And then I will mention here from BGR, I want to convert my original image to y uv.
+You can do the same with lab, but I'm showing you a different color space which is not heard of.
+But this is most like dominantly used in your television broadcast as well as media players.
+Okay, so why UV.
+And then I'm going to create not an image grayscale, I'm going to have image UV.
+I'm going to mention it as image UV.
+And the next thing I'm going to use is cv2 dot equalize histogram.
+I'm going to equalize the image but only by uv.
+Image uv all rows, all columns and only the zeroth.
+It means only the y channel.
+I want to equalize so I will get what I will do.
+I will have this Image.
+This is numpy slicing.
+This line.
+This line of code is saying that do the histogram equalization only on the first channel, and replace
+all the values only on the first channel.
+In my image you've keeping all the rows and columns intact, okay, keeping all the rows and columns
+intact, but only change this zeroth.
+That is my y channel of my image and keeping u and V as same as it is.
+So this image y u v will be updated with the new histogram equalized image and you will see everything
+as it is a enhanced version.
+We will mention cv2 dot cvt color.
+Then we need to mention I want to convert this image.
+That is my image u v.
+two, cv2 dot color underscore Viu v two BGR.
+So I'm going to convert from UV to BGR because we don't have UV to RGB.
+I'm going to convert from UV to BGR.
+And then this image is what this image is our equalized color image.
+And now I have to convert this BGR to RGB.
+So I'm going to have this code.
+I will mention from BGR to RGB.
+I will pass equalized color image and I will get equalized color image RGB.
+So from BGR image we have converted to UV.
+And just for the y channel we have done the histogram equalization.
+We have done the histogram equalization, converted the like, changed our main base image, and we
+have just changed the first channel which containing y only and everything as it is.
+So only the Y channel has been impacted.
+We have converted from UV image that we have just equalized to again BGR because we cannot do UV two
+RGB and this UV two BGR image.
+We are now converting to BGR to RGB to get the RGB effect from that image.
+Now we will plot it side by side to see the difference.
+So I will copy this whole code.
+And use it here.
+The figure size.
+Let's have the same figure size.
+But now in this total number of rows I want is one I will have two different indexes.
+And that's it.
+I don't want to use all of this code now.
+But here I will mention this is my image.
+So I can mention my original image in image underscore RGB.
+We have our original image in image underscore RGB.
+You don't want to change any cmap because we want to plot our image in RGB.
+This is the original image, the equalized image.
+RGB is present here and that should be not PLT dot plot.
+That should be plt dot I am show.
+Not in caps.
+PLT dot I am show and this is our equalized RGB image.
+Equalized RGB image.
+And let's see the difference.
+So on the left you can see this is our original image.
+And on the right we have this equalized RGB image, not just equalized RGB image.
+This is a equalized UV image by UV color space image which we have converted to RGB.
+But how we did it, we equalize the y channel which is responsible for the brightness, just like a
+grayscale image and the other channels that is U and V, which is responsible for blue and red color.
+We have used as it is and converted from UV to RGB, and this is how our equalized image looks like.
+Even though there are a lot of noise present in the image, but the features which was not even clearly
+visible in the original image, like the clouds on the background, are clearly visible in this equalized
+image because of equalization method, because of like equalizing our histogram.
+And we can see all these features of giraffe are more contrasty or more popping out.
+But we have seen this effect on the grass.
+But because of histogram equalization the brightness have been shared.
+The brightness has been balanced out and this is the result which we get.
+So we use histogram equalization for fields like medical imaging where we have to enhance the x rays,
+MRI scans, etc. we also use IT satellite images where we have to improve the contrast in low light
+satellite photos.
+And also while we are processing document, which is if the document looks very old and we want to improve
+the visibility, we also do histogram equalization there.
+So histogram equalization is a straightforward yet a very powerful tool for contrast enhancement.
+It does it by redistributing pixel intensities and it reads like new life into our images.
+Right.
+So previously we were not even able to see the clouds.
+But now we are able to see the clouds.
+And this features are now popping out.
+In the coming lectures we will see more advanced methods like clay.
+That is contrast limited adaptive histogram equalization.
+But for now this is it.
+This is histogram equalization.
+Thanks for watching.
+I'll see you in the next one.

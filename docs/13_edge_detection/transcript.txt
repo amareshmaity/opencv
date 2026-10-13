@@ -1,0 +1,963 @@
+Hey everyone.
+
+Welcome back.
+
+In this lecture we are going to understand how to detect edges in an image using edge detection.
+
+Edge detection is a very important component of a computer vision.
+
+It helps identify object boundaries and structural features in an image.
+
+But before jumping to edge detection, we need to understand what an edge is.
+
+Let's get started.
+
+So edge represents sharp change in intensity or color in an image.
+
+These changes often correspond to object boundaries or textures or other key features.
+
+So when we talk about edges and when we find this kind of features, it means that we are talking about
+
+an object boundary, or we are talking about a texture in an image or some other key features.
+
+So think of this as an image.
+
+This is our image and we need to find out where the edges are.
+
+And based on the definition, it mentions that when there is a sharp change in intensity that represents
+
+an edge.
+
+And if I ask you to to describe where the edge is present in this image, you will be able to target
+
+it easily.
+
+Because this is the first edge, this is the second edge.
+
+We have two edges in the image because there are total number of three shifts in color that is white
+
+to gray and gray to dark gray.
+
+And we can see this distinct line here.
+
+This will be our first edge and this will be our second edge.
+
+Let me write edge and edge because we can see a drastic change in color.
+
+So this is what an edge is.
+
+Now let's talk about why do we detect edges.
+
+Right.
+
+We have detected the edges.
+
+But edges.
+
+But what is the use of detecting the edges.
+
+We use edge detection for feature extraction.
+
+We use edge detection for shape analysis.
+
+And we use edge detection for pre-processing.
+
+Now suppose this is a person.
+
+This person is wearing a lot of different colors, a lot of different like person is varying, head
+
+back, ground is all back.
+
+Like we have lot of complex background here and we only want to focus on the person rather than all
+
+the colors.
+
+So what we want to focus, we don't want to focus on colors and gradients of the image.
+
+What we want to focus is on structure of the image, and we want the structure of the image because
+
+we want to train a CNN model, or we want to train our deep learning or AI model, and it does not care
+
+about colors and gradient.
+
+What do we need to care about?
+
+We need to care about the person itself, not the properties of the person.
+
+So the structure of person we will be using in CNN or our AI models, and we need abstract information.
+
+We need information which we can process easily and is the only component of that person.
+
+And that will we will be getting that from our edge detection components, right?
+
+Edge detection filters like Sobel filter, Laplacian filter and canny edge detector.
+
+So think of this edge detection.
+
+Let me give you an example.
+
+So let me draw one house.
+
+So this is house.
+
+Let me scroll a bit.
+
+This is a house.
+
+Just wait a second.
+
+This is a house.
+
+And this house front is made up of wood with different hues of brown.
+
+So if I want.
+
+Like if I ask you to draw the structure of this house, you will not focus on the color, but you will
+
+focus on what?
+
+You will focus on the structure.
+
+So if I ask you to draw structure, what you will do.
+
+You will draw this outlines.
+
+You will draw this outlines outside of this house and will say that this is what this this is what makes
+
+this house right.
+
+So edge detection is like tracing this outline of a drawing or this image with a pencil or with a pen.
+
+It removes unnecessary shading.
+
+It removes unnecessary shading and only focuses on the structure.
+
+And that is what an edge detection is.
+
+So we use edge detection to extract features.
+
+We use edge detection for pre-processing for my CNN or AI models, and we use edge detection also for
+
+shape analysis.
+
+Like if in my image there are a lot of triangles, squares and other shapes, other common shapes present,
+
+I can analyze it with the help of edge detection.
+
+That is, I use edge detection to detect shapes.
+
+I use edge detection to detect contours.
+
+Also, I use edge detection to detect boundaries of my image.
+
+So now that we have an understanding of what is an edge and why do we need to detect edges?
+
+Let's talk about multiple methods by which we can detect edges.
+
+The first one is going to be Sobel filter.
+
+Second one we are going to use is Laplacian.
+
+And the third one which we are going to use is Canny edge detector.
+
+So let's talk about Sobel filter.
+
+So Sobel filter detects edges in horizontal and vertical directions.
+
+Okay.
+
+The Sobel filter detects edges first in horizontal direction then in vertical direction.
+
+And we combine them later.
+
+And it calculates this edges by calculating the gradient.
+
+So we don't have to do any derivative.
+
+We don't have to calculate any gradients.
+
+It is already been mathematically provided to us by this filter.
+
+So below filters mathematically mirrors the derivative operation.
+
+So this has already been converted so that we can use it.
+
+So for horizontal kernel we use this kernel this specific kernel in horizontal direction in x direction.
+
+And this is the kernel which we use in y direction.
+
+So we do this convolution on both of these.
+
+And we get a new image.
+
+We get two images that is IG and IG.
+
+Why.
+
+Okay.
+
+So then we need to combine this both gradients.
+
+This is gradient one.
+
+This is gradient one.
+
+This is gradient two.
+
+Then after this one we calculate the magnitude of gradient of each pixel okay.
+
+So think of this as once we apply all of this calculation that is ig ig y then we calculate the gradient.
+
+It means if I talk about the pixel at index zero in my image one IG one, and also in.
+
+Let me select this.
+
+Suppose I'm taking column one and row one of IG and column one and row one of IG.
+
+Why I will be getting a single single pixel.
+
+So I will be performing this particular operation and will calculate the g of it.
+
+That is IG of pixel value of square, then pixel value of square of my igf-i matrix and square root
+
+of that I will be getting at G.
+
+So I have to do this same operation for all the indexes of my image, and at the end I will get a magnitude
+
+matrix.
+
+The result that I will get the value that I will get for each index value in my image.
+
+I will mark this as a magnitude matrix.
+
+So you can see this is G and all these values which we call as magnitude okay.
+
+So this is the second step.
+
+Now the third step is we based on this one we need to get the threshold okay.
+
+Suppose I mark this threshold as ten.
+
+In this magnitude matrix I am creating the threshold as ten.
+
+Then on this matrix if the threshold is ten it means anything that is above ten will be considered as
+
+one.
+
+Anything that is below ten will be considered as zero.
+
+So I will be getting a new matrix at the end, which will serve as the edges of the images.
+
+So first thing is based on this horizontal kernel, we do the convolution and we get two sets of images.
+
+If we do the convolution on image with I g this is this is my g kernel okay.
+
+I will get I g x if I perform the convolution with g kernel on my original image, I will get I g.
+
+Based on this I g I x each kernel, we will pick one pixel of x one pixel of I g and calculate this
+
+value with the help of this formula.
+
+We will do this for all the pixels and at the end we will get this magnitude okay.
+
+We will get this magnitude matrix which we will use.
+
+We can define the threshold that if the threshold is ten this is the matrix we will get.
+
+So threshold is something which we have to play with to get the best edges out of my images.
+
+This is what we do in Sobel filter.
+
+Let's talk about Laplacian filter.
+
+Laplacian detects edges by finding a region of rapid intensity change.
+
+Whenever there is a rapid intensity change, then Laplacian will consider that as an edge, but unlike
+
+Sobel, it combines all the x and y direction derivatives in a single operation.
+
+The derivative here is already been mathematically mirrored, and we don't have to calculate any derivative,
+
+we just have to do the convolution.
+
+So this is the result of that derivative operation.
+
+But we have to do for like separately for g x and g y.
+
+But here in Laplacian they have fixed it not fixed it.
+
+It was never a problem.
+
+But they were.
+
+They are going in a different direction.
+
+They are making that in a single operation.
+
+So the Laplacian kernel below is a discrete approximation of continuous mathematical derivative.
+
+It is a second order derivative.
+
+So below filters mathematically mirror the derivative operation just like Sobel here okay.
+
+Just like Sobel filter here we don't have to calculate any derivative.
+
+It has already been converted to a matrix by which we can do the convolution and can get the output.
+
+So this particular matrix and this particular matrix already serves as a derivative operation.
+
+Same thing they have did for Laplacian as well.
+
+So we have two different kernels.
+
+It's not like we have to perform for kernel one and kernel two.
+
+It is based on how much, uh intensity we want for the edges to get right.
+
+So we can either pick kernel one or we can either pick kernel two and we can get the same operation.
+
+The Laplacian kernel below is a discrete approximation of continuous mathematical derivative.
+
+The below mathematical filters mirror the derivative operation same as sobel.
+
+Both kernels are performing second order derivative okay, so if you apply this kernel to an image,
+
+it will be the second order derivative, and Laplacian detects sudden change in intensity highlighting
+
+the edge.
+
+We will see the practical later, but we are just considering that if we apply Laplacian or if we apply
+
+canny, what are the how the internals of them looks like.
+
+And let's talk about Kenny.
+
+So Kenny is the most advanced algorithm out of all three.
+
+The canny algorithm detects edges using multi step processing.
+
+It combines Sobel and thresholding.
+
+Both were present in Sobel techniques.
+
+The step one in canny is we need to convert the image to grayscale because edges are present in color
+
+change.
+
+So we will convert to grayscale because as I mentioned above, right edges are not present in colors.
+
+Edges are not present in colors, but structures.
+
+That's why we are converting the image to grayscale, because edges are present in color.
+
+Change information, not the color itself.
+
+Color change information.
+
+Step two is we will apply Gaussian blur techniques which add smoothness to the image, making it less
+
+sensitive to small color change variation.
+
+Right?
+
+There will be a small color change.
+
+There will be noise which we want to remove with the help of Gaussian blur.
+
+Then step three.
+
+Step three is we compute intensity gradients using Sobel operator to approximate the first derivative
+
+in x and y direction, so we apply the Sobel.
+
+This directly means we apply Sobel, and in step 3.2 we calculate the magnitude.
+
+Okay we were calculating magnitude.
+
+But where we were calculating magnitude in Sobel filter you can see this calculate this gradient this
+
+magnitude filter which we will calculating.
+
+But here we calculate a magnitude.
+
+But we also need the angle of the edge.
+
+We do calculate magnitude but we also need another parameter that is the angle of an edge.
+
+And we can get it using this formula arctangent g y by g x.
+
+And we get this formula.
+
+Once we get the angle and we already have the magnitude, we do something called as non-maximum suppression.
+
+So what this non-maximum suppression does let me define.
+
+So for each pixel we compare the gradient magnitude to its two neighboring along the x along the gradient
+
+direction.
+
+Suppose this is image and this is your pixel.
+
+This is your pixel and it is going in a 45 direction.
+
+So for this pixel like it will check its neighboring pixel in the same direction.
+
+So this is the direction.
+
+This is 45 degree.
+
+The neighboring pixel will not be this part.
+
+The neighboring pixel will be here.
+
+This will be the neighboring pixel.
+
+So it will check from this neighboring pixel.
+
+If the gradient is not the largest, it will suppress the other pixels to zero.
+
+So what we are trying to do, we are trying to make the unnecessary information.
+
+We are trying to suppress the unnecessary information present around my main edges, because this is
+
+all redundant information.
+
+If I can reduce this redundant information, how can I reduce it?
+
+I will reduce it with the help of non-maximum suppression.
+
+Think of this as a as an example.
+
+This is gradient direction 45 degree.
+
+We will compare the GPS.
+
+We will this.
+
+Suppose this is our GPS.
+
+We will compare this GPS.
+
+Let me write it here.
+
+We will compare this GPS with its neighboring one which is g of x plus one g of y plus one.
+
+Think of this as g of x plus one, y plus one.
+
+And think of this as g of x minus one y minus one.
+
+We will compare both of them.
+
+And this will only keep the strongest edge points.
+
+And we will keep only the strong ones here.
+
+So we will remove all the unnecessary pixels which might look redundant in the same direction in the
+
+same gradient direction.
+
+Once that is done, once we remove with the help of non-maximum suppression, we will do double thresholding.
+
+In this part we will.
+
+We will mention what is the high threshold.
+
+We want the pixel above this particular threshold which we will mention.
+
+We will consider them as strong edges.
+
+Pixel below that particular low threshold which we also mentioned.
+
+We will suppress them entirely.
+
+We will not even consider them and pixel below this high and low will be considered as weak edges.
+
+So suppose this is our high threshold that is handred and this is low threshold which is 50.
+
+This will be the condition.
+
+If our magnitude is greater than 100 it means that the edge is strong.
+
+If our magnitude is smaller than 100 and greater than 50, it means it is weak edge.
+
+But if it is equal to 50 or less than 50, we will suppress them, and we will consider them not as
+
+an edge.
+
+And the last thing we will do is we will edge track by stresses in this final step.
+
+Weak edges are either kept or discarded based on the connectivity to the strong edges.
+
+This is my strong edge.
+
+Suppose this is considered my strong edge.
+
+Based on this edge tracking by hysteresis, I will consider whether to keep this particular edge based
+
+on how strong my edge is.
+
+That part we will calculate here in step six.
+
+So in this final step weak edges are either kept or discarded based on their connectivity to strong
+
+edges.
+
+If the weak edge is connected to a strong edge, it is retained.
+
+Else it is discarded.
+
+Now suppose we also have another.
+
+Let me draw it.
+
+We have more pixels here.
+
+This is pixel.
+
+And let me draw here.
+
+This is also pixel in the same direction but it is not connected to your this.
+
+Suppose this is the strong edge.
+
+It is not connected.
+
+So this entire part let me point it out.
+
+So this entire part will be discarded.
+
+And this is what it means.
+
+This entire part will be discarded.
+
+So can we combine several techniques like Gaussian blur, Sobel threshold and also magnitude to ensure
+
+edges are clean and noise free.
+
+And it is also the one which takes the most computation out of the three which we have discussed.
+
+So we have discussed here Sobel filter.
+
+We have discussed Laplacian and we have also discussed canny edge detector in theory.
+
+So let's talk about how to implement them in VS code.
+
+Let's get started.
+
+Implementing edge detection by all the mentioned methods is pretty straightforward.
+
+Let's first start by selecting our kernel.
+
+The first thing we are going to do is as usual we will import our libraries.
+
+Or Pyplot as PLT.
+
+And then next thing we are going to do is we are going to read our image.
+
+This should be cv2 and the image is present in my directory in images folder.
+
+And we are going to consider our giraffe image.
+
+And we will convert it directly to grayscale here.
+
+We can mention for more code readability.
+
+I am read grayscale and we will store into image.
+
+The first thing we are going to implement is we are going to implement Sobel.
+
+Let me write Sobel edge detector.
+
+What we have to do, we have to first mention Sobel in X direction.
+
+So we will mention cv2 dot Sobel.
+
+We have to pass the image which we have just loaded.
+
+And then we have to mention the output depth of images.
+
+Okay.
+
+The output depth which we want.
+
+So it will be 16.
+
+And we will consider the float values.
+
+It should be CV underscore 64.
+
+It is not here yet.
+
+Let me mention CV underscore 64 f.
+
+This is floating point value.
+
+You can consider this as the default value.
+
+You don't need to understand why we are using this part.
+
+But you can keep this as it is.
+
+The first argument is image.
+
+Skip the second argument, and the next argument you are going to use is one comma zero.
+
+So this one is derivative in x direction, and this is derivative in y direction.
+
+So first we need to calculate the sobel in x direction.
+
+So that's why we have kept x as one y as zero.
+
+We don't want to calculate in both direction.
+
+It is not how it looks like.
+
+And then we need to mention k size.
+
+So k size is the kernel size.
+
+We typically keep it.
+
+Or let me mention k size.
+
+And I'm going to keep it as three.
+
+So this is going to be the Sobel.
+
+And I'm going to create the same for y direction.
+
+So this should be zero.
+
+This should be one.
+
+So let me store into Sobel x and y Sobel underscore x.
+
+It should not be capital.
+
+Sobel underscore x and Sobel underscore y.
+
+And once we have the derivative in both the direction, we need to calculate the magnitude.
+
+So we will mention cv2 dot magnitude.
+
+This will be the magnitude direction.
+
+This will be the magnitude matrix which we will get.
+
+So in magnitude we have to mention Sobel x and Sobel y.
+
+And this will get us a Sobel combined.
+
+That's all.
+
+This is what we have to do to calculate to do edge detection.
+
+With the help of Sobel, we will see the output once we are done with all the three filters in the same
+
+plot.
+
+Now we will do Laplacian.
+
+This is Laplacian and we have to mention for Laplacian it will be pretty straightforward.
+
+So I will copy this command.
+
+Let me copy and we will change it here itself.
+
+So for Laplacian we need this Laplacian.
+
+We will pass the image.
+
+This will be the again the output image depth which we need to mention.
+
+And then we need to mention the kernel size.
+
+We either use it.
+
+This is not the factor here because it's already combined Sobel x.
+
+It already calculates the derivative with the help of single matrix.
+
+So we will mention again the case as as three and we will store the output into Laplacian.
+
+And then the final one we need to calculate is.
+
+We need to calculate canny.
+
+But before calculating the canny we also need to do one more operation in Laplacian because since the
+
+edges are just changes in intensity, the sign positive and negative does not matter, but in Laplacian
+
+you will get points in negative direction as well as higher positive positive direction, but we only
+
+want in positive direction.
+
+So what we will do, we will make the absolute value of that okay.
+
+We will make the absolute.
+
+Because when once you plot Laplacian in its natural state, it will look a little weird.
+
+So let me write this code.
+
+We will see how it will changes.
+
+We will check this code by commenting it and keeping it as well.
+
+Okay.
+
+Let me mention this Laplacian which we have mentioned.
+
+And we will mention the absolute version of this as well.
+
+We will plot all of the versions and then we will convert to this.
+
+Convert a scale abs and you want to convert the scale.
+
+We want to do the abs the absolute of that for this Laplacian matrix.
+
+So we have two versions of Laplacian one with absolute, one without absolute.
+
+This one is having negative as well as positive values.
+
+This one is only having positive values.
+
+It is the absolute of that matrix.
+
+So now we can do canny.
+
+So for Kenny, it is also pretty straightforward.
+
+For Kenny, we just have to mention cv2 dot canny.
+
+We need to pass the image.
+
+And for canny there is also one more thing which we have mentioned.
+
+We need to mention the threshold one and two, which was mentioned in the last step of canny.
+
+So we need to mention first the higher threshold.
+
+It starts with lower and upper.
+
+So we need to mention the lower.
+
+The lower threshold we want is 180.
+
+The higher threshold we want is 200.
+
+You can play with the threshold based on the image.
+
+This is based on the current images which I'm working in.
+
+So this is canny images.
+
+So now we have canny.
+
+So let's plot all of the plots one by one.
+
+So let me put it let me reduce some code.
+
+The first image I want is original.
+
+The second image we have is Sobel.
+
+Combined.
+
+Sobel.
+
+Right.
+
+The third image we have is Laplacian and I will mention it as all.
+
+Then I will mention this Laplacian as.
+
+Let me mention abs.
+
+This is the absolute version.
+
+This is the all version.
+
+It means it includes both negative and positive values of Laplacian because of the matrix.
+
+Because of the matrix computation.
+
+And then the final one we have is canny.
+
+So we have the titles.
+
+So we are going to iterate on this title itself.
+
+And then I'm going to pass images here.
+
+Let me remove this part and mention all the images which we have created.
+
+This will be our original image which I'm going to mention here.
+
+The next image is going to be Sobel combined.
+
+And then I need Laplacian which is which contains both negative and Even positive.
+
+And this is Laplacian.
+
+Absolute.
+
+And this is canny edges.
+
+And if you want to see what I'm talking about Laplacian absolute we can also do that here.
+
+Let me create let me shift this to a new code.
+
+And let's print Laplacian first.
+
+And you can see if I print Laplacian it is not defined because we have not ran it.
+
+It is successful and it should give us.
+
+You can see this is -80.
+
+It has -148.
+
+But if you print Laplacian absolute we will see 80 and 148.
+
+You can see this is just the absolute for that value.
+
+So we have kept our titles and images here.
+
+So we will iterate over this with the help of for loop.
+
+First we need to mention plt dot figure.
+
+It should be small plt dot figure.
+
+And then I want fixed size.
+
+Fixed size is equals to ten comma eight.
+
+Then I will mention for loop for I in range of five because we have total number of four components,
+
+or we can mention length of titles.
+
+For I in range of length of titles.
+
+What I want to do plt dot subplot.
+
+In this subplot I will mention I have total number of.
+
+I have total number of.
+
+Okay, let's plot one by one.
+
+I have total number of two images.
+
+Two rows, two columns.
+
+And I will start from index one.
+
+Then I will mention plt dot I am show.
+
+Then I will mention the images.
+
+My image is present here and I will check that particular index.
+
+I will plot it one by one.
+
+And the cmap we need to consider is gray.
+
+This is plt dot.
+
+I am show need to mention plt dot title as well.
+
+So this is going to be plt dot title and the title we will get from our titles list titles of I.
+
+And then we will mention plt dot axis equals to off.
+
+Finally, once the loop is done we will mention plt dot show.
+
+We can also mention here that we want three cross two.
+
+It means total number of six as we have five, and we will iterate over it one by one.
+
+Okay, this should work.
+
+Let's run it and see.
+
+So as you can see this is original image.
+
+This is Sobel Laplacian all looks all gray.
+
+But if we do the absolute of all because this has negative values as well as positive.
+
+So this might break our matplotlib, but when we do the Laplacian absolute it is able to perform better.
+
+Here you can see that we have a lot of images.
+
+So let me try to increase this figure size.
+
+We are getting this error because of very silly mistake.
+
+We are trying to override this image variable which was image once to a new list.
+
+Now what we have to do I will make this as image list.
+
+Copy and paste this here.
+
+And we have to run things again because we need to initialize this image variable again and do the operations.
+
+And we'll be able to see the correct output.
+
+This figure size is 20 cross 16.
+
+That's why it looks bigger.
+
+This is our original image.
+
+You can see this is our Sobel filter.
+
+Sobel edge filter.
+
+This is Laplacian absolute.
+
+We are able to see lot of noise in Laplacian because we have converted those negative values to positives.
+
+And that might create lot of noise as we can see here.
+
+So we can find out lot of different methods, like if you want to normalize the negative values or if
+
+you want to make it zero or something like that.
+
+But this also does the job.
+
+And this is what a canny object detection looks like.
+
+Canny edge detection looks like.
+
+You can see this is canny.
+
+So we can save this image.
+
+And save this image here in this folder itself in the output.
+
+And we will be able to see this.
+
+We can zoom it.
+
+The best one we got is I think that is canny because the edges here are defined.
+
+But but there is no noise here because canny takes care of all the noise components.
+
+But in Laplacian we have a lot of noise.
+
+In Sobel.
+
+Also we have noise.
+
+But Sobel.
+
+Considering the computation cost of Sobel, it is also given a very good features.
+
+And that is all for edge detection.
+
+Thanks for watching.
+
+We'll see you in the next one.

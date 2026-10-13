@@ -1,0 +1,529 @@
+Hello and welcome back.
+
+So now that we know about how coordinate system works in OpenCV and how to use OpenCV coordinate system
+
+to add things like lines and shapes to our image, now let's understand how to use our knowledge of
+
+coordinate system to add text to our images.
+
+Let's get started.
+
+We will first start with creating a blank canvas.
+
+For that, we need to import few libraries.
+
+Import cv2 to read image.
+
+Import matplotlib.
+
+To plot those images dot pyplot as plt.
+
+And also numpy.
+
+So now that we are done with importing our libraries, it's time to create a blank canvas.
+
+I'm going to first mention height and width.
+
+And I'm going to use the same thing as 500 cross 700.
+
+So our width is 700 and our height is 500.
+
+So it will give us a rectangle.
+
+I want this color to be sky blue.
+
+So I will select 255, 127 and zero as my canvas color.
+
+And with the help of NP dot full, I'm going to create the image full of sky blue.
+
+Okay, for all the RGB pixels is going to be this sky blue and I will.
+
+I have to mention the canvas height and width, which is nothing but this exact part.
+
+I will copy this height and width and I will mention it here.
+
+And I want this height and width in all three channels.
+
+Then I have to mention the color.
+
+That is a tuple.
+
+And then I will mention the d type dp type of this numpy.
+
+I can make it in 32 or u you in it as well?
+
+This is unsigned integer eight.
+
+That is it.
+
+So I need to save this.
+
+I will save this in a variable name as canvas, and then use matplotlib to plot and see how it looks
+
+like.
+
+So as you can see this is kind of an orange color.
+
+Why this is orange color?
+
+Because we need to convert this to RGB as well.
+
+Let's convert this to RGB.
+
+So let me write I'm going to change this canvas itself to this is going to be equal.
+
+And the code is CV2 dot CVT color.
+
+And then I have to mention the canvas because we already have a orange canvas which we want the color
+
+channels to be swept, that is from BGR to RGB.
+
+And then I have to mention CV2 dot color underscore BGR to RGB.
+
+This is what I want.
+
+So our canvas will be changed here itself.
+
+Let's try to run this code and see how the output looks like.
+
+Yes, this is the kind of color which we wanted and it is created of dimension 500, cross 700 cross
+
+three, which is a RGB image.
+
+So now let's add text to our canvas.
+
+The code we have the text.
+
+Let's first write the text which we are going to use in a variable.
+
+So I'm going to use text as hello open CV.
+
+This is the text which we are going to write on this blue canvas.
+
+We need more things we need to mention when we are talking about text we need to mention what is the
+
+font which we are selecting.
+
+So I'm selecting font Hershey's complex.
+
+Complex.
+
+As you can see this is font and o r g.
+
+Let me write the definition of -- as well in a comment.
+
+So -- is coordinate for the bottom left corner of the text.
+
+Okay.
+
+It is a coordinate for the bottom left corner of the text.
+
+So if my text is starting from.
+
+Suppose this is the main text just below this t.
+
+This is where the text will start.
+
+This is where the coordinate of this text will start.
+
+So this is where we have to mention -- okay.
+
+-- is that coordinate bottom left corner of the text.
+
+Let's write I want my text to start from.
+
+50 comma hundred.
+
+Then what I'm going to do I'm going to mention my font scale.
+
+If.
+
+Suppose by default my font size is 14.
+
+That is the by default value.
+
+If I mention font scale to be two, it means 14 times two equals to 28.
+
+So whatever the by default value is, I want to mention font sizes 1.5 and then the color of font.
+
+The color of font I want is to 55 to 50 5 to 55.
+
+And this will give me a white color.
+
+And then the thickness of font, the thickness of font I want to be two.
+
+Whatever the default thickness is, I want it to be two.
+
+Then we are going to use cv2 dot put text.
+
+This is the main function.
+
+We have to mention canvas.
+
+You have to mention the text which we are going to write.
+
+You have to mention the coordinate from which we want our font to start, and then we need to mention
+
+the font, then the font scale.
+
+This is the font scale.
+
+And then I have to mention the color thickness and then cv2 dot.
+
+Line aa.
+
+This is the type of line which we want to use.
+
+Okay, this is line AA type of line for rendering the text.
+
+Okay.
+
+This is the type of line for rendering the text.
+
+So once I do this it will right.
+
+It will put this text which we have written to our canvas.
+
+Let's see how our canvas looks like.
+
+We can copy the same code.
+
+And as our image is already RGB, I will not convert.
+
+I will not put cv2 dot CVT color in the canvas itself because our image is already RGB.
+
+Let's try to run it and see what is the text.
+
+As you can see, hello OpenCV and this coordinate which we have mentioned that is 50 comma hundred is
+
+the coordinate of this bottom left of the text.
+
+Whatever you can see at the bottom left of this text is the initial point of this text.
+
+If I mention hundred, if I mention 200, you can see this text.
+
+New text is starting from here.
+
+Okay.
+
+It is overriding because we are writing on the same canvas.
+
+We want to start from scratch.
+
+We need to create a new, new canvas.
+
+And then we need to start from here.
+
+So now let's talk about how to experiment with fonts.
+
+This is the single font.
+
+How can we add multiple fonts?
+
+What are the other fonts available?
+
+Let's see.
+
+So I'm going to create a new canvas and let me write this whole thing again.
+
+Because we don't want to write on the same canvas again and again.
+
+So this is new canvas which we have written.
+
+And then the fonts I'm going to play is I will mention in a list.
+
+This is a list.
+
+Here I will mention what fonts I will use.
+
+So I will use first font Hershey's complex okay.
+
+Then I will mention cv2 dot font.
+
+Okay.
+
+This is capital which is not good.
+
+It should be cv2 dot font.
+
+Hershey's symbol is also there.
+
+You can see this is simplex.
+
+I'm going to use simplex.
+
+So let me keep this simplex first.
+
+Then we will see the later one next which is going to be the complex one okay.
+
+We need to understand the difference between them.
+
+We need to just visualize the difference between them.
+
+Then I'm going to use cv2 dot again I'm writing in capital.
+
+That is cv2 dot font.
+
+ActionScript simplex.
+
+Then another version of this one which I'm going to use is.
+
+Complex.
+
+And let's write the last one.
+
+There are multiples, but we are only going to focus on this five itself.
+
+So it is going to be font.
+
+Underscore I'm looking for Hershey's complex.
+
+Small.
+
+Can we see?
+
+Yeah.
+
+This is Hershey's complex.
+
+Small.
+
+These are the five fonts which we are going to apply.
+
+So let's create a Y offset that I want every font to be on the same line, which is going to be my x
+
+axis.
+
+But I want y to change I want y to change for all five.
+
+So let's see how to do that.
+
+I'm going to right y offset.
+
+It is going to be y underscore offset.
+
+And I'm going to start from 50.
+
+That is the starting coordinate of my Y.
+
+I am going to increase it for every font so that in a single line in a single column we will see multiple
+
+text of same of different fonts.
+
+So I'm going to write for I comma font in enumerate of fonts.
+
+We have multiple fonts here.
+
+I want to get the index and the font name one by one.
+
+And then I'm going to mention this text and I'm going to use f string.
+
+And I'm going to mention the font name and then the index of the font.
+
+Which font we are using.
+
+Or we can just use this name but I'm going to use the index here.
+
+Then I'm going to mention cv2 dot put text.
+
+And the new canvas which is an empty canvas.
+
+Same text which we have mentioned.
+
+And then the offset I'm going to start from 50.
+
+And this is going to be my offset.
+
+I'm going to start from x equals to 50 y equals to 50.
+
+This is my starting point.
+
+And the font we have already mentioned above.
+
+Then one that is.
+
+My scale.
+
+And then I'm going to mention the color.
+
+This is going to be my color which I'm going to use.
+
+Then this two and two is thickness then cv2 dot again line aa.
+
+You can see this line aa.
+
+And then on every loop I'm going to increase this y offset.
+
+Plus equals to 50.
+
+So now that this is done all the for loop for the all the for loop will do is create write new text
+
+and y offset will change.
+
+So we will see this output.
+
+So let's see the output first and we will understand it better.
+
+So you can see this is font one at 50 cross 50 the x is 50 y is 50.
+
+Now the x is 50 y is hundred because we are increasing the y offset.
+
+Now the x is 50 y is 150.
+
+So every time this for loop will run y offset will change by 50.
+
+And then we will see font in a single column.
+
+And we are able to see that font simple.
+
+This is font complex.
+
+This is script simple, script complex.
+
+And then this is complex.
+
+Small.
+
+This is not simple.
+
+This is simplex.
+
+Okay.
+
+So now that we know what are different fonts which we can use, now let's experiment a bit with font
+
+size and thickness.
+
+How can we experiment with font size and thickness.
+
+We will start again with a new canvas.
+
+Let's create a new canvas.
+
+And then what we will do, we will mention multiple styles just like we did for font.
+
+But here this time we need to pick two things because we are working.
+
+Let me write what we are working with.
+
+We are working with font size and thickness.
+
+This is a better way to experiment because we can.
+
+We can add a lot more values and can experiment how the thickness increases or decreases to my liking.
+
+Also the font size, right?
+
+We can pick the best one according to our need.
+
+So I want to first check the font size is one when the thickness is two.
+
+Okay, this is what I want.
+
+So let's check for five different combinations and we will add this.
+
+Let me scroll a bit and this looks better.
+
+So I want this thickness to increase to four.
+
+Again let's pick one.
+
+One.
+
+And then again two.
+
+But I want to change the thickness.
+
+What will happen with two and two.
+
+Okay.
+
+This is same.
+
+What will happen with one and four and two and four.
+
+That's it.
+
+Let's do only four.
+
+We can experiment about other combinations later.
+
+So this is our style.
+
+I can copy the same thing here.
+
+That is my Y offset.
+
+And let's pick a font because we have multiple fonts.
+
+So I'm going to pick the simple one that is Hershey's Simplex.
+
+This is the font.
+
+And here I'm going to change font scale okay.
+
+So I will get font scale here.
+
+Font scale.
+
+And here I will get the thickness.
+
+Because in every index I'm getting two values and I need to iterate over styles.
+
+So why now that we have changed this instead of this one, I need to mention font scale and I need to
+
+mention here the font thickness.
+
+This is going to be the thickness.
+
+Now if I plot it we will be able to see multiple sizes and thickness.
+
+Let's do this.
+
+So there is something wrong here.
+
+Thickness is expecting.
+
+This is where thickness is and thickness is expecting something else.
+
+And let's see what it looks like okay.
+
+So we can see the issue issue is I'm using enumerate okay.
+
+It is giving us index as well as all these values.
+
+We don't want enumerate because it is not in the correct state right now.
+
+Now it should run.
+
+Okay.
+
+We are able to see.
+
+So we can see that the font five this is.
+
+It means my font scale is one but font thickness is two.
+
+This is font thickness.
+
+Now that my scale is two and my thickness is also two, even though both are of same thickness, this
+
+looks thin because the font size is larger.
+
+Now, even though the font size is small but the thickness is very high.
+
+So this is looking a lot small but lot thick.
+
+But here we can see that the font size is bigger and the thickness is same.
+
+But still this one looks thin because the height is also different the size.
+
+Thus the scale of this font is also very different.
+
+And this covers the customization part related to font that is font type, font scale and thickness.
+
+And now we have learned how to add text to our images in OpenCV.
+
+Thank you for watching this lecture.
+
+I'll see you in the next one.

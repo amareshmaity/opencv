@@ -1,0 +1,262 @@
+
+Hey everyone.
+Welcome back.
+In this lecture we are going to talk about clay which stands for Contrast Limited Adaptive Histogram
+Equalization.
+So imagine a more control and localized version of histogram equalization that prevents over enhancement.
+And it works on a specific region of your image rather than the global enhancement.
+So let's explore what makes clay so special.
+So clay improves contrast by applying histogram equalization in small regions or tiles of the image,
+rather than the global enhancement.
+So unlike global histogram equalization, which we have seen in the previous classes, which only enhances
+the contrast for the entire image rather than a particular portion of the image.
+But clay focuses on localized contrast while avoiding artifacts like noise amplification.
+So it limits the contrast enhancement in each tile to prevent over brightening.
+And let's understand how clay works to get the better intuition.
+So first of all, clay will divide the images into tiles.
+So this is my image.
+So I will divide my image into multiple tiles.
+Then the step two that is apply histogram equalization on each tile.
+I will not apply equal histogram equalization on my global image, but rather I will do that step on
+a particular tile on the selected tile.
+And the next thing I'm going to do is I will apply the contrast limit to set the maximum limit intensity
+amplification in each tile for smoother results, so I can clip things.
+So suppose there is a very high intensity values in a particular tile which.
+And in clay there is a provision by which we can limit those intensities.
+So this is what we do in third step.
+So we keep on doing this.
+Step number two and three for all the tiles present in my image which which I have done in step one.
+So once we have done enhancing all the tiles, we will combine the tiles with bilinear interpolation
+to remove seams between tiles, because when you want to merge different times, there might be a possibility
+that in between tiles, in between two tiles, we can see a line or we can see a weird artifact.
+We will use bilinear interpolation to remove those seams that is between tiles.
+So let's understand this with the help of an example.
+First so like let's say we have a grayscale image with low contrast.
+So this is our original image.
+The intensity is ranges.
+This is the original intensity which are ranging from 50 to 100.
+It means our image is of two dark and lacks definition in certain areas.
+So the next step is we will split the image and we will give this configuration in the clay.
+So currently we are what we are doing.
+We will split the image in eight cross eight pixel blocks.
+So each pixel block will be of eight pixel wide and eight eight pixel height.
+Okay this is for the pixel block will look like so each block will undergo histogram equalization and
+histogram equalization will map values to 0 to 255.
+So whatever the range was, whatever the minimum and maximum range was, the histogram equalization
+will equalize those and map those particular pixel values to the new values, which is now ranging from
+0 to 255.
+So we will see that enhanced image in this step.
+Then the next step is to clip the limit with the help of clip clip limit.
+So this step ensures that no pixel intensity exceed a specific value or a specified value.
+For example 180, we can mention things like I don't want my pixel intensity to be more than 180 because
+my original pixel is 5200, and if I make 100 to 255 always it will be very bright image.
+But if I limit this that you don't have to make 255, you can limit to 180.
+And that image might not be that too over brightened.
+Right.
+And this is called contrast limiting threshold.
+Once everything is done, the enhanced tiles are stitched together with smoother transitions so we can
+use clay in enhancing medical images like X-rays and CT scans.
+If you see the original X-ray, they might not have all the features which human eyes can see very easily.
+But if you use clay there, you will see over brightened X-ray and enhanced version of X-ray, which
+is very easy to see and you can see a lot of features there very easily.
+Second thing is it improves the visibility in low light conditions because it distributed the darker
+areas and the brighter areas with a new intensity values.
+Then the third thing is it helps us enhance specific details in satellite or aerial imagery because
+it redistributed the intensity, the intensity of your pixels, and the image looks more enhanced.
+And you will see, while we are doing the implementation that how it is doing that.
+So let's head over to VS code and see how to implement this.
+So this is our VS code.
+And I've already done the importing of our libraries.
+And I've already also mentioned the path of my image.
+So let's implement this.
+And I can see this image.
+So if I print this and the image is none it means there is some issue with the image.
+Okay.
+So this is image okay.
+So image has been successfully loaded.
+Next thing I'm going to do is I'm going to convert this image to grayscale.
+Because all my histogram equalization techniques works with a grayscale image not with RGB.
+So I'm going to mention image underscore gray then cv2 dot cvt color.
+Then I have to mention my image.
+And then the color space which I want to convert to.
+I want to convert from color underscore BGR to gray.
+It is gray.
+And this will convert the image to gray.
+So I'm going to first plot not clay but I'm going to use histogram equalization technique which we have
+seen in the previous lecture, so that we can have a comparison of how it is working with the traditional
+equalized histogram.
+Let me mention equalized image and everything should be small.
+Equalized image.
+And then I will mention cv2 dot equalize histogram.
+And then I will pass our image.
+So this will give us a gray image.
+The next thing we are going to do is I'm going to mention a clay class.
+Okay.
+So we will use cv2 dot create clay.
+That is create clay.
+So first we have to create a clay object.
+And we will use that object to apply on images.
+First we will mention the clip limit which I have mentioned before.
+So clip limit we will start from 2.0.
+So clip limit sets the threshold for contrast limiting.
+If you have to enhance the contrast more aggressively we have to increase it, decreasing it to prevent
+over enhancement.
+So right now I'm keeping it 2.0 because I don't want to enhance my image too much.
+So this is clipping image two.
+And then I will mention tile grid.
+So this will define the number of tiles in the grid which is width and height.
+Smaller tiles enhance local contrast mode but may introduce noise.
+And if you have the larger tiles it will give you smoother results, but it might lose a lot of detail.
+Let's see here.
+So I will mention tile grid size and I will.
+Let's first start with four cross four.
+This is what we are going to start with.
+Okay.
+This is a smaller tile grid.
+And then we are going to create a object for this which we are going to use.
+And this is we will call it as clay.
+And once this is done we are going to apply clay on our that is clay dot apply.
+You can see this is clay dot apply.
+And I'm going to apply on image gray not on equalized image because this is a separate histogram equalized
+image.
+And this will give us a separate histogram equalization image.
+And we want to compare image gray equalized image as well as the output of the clip.
+Let me copy this image gray.
+This should be image gray.
+And I'm going to mention this as play equalized image.
+And this looks perfect.
+The next thing is we have to plot them side by side.
+So I'm going to mention plt dot figure.
+And then we have to mention fig size.
+And in this fixed size we will mention the size.
+So I'm going to mention 12 comma eight.
+Let's mention 12 comma eight and count this figure to be little big.
+And I will mention plt dot subplot.
+This is going to be our first subplot.
+So in total we have total number of three images in a single row.
+So I want one comma three.
+And first index I will use right now.
+So I will mention plt dot I am show and this one we will mention our image gray that is our original
+image.
+And then the cmap is going to be gray.
+Then we will mention plt dot title.
+And then this one we will mention original image.
+We will use this exact line of code two more times.
+And the second index we want histogram equalized image.
+So it is going to be just plain equalized image.
+And I will mention here equalized image.
+And here is going to be equalized image.
+And the index should be three here.
+And here I will mention play.
+Equalized image.
+So let's see our code and we need a few more things.
+PLT dot show as well to show this plot perfectly and it seems good.
+Let's see.
+We have converted from.
+We have converted our image from BGR to gray and this covers our grayscale image.
+We are going to equalize our grayscale image and we are storing into equalized image, which seems correct.
+Then we are going to create a clay object here with the clip limit of two and the tile grid size of
+four cross four.
+This also looks good.
+And then we are going to apply this clay on our gray image, which is our original grayscale image.
+And then we are going to create a clay equalized image.
+Then we are plotting with the help of fixed size.
+The subplot has total number of three.
+And in each index we are plotting multiple images and let's see how the output looks like.
+So this is our output.
+And you can see on the very left image which is our original grayscale image.
+The image has relatively low contrast, making some details harder to distinguish, especially in areas
+with subtle intensity variations.
+So you can see this is subtle intensity variation here.
+Because there is less intensity variation, we will not we are not able to see the details very clear.
+So if we check about center image this is our center image.
+So this image appears more sharper and it is very much increased contrast right.
+However, the sky and some uniform regions show amplified noise or artifacts.
+You can see there is lot of noise here because this has been amplified.
+But if you see on the very right image, which is our clay equalized image, the contrast is improved,
+but the enhancement is more balanced compared to the center image.
+Fine details such as giraffes texture are highlighted without amplifying noise in uniform areas like
+sky as well.
+So this is clay.
+So clay works on small region of the image, applying histogram equalization locally and limiting the
+contrast amplifying via the clip limit.
+And the result is more visually appealing and noise free, enhanced compared to the global histogram
+equalization.
+So now that we have seen the results of play in a grayscale image, let's implement this on an RGB image
+or on a color image.
+But we cannot apply histogram equalization on a grayscale image.
+So there is a technique to it.
+We will convert our image first to gray, first to a different color space that is y'uv, which is a
+separate channel for lightness.
+For brightness we will mention cv2 dot cvt color.
+This is CVT color.
+And then we will have to mention the main image which is our BGR image.
+And we will convert from cv2 dot color underscore BGR to y'uv.
+This is what we are going to mention.
+And this will give us a y'uv image.
+The next thing is we are going to apply our clay on this image, but only on the first channel which
+contains lightness.
+So in UV image, the lightness is only present in the first channel, which is why.
+So we will use the same clay that is clay dot apply and we will apply on UV image, but only on.
+This means this zero means the first channel and we are going to update the same on the same channel
+here that is UV image, all rows, all columns and the first channel itself.
+We want to update it.
+So this will okay.
+This should be applied.
+So this will apply the clay on y UV image but only on the first channel which contains brightness.
+And then we will apply.
+We will update the same on the first channel itself.
+Now this is a UV image.
+So we have to convert this image to RGB as well.
+But before converting to RGB there is no conversion from UV to RGB directly.
+There is a conversion from UV to BGR, then BGR to RGB.
+That is what we are going to do here.
+Let me copy this code and I'm going to mention first that is from Y'uv to BGR.
+The next thing I want is from BGR to R, G b.
+So first Y'uv image will go here and it will convert to BGR.
+So I will mention this as Y'uv image BGR.
+Then I am going to use this UV image BGR to convert back it to RGB.
+So this is our RGB image.
+Finally, the last thing I want to do is our image.
+We have never converted it to RGB.
+That is what I'm going to use.
+I'm going to use this image.
+Going to use this code snippet and write it here.
+I'm going to pass our image and we will get a RGB image.
+So let's plot them side by side to see the enhanced image with the help of clip.
+So I'm going to use this same plotting code which we have mentioned.
+Let me copy and paste and then we only have two plots.
+So I will mention two.
+I will remove this subplot here.
+And then this is clay equalized RGB image.
+And this is going to be our original RGB image.
+I will mention in our original RGB image it is image RGB and I don't want to show it with the help of
+gray Cmap color map.
+And here it is going to be UV image RGB, which is a equalized RGB image.
+And we also don't want to see in grayscale image.
+So I hope everything looks good here.
+So let's plot them and see if we get into if we get any error.
+So if you see on this output on this left side, which is our original RGB image, the colors look natural
+but slightly subdued.
+There is also less contrast in areas like giraffe texture and the background vegetation right there
+is less contrast.
+Here the brightness levels are relatively uniform, but lack that vibrancy, lack that pop feature in
+our original image.
+But if you see on the right image, which is our clay enhanced image, the giraffe pattern and textures
+are much more pronounced here.
+Okay, you can see there is a color change because of the tile grid and because of histogram equalization,
+but it looks more pronounced here.
+The vegetation and the sky as well has more contrast and vibrancy also, and also more features.
+But still we can see there is some noise, but that is expected because it is doing histogram equalization
+and there is no significant noise amplification.
+There is not too much noise as compared to global histogram equalization, which indicates that this
+is a controlled enhancement.
+So what we have done, we have done clay on YUV color space which affects only the luminance which is
+y channel leaving the chrominance which is U and V components untouched.
+We have only applied clay histogram equalization on the Y channel.
+So this approach enhances brightness and contrast without distorting the color information.
+We have not touched the color information, so the subsequent conversion back to RGB ensures that the
+output image looks natural as well as well balanced.
+And to get the desired output to your liking if you want a more punchier one.
+If you want more noise, you can play with clay components like clip limit and tile grid size to get
+the image to your liking.

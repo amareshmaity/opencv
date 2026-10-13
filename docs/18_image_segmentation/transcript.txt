@@ -1,0 +1,1545 @@
+
+Hello and welcome back.
+In this lecture we are going to understand how to perform image segmentation using OpenCV.
+Let's get started.
+So image segmentation is the process of dividing an image into meaningful regions.
+For example foreground versus background or object specific regions, which we are going to understand
+in a minute.
+So it is used in tasks like object detection, medical imaging and autonomous driving.
+And now that we know the definition, let's understand what exactly it means.
+Let's understand it with the help of an example.
+Every smartphone user with a camera in it uses a portrait mode for that smooth looking background image,
+which gives you a DSLR looking photos, right?
+But how does that smartphone camera is able to do it without having actual hardware to do it?
+In DSLR we have a bigger sensor, bigger lens mounted in our smartphone.
+We don't have those hardwares well, it uses advanced AI techniques like semantic segmentation.
+And let's see, with the help of an intuition that how it is able to achieve that.
+So think of this as an example.
+And with a person in it you can see this person.
+You will use image segmentation algorithm which will say whenever you have a person mark them as one.
+So instead of one I'm just going to draw this yellow color.
+Think of this yellow color as one on the images, and with the help of instance segmentation algorithms,
+this one I'm able to find from those algorithms.
+And when the person and when the object is not one mark it as zero.
+So zero.
+I'm going to mark it with the help of a blue color.
+This is just for our intuition that what algorithms do and how we can achieve that blur looking image.
+Let me draw it.
+And this creates a binary mask.
+Think of all the yellow as one and blue as zero.
+So it will be a binary mask.
+And whenever you see zero what you will do, you will compare all the zero from the original image and
+apply blurring technique on it.
+So whenever you see this zero, you will do what.
+You will apply a blurring technique on all the zero blurring technique on zero values pixels.
+And whenever you see one, you will keep the image as it is.
+Whenever you see one, you will not do any operation.
+You will keep the original image as it is.
+So we will pick original image.
+So what will happen at the end?
+Your person will look as it is, but your background will keep on blurring.
+It depends on what is the threshold which we are using to increase the intensity of the blurring effect.
+So whenever you see one, you will keep the image as it is, and by similar operation you will get DSLR
+looking image from your smartphone camera and we can achieve it using image segmentation technique.
+And this is what I mentioned in the definition.
+The process segmentation is the process of dividing an image, which we are doing here.
+We are dividing the person from the image into meaningful regions.
+The main objective of this particular blurring technique is we want our person to become as foreground,
+and everything else should be a background or object specific regions.
+We are doing object specific segmentation.
+So segmentation is the process of dividing an image into meaningful regions.
+Okay.
+The pixels which we are not interested in, we will mark it as zero.
+The pixels which we are interested in, we will mark it as one.
+So this is something which we are in control of.
+And it is used in tasks like object detection, medical imaging and autonomous driving as well.
+So let's see this with the help of multiple examples.
+So image segmentation is also used in object detection task in algorithm likes selective search.
+Okay, when we will learn about R-cnn.
+Families of object detectors.
+They uses some algorithm called selective search, which is the main objective of selective search is
+to be able to find segment of the object.
+Okay.
+It looks for object.
+And that will be passed to our CNN model.
+That is convolution neural network model models.
+We will talk about it later.
+But in object detection we use segmentation in selective search algorithm.
+Let's talk about semantic segmentation.
+It is algorithm just like object detection where what we do we classify each pixels into separate category.
+This is our image and we want to classify this particular pixel.
+Either it is a category of 012.
+We will do for all the pixels.
+And this is the kind of result which we will get.
+And this is mainly used in healthcare.
+If you see this image this is an MRI image.
+And here what we are trying to do on all of these pixels, the one which we are interested in.
+It is also mentioned in the definition that is object specific regions.
+So here we are.
+We have specified that that whenever I see a brain, whenever I see a human brain, I want to classify
+that as a different color.
+Suppose the green color is classified as one.
+And whenever I see the center region, it will classify it as two.
+And other things should remain as it is or black.
+We will do the masking perform on the main image and we will get this particular image.
+So this is the example of semantic segmentation.
+There is also another use case of semantic segmentation which is autonomous driving which you can see.
+So in autonomous driving we also use semantic segmentation to segment parts of the road okay.
+So this is our original image.
+And when we do the semantic segmentation it will segment the part of the image which are similar and
+part of the image which are grouped together.
+As you can see, all the vegetation are grouped into this green and some shadows are in black and there
+are some red also.
+And for this part also, which is dividing the road.
+It is also called as divider, so it is also being considered under this red category.
+And anything that is road is being considered under this orange part.
+So suppose this is a pixel ID one class ID one, not pixel ID one.
+This is class ID one, this is class ID two.
+All the greens are under class ID two.
+All this side.
+All this are dividers and partitions of this or the sidewalks of this road are considered as three.
+And the sky you can consider as four.
+So each of the pixels is being categorized.
+Suppose here from 1 to 6.
+Okay suppose we have six classes.
+So each of the pixels is being categorized into one of these six.
+And it will help our car to identify.
+We can write algorithms when we convert this input image to semantic segmentation output.
+We can say to our car that you should walk on the orange path, but here we cannot say that this does
+not hold any information.
+It is just a pixel.
+But when we have mentioned when we have Extracted the information that this is a road and all the roads
+are in orange.
+We will say to our car that run on the orange part and stay away from red and other parts.
+Okay, so this is how we can control a little bit of autonomous driving.
+It is not a simple concept, but it uses semantic segmentation at its core.
+So now that we are clear about semantic segmentation or any kind of segmentation and its use cases,
+there are multiple techniques by which we can achieve segmentation with using OpenCV.
+So now that we are clear with what is a image segmentation, and we have learned this with the help
+of multiple examples, we need to understand what are the multiple techniques which are present in OpenCV
+by which we can achieve image segmentation.
+Let's talk about it.
+The first one is thresholding.
+We have already learned about thresholding, but there are multiple parts.
+And this is the simplest form by which we can achieve image segmentation.
+So in simple thresholding we apply a global thresholding, we apply thresholding considering all the
+image not a part of the image.
+So a single threshold value, for example 127, is applied uniformly across the original or the entire
+image.
+Okay.
+What we do here this is our image our.
+We will first convert to grayscale.
+And then we will apply a global threshold value.
+Suppose we have a lot of pixel intensities value values ranging from 0 to 255.
+And we have mentioned that whenever there is a value 127 and when you get this value, you should mention
+it as 255 or any values which is greater than 127, mention or replace it with 255.
+So this is the first step you can do or you can do that.
+Any value which is below 127 should be replaced with some other value.
+So you can there are two paths here.
+You can mention that this is my pivot point.
+Any values above 127 will be considered as 255, or any value below 127 will be considered as 255.
+You can choose either of it.
+So regions with intensity above the threshold are completely filled, as all the pixels in those regions
+share similar intensity levels.
+You will see all of these parts in our implementation.
+Now there is next part that is adaptive threshold.
+So instead of applying thresholding on the global image that is on the entire image, we will apply
+on local parts of the image.
+This is called as local thresholding.
+So the threshold value is computed for smaller regions that is called blocks.
+Think of this as an image.
+And we have divided our image into multiple parts.
+So it is based on the intensity of the neighborhood pixels of that local region.
+It will calculate the threshold value for that particular region.
+So we will not have a single value for all the image, but all of those local parts of the image will
+have its own value.
+So since the threshold dynamically adjusts based on the local intensity patterns, it often highlights
+edges where there are rapid changes in pixel intensity.
+The intensity on this region of the image can be higher than this part.
+So.
+But if we pick a local region and calculate the threshold point from it, we will be able to see edges
+in all the regions.
+This is what it means.
+There are multiple types by which we can achieve adaptive thresholding.
+One is mean and another is Gaussian.
+When we talk about mean, the threshold value is being calculated by mean of the local region minus.
+See I will talk about what is this.
+See.
+So when we talk about mean of local region this is the average pixel intensity.
+In small region you are analyzing.
+It is pretty straightforward.
+We have a particular grid in our image.
+We will pick this local part in our image and check the mean of our intensity value, and that we will
+set a set as threshold.
+But in terms of Gaussian, we don't just calculate a single value, we have weighted sum of local region.
+What are these?
+Think of this as this local pixel okay.
+This is a local grid of our full image.
+And on that one, the pixels which are closer to the center.
+From the center we will check.
+The pixels which are closer to the center will have greater influence, making the threshold calculation
+more robust.
+The pictures, like pixels which are farther away from the center, will have less influence towards
+this particular value.
+So in Gaussian, we have more robust calculation here in terms of Gaussian and mean is pretty standard.
+It takes less computation and it will also do the job.
+We will see in the implementation how they differ in terms of the output which they bring.
+And C is a constant to adjust the threshold.
+Suppose on a particular grid you get the edges out of it, which you can see on the output image, but
+you are not happy with the results.
+You want to tweak the result on this grid.
+Suppose I can only choose my grid size, and I want to apply that on the seven cross seven pixels.
+I will apply adaptive thresholding and I will get a value.
+I will get a mean value from that particular 7X7 pixel grid, but I am not happy with the results.
+So what I can do, I cannot change this mean, but I can change.
+I can add some value from this C value.
+I can make sure that whatever this thresholding value is, if I add two here, it will give me a different
+result.
+If I add minus two here, it will give me a different result.
+And this is with the help of C, we can change the behavior of the threshold in terms of both mean as
+well as Gaussian, and the next technique, which is going to help us perform image segmentation using
+OpenCV is K-means clustering.
+So K-means clustering is actually a machine learning based approach.
+It is a machine learning algorithm.
+Whoever is familiar with machine learning knows that this is a clustering approach.
+It helps us group things.
+So let's understand how K-means clustering can help us get the image segmentation from any input.
+Think of this as an image.
+And for the sake of simplicity, I will consider this as a grayscale image.
+So I will divide this image into multiple parts To mention each of these grids shows a pixel.
+This is a pixel.
+This is also a pixel.
+Suppose my image consists of 20 cross 20.
+It means total number of 400 pixels.
+Okay, this is my total number of pixels in this image.
+What I will do because this is a grayscale image I will check in index zero.
+Suppose this is index zero.
+I will check what is the intensity.
+Suppose my intensity is 120.
+In index one I will also check what is the intensity.
+The intensity is 200.
+In index two I have intensity of ten.
+Just like that.
+I will note all of those intensities and save their values in a list or in a dictionary in any structure
+format I will check okay.
+So I will mention from 0 to 399.
+I will store all the pixels and its intensity.
+Then what I will do, I will plot them.
+Let me erase this part.
+So after taking their intensity values in a structured format.
+I will plot them here on the x axis.
+I will mention the index.
+On the y axis I will mention the intensity.
+Okay, here I will mention the intensity.
+So for index zero I have an intensity of.
+Suppose this point for index one I have intensity here.
+For index two, I have an intensity just like that.
+I will plot for all the 399 till 399 index.
+I will plot all of these values.
+And once it is plotted, I will mention to my K-means algorithm that this is all the data points.
+This is going to be your input, and you should divide all these data points into two categories.
+This is something I will mention.
+This is the requirement from our side.
+So what K-means clustering will do.
+It will randomly initialize some clusters, some cluster points randomly.
+So let's just initialize random points.
+This is cluster one.
+This is cluster two.
+And then from all of these 400 points, because we have 400 pixels, we will check which pixel is closest
+to which cluster.
+So this is cluster C one.
+This is cluster CC2.
+So let's pick one point.
+This is our point which we are going to pick this point.
+Let's pick this point.
+So this point we will check the distance from cluster C one.
+And we will also check the distance from cluster C two.
+And whichever distance is closer to any cluster that particular points will be allotted to that particular
+cluster.
+So here you can see C one is closer to this point than C two.
+So c one will have this particular point.
+And this particular point will have some index also.
+So let's think this is a index number six.
+So C 16. number six now belongs to cluster one.
+Similarly we will check for C two.
+Let's pick this point.
+Let me pick let's pick this point.
+And from like we can we can check here.
+Right.
+See to this point is much closer to c two then C one.
+So let's suppose this is point number 300.
+This is index number 300.
+Value of index number 300 is now allocated to C two.
+Just like that.
+For all these points C one will have lot of points.
+C two will also have lot of indexes.
+And it will create group at the end.
+Once the all the process all the data points have been assigned to any cluster based on the distance,
+it will create a group.
+It will create group like this.
+All the data points have been allotted to a particular cluster, and we will get two groups at the end.
+Because we have mentioned k equals to two and this will create a segmentation.
+This is the main example.
+You can see this example here.
+Think of this now not as a grayscale image but as a RGB image.
+We will check from this RGB image.
+We will apply k equals to three.
+We will say to our k means clustering that our k equals to three.
+It means I want to divide all the data points which you can see on the image here to total number of
+three categories okay.
+Or let's simplify here.
+Total number of two categories.
+Let's say k equals to two.
+When we mention k equals to two all of these values RGB values has three values r g b.
+We will run our k means clustering on this.
+All of this RGB that is three dimensional value.
+And ask it to divide it into two different categories.
+It will again plot the intensities of r, G, b and try to find from this clusters that which which
+particular color, which particular RGB color or white color or blue colors come under the same group
+from this particular method.
+And you can see on the output all of those red, pink, purple and dark purple and blue also.
+This is.
+Suppose 11111.
+All the points where I where I have annotated as one belongs to the same group.
+Yellow.
+Red.
+This pink and this orange is one category.
+And purple.
+Blue this light blue, sky blue.
+And this dark purple comes under single category.
+And also green because green is close to blue.
+So it is also considering under single group.
+So this is how K-means clustering help us perform image segmentation.
+And this is the image segmentation that we got.
+If you mention k equals to nine or k equals to ten, it means divide the image into ten categories.
+It will give us ten different colors.
+Here we have ten colors including white.
+So k means clustering will automatically find the threshold value.
+It is not based on threshold value.
+It is based on clusters.
+And whoever is closer towards each data point will be categorized into a single group.
+We will see this algorithm in the implementation as well, but let's understand the steps to perform
+K-means clustering.
+First, we will flatten the image into 2D array, which I was mentioning before.
+For each index we need to check the intensity or their RGB values.
+We will first flatten our image into 2D array that is pixel and their intensity.
+Second thing, we will specify the number of clusters, for example foreground versus background.
+We will mention whether we want k equals to two, k equals to three, and k equals to ten as well.
+Then we will use the K-means algorithm to group pixels into clusters.
+Similarly as mentioned in the diagram.
+And then we will assign each cluster to a specific label.
+So once everything has been grouped, we will mention that we want to mention this c one as orange color
+or blue color.
+We will mention it at the end.
+And by this we will achieve image segmentation.
+So let's talk about the next technique which will help us achieve image segmentation.
+Watershed algorithm.
+The watershed algorithm is used for image segmentation by treating pixel intensities like a topographical
+surface.
+So topographical.
+Surface is the shape and orientation of a surface.
+We are talking about actual land here.
+We are talking about actual geography here.
+Okay.
+So it separates overlapping objects in an image by finding watershed lines which represents boundaries.
+Let's see.
+Let's understand what we mean by topographical surface and watershed algorithm with the help of an example.
+So here we have mentioned a topographical surface.
+So it actually comes from topography which is the study of features and forms of land surfaces.
+So here we will talk about if the intensity of a grayscale image is very high it will form a hill.
+If the intensity of our grayscale image is very low, it will form this valleys which we are able to
+see here.
+So watershed algorithm treats the grayscale image, any grayscale image as a topographical map and finds
+region of high intensity, which we will call as peaks or hills separated by a low intensity.
+You can see between these two hills.
+It is being separated by a low intensity values, which is which we will call as valleys.
+And let's understand what it means.
+So all the bright pixels represents high regions are like mountain peaks, dark pixels represents low
+regions like valleys.
+Gradients represents slope or edges showing transition between high and low areas.
+You can see this is the transition from high to low or low to high.
+And that we will call as gradient.
+So this is the part of gradient.
+This is also a part of gradient.
+And seed points represents different region of interest if you want to segment coins in an image.
+If this is our image and we have coins here in this image and we want to segment all of these coins,
+all the coins will serve as a seed points.
+You can see on the center all these coins.
+The center of these coins will serve as a seed point.
+And how do we get center?
+Not just a center, but all of these points.
+These are seed points which will show if we have three seats here, it means we have three objects.
+So how do we get seed on the graph?
+You can see on this diagram you can see we have local minima.
+And the lowest point of this valley is called as local minima.
+And with the help of this local minima watershed algorithms find markers.
+Okay.
+Watershed algorithm find markers and seed points which represents different region of our interest.
+So when the water from two region meets, a boundary is formed.
+What does this line particularly means?
+So let me give you an example how watershed algorithm works.
+This is our image.
+And we have two coins.
+And think of all of these examples as a grayscale as it works with a grayscale image.
+So what we will do first we will find the seed points or markers, and we will find those markers with
+the help of local minima, local minima from the topological surface of our grayscale image.
+And once we find those seed points, think of the seed points as this local minima and we will start
+flooding our.
+You can see this is called as catchment basin.
+All of these places where we can fill the water.
+Think of this as an example that on the hills if you try to fill the water, it will come up like this
+one.
+All the waters will be cached in this in this catchment basin.
+So in this example of coins, think of this as a 2D.
+And and this is the top view of those hills.
+And here the center points.
+The center points are the local minima of those hills.
+If you try to fill the water from the bottom that is from the local minima, it will start to fill water
+like this at the same time on both the coins, we will start to fill the water at the same time.
+We will start to fill the water on this coin also.
+We will do it simultaneously and when the water from both the coins start to overflow and goes the water
+from the hill.
+I suppose this is one and two.
+The water from coin number two starts to flow to coin two, and at the same time water from this coin
+number two starts to flow from 2 to 1.
+It will form a line.
+Okay.
+The intersection of those those waters.
+We will call those as watershed line, which we can also see here.
+So if we try to fill this local minima and this local minima at the same time, and all of three at
+the same time, a time will come, then the water of this.
+Suppose this is one, this is two, this is three.
+The water from one is flowing towards two, and water of two is flowing towards one.
+At the same time water from three is flowing towards two, water from two is flowing towards three.
+And it will form this two watershed lines.
+And this is what our watershed algorithm finds.
+So for watershed algorithm we need to have things like we need to first understand the hills which are
+peaks.
+We need to understand the local minima.
+From this local minima we will calculate the seed points and we will start flooding our catchment basin,
+which we are able to see here.
+We will start filling the catchment basin from the local minima till we get this watershed lines.
+And once we found the watershed lines, it means this particular object one is differentiable from water
+like object number two.
+So let me give you another example that what does finding the watershed line means?
+So if you have two coins which are overlapping this is coin number one.
+And this is coin number two.
+These are two coins which are overlapping.
+You can see it from like human perspective.
+But when you talk about pixels you cannot differentiate that this coin has a separation of this point.
+Right.
+You cannot differentiate that we have total number of two coins here.
+But from computer perspective it will look like they all belong to the same category.
+And with the help of techniques like thresholding, either it can be adaptive thresholding or a simple
+thresholding.
+It will just give you a mask of this.
+All will be one and everything else will be zero.
+But this is not we want to find.
+What we want to find is.
+We want to find that there are two coins here, and this can only be done with the help of watershed
+algorithm.
+What it will do, it will try to find the seed points here.
+And from that seed point, it will try to fill this coins simultaneously.
+And then we will find a watershed line.
+What this watershed line will do, it will explain.
+It will give you explanation that whenever there is a watershed line, it means the object are differentiable
+from the main mask.
+So it will give you id number one, it will give you ID number two.
+We will see the difference when we start the implementation.
+So now let's understand the algorithm.
+So understand watershed boundary concept.
+So imagine each seed points as markers.
+We call seed points as marker which I have already explained before represent a specific object The
+center of a coin.
+It can be a center, but it will not always be the center or the background.
+As the algorithm processes the image, it flirts each region outward, pixel by pixel.
+When the pixel from two or more region, for example two coins meet, the algorithm determines that
+the boundary exists between them, that there is a boundary exist between them, and that can be separable.
+So those meeting points conceptually forms the watershed lines.
+It is pretty clear in this diagram okay.
+These are watershed lines.
+So the output of algorithms are markers.
+Each region identified is assigned a unique label or a integer value.
+In the markers, every pixel belonging to the watershed boundaries are labeled with a specific value.
+Commonly that is minus one indicating the watershed lines.
+The boundaries are not separate outputs.
+These are pixel labeled as -one inch the marker output.
+The final marker array represents the segmented image.
+So what will happen if this is our image with two coins which are overlapping?
+Okay.
+Two coins which are overlapping.
+And we are not able to differentiate from our algorithm that there are two coins.
+We will apply water sand, and at the end of it water will return you an array.
+Whenever there is a separation, it will say as minus one.
+So let me let me write it here.
+Whenever there is a watershed line in that array, minus one will be filled.
+So because it is a straight line, minus one will be present here.
+And anything which is and all the catchment basins which you are able to find, all the catchment basins
+will be allotted a value.
+So here the catchment basin, because it is different, it will be one all ones.
+And in this catchment basin it will all be two.
+So it will be an array.
+Each region identified is assigned a unique label okay.
+All the catchment basin which we are able to see here will be assigned to a new value will be assigned
+to a unique value in the markers array.
+So this is markers and it is an array of size of your main grayscale or binary image.
+So the purpose of watershed algorithm is not just to find boundaries, but to assign labels to region
+for segmentation.
+And when we are able to find different labels, right, when we are able to find different labels,
+we can ask more complex things like how many objects we have.
+So here, if you only have two labels other than minus one, it means we have two unique object in our
+image.
+We are not able to do this operation on thresholding as well as k means we can do this on k means,
+but k means does not do labeling automatically.
+Here different colors mean different labels, and we are able to ask questions like how many objects
+are present in our image.
+So this makes the output more useful for tasks like counting objects, measuring areas as well, or
+performing instance segmentation.
+We can visualize boundaries by highlighting minus one.
+We can see where the boundaries of watershed lines are.
+If we are, if we can ask our matplotlib that whenever there is minus one, you only want to see minus
+one values.
+So we will be able to see watershed lines.
+And we can also visualize individual regions by isolating specific values.
+I can I can isolate all the labels which have been labeled by one.
+We will only be able to see coin one.
+I can also ask my algorithm to only show me two.
+We only see coin number two.
+Just like that, I can do multiple things, multiple visualization because I have masked all regions
+isolated by specific labels.
+So now let's talk about the steps which will be required to get this markers as well as watershed lines.
+So first we have to convert the image to grayscale.
+If it is already in color then we will apply a binary thresholding.
+So for watershed algorithm.
+We need to have a binary threshold in order to work with it.
+As I told you, if we get this coin's image, this is two coins.
+We have to first get the mask.
+So mask will look like this because all the coins will have the same kind of intensity.
+So it will create a mask.
+Everything will be one here and other things will be zero.
+We will not see the boundary here because it is a mask, not the actual image.
+So we will convert.
+In step two, we will apply a binary thresholding to create a binary image for separating foreground
+and background.
+Then we will use morphological operations.
+Example cv2 dot morph x to remove noise.
+Then we will remove noise.
+This is an optional.
+If your image is very noisy, you should remove noise first.
+Then we will compute the distance transform which measures the distance from each pixel to the nearest
+background pixel.
+So this will be our foreground.
+And anything except this particular two foreground images will be background.
+So what we will do we will get this transformation matrix which will be used for further computation.
+We will compute the distance transform from this pixel, how much distance it is from the background,
+this particular pixel, how much distance it is from the background.
+The center of this pixel of my main coin is how much distance from the background.
+So it will have that particular calculation and we will store that calculation for further, uh, artifacts,
+which is going to be used by watershed algorithm.
+So label the foreground and background using markers.
+This is the next step.
+Then we will use the watershed function to compute the watershed line.
+And once we have the watershed lines we will mark the boundary where watershed lines exist.
+And we can also do segmentation from the markers because in markers, markers will be an area where
+we have all the unique values from one, two, three, four.
+It can also start from zero, and all the watershed lines have been separated by minus one.
+Whenever we see minus one, It means it is about to set lines, and whenever we see any values which
+is other than minus one, it means these are unique classes which has been identified, which has been
+segmented by our watershed algorithm.
+So let's head over to VS code and see how to implement all of these three concepts.
+The first image segmentation technique which we are going to implement is thresholding.
+Let me write thresholding here.
+It should be d I g.
+And then we are going to start our implementation by importing our libraries.
+So it is import cv2.
+Then it is import numpy as np.
+And then we finally need import matplotlib.
+Dot pyplot as plt.
+Let's run it.
+Once this is successful, first thing we are going to implement is simple thresholding.
+We have two types of thresholding simple thresholding as well as adaptive.
+So first thing we are going to implement is simple thresholding.
+I'm going to mention here as simple thresholding.
+The first thing we are going to do is read a image.
+Image equals to cv2.im read.
+And here I will mention the path of the image which is present.
+One directory back in my folder inside images folder and we are going to import handwritten images.
+Handwritten dot jpg.
+And I want to import it as grayscale image.
+So here I will mention zero.
+So this will help directly import a grayscale image.
+So I don't have to convert it later.
+So once this is done then I will apply directly.
+Save two dot threshold.
+I will mention cv2 dot threshold and then I have to pass the image grayscale image and I will mention
+the pivot point.
+Okay so this 150 is the threshold value which I'm going to mention.
+And then I have to mention the maximum value which it will be overriding.
+So every values which is above 150 will be assigned to a new value which is 255.
+And then I will store this output.
+This will give me few things.
+This will give me written value and then binary.
+And we the only thing which we are going to use is binary which which is the binary mask of this threshold
+value.
+And then we will plot it.
+So I will mention plt dot figure.
+Then we have to mention fixed size.
+Is equals to 12 comma seven.
+You can pick yours.
+But I'm going to mention 12 comma seven and then plt dot I am show.
+Binary.
+And then because it's a grayscale image we have to mention cmap equals to gray.
+And then at later plt dot show.
+But before that let's let me copy this part because we want to see how the original image looks like
+as well.
+So I will mention plt dot I am show of image where cmap is equals to gray.
+So this is for the input image.
+Looks like this is my personal notes.
+And I have used it to do the binary thresholding okay with the help of threshold function.
+So this will create a mask.
+So if I run this it will create a mask.
+The error says that there is one missing required argument which is type.
+And we have not mentioned type in our threshold that the values which we have mentioned, we have mentioned
+that this will be the value from which we have to apply the thresholding, and we will replace it by
+255.
+But there are multiple types which we can mention, and one of the type is cv2 dot threshold binary.
+There is a inverse to it that whenever we get values above 150, we will apply 255.
+Also, we can if if I make this value as threshold binary inverse, it means whenever I see value below
+150, I will apply to a value of 255.
+So I can do both.
+So I have mentioned type.
+So when I run it it should give us the mask.
+And we can see this mask right.
+So all the values that is above 150 has been like assigned to a new value 255.
+And values below 150, which is kind of dark in nature, remains same in our plot.
+So this is the output of cv2 dot threshold where you have to specifically mention this particular value,
+which is 150.
+And now let's implement adaptive thresholding to understand the difference between normal thresholding
+as well as adaptive thresholding.
+What I'm going to do, I'm going to write in the markdown that we are running adaptive thresholding.
+I'm not sure what I was writing, but it is adaptive thresholding.
+And here I'm because we already have a grayscale image.
+I'm not going to read this image again, but I'm just going to apply the adaptive thresholding and let
+me scroll a bit and I will mention cv2 dot adaptive.
+Then threshold okay I think this is a markdown.
+That's why it is giving an error not an error, but it is not giving us.
+So now it should give us.
+Yes.
+Now we are getting this recommendation.
+So in this cv2 adaptive threshold we have to pass the image.
+And then we will pass 255 to 55.
+Here is the maximum value for our image.
+So we will mention 255 here.
+And then we will mention cv2 dot adaptive threshold.
+You can see there are two options threshold mean and then Gaussian.
+So we will get both the outputs.
+So first let's use cv2 dot mean see.
+And then we will mention cv2 dot threshold binary.
+It is cv2.
+Dot threshold binary.
+It is the same time we have used in simple thresholding.
+So we have to mention like how to implement this binary thresholding.
+So we have just mentioned threshold binary.
+We are not doing the inverse part of it.
+And then we have to mention few things like 11 and nine where 11 is the block size, which I have mentioned
+in the theoretical part, and nine is that constant.
+So I have used this nine I have used multiple values and found out this nine works better with the image
+which we are working on.
+This will give us our output in.
+Let's store this output in.
+Adaptive mean.
+I will mention it as M and let's copy this whole thing.
+And then instead of adaptive threshold mean.
+I will use Gaussian.
+And everything will remain same instead of this variable name.
+And then I will plot all of this in a figure.
+Let me mention plt dot figure.
+Then we will mention fixed size.
+And this time I will mention again the 12 comma seven.
+And then I will mention plt dot I am show which I can directly copy because I have already used it.
+Let me copy, but we do need to mention okay, instead of mentioning side by side, let's mention it
+one by one.
+CV2 dot I am show of adaptive m, and then I'm going to give the title to this plot that is pv plt dot
+title.
+And the title is adaptive mean.
+Thresholding.
+And then it will be plt dot show.
+Let me copy this whole thing and we will do the same for Gaussian.
+So instead of m I will just mention g and this will be adaptive Gaussian.
+Thresholding.
+Let's plot it and see the how the output looks like.
+So if you plot it we are able to see the output that in mean we do have a lot of noise which is unwanted.
+Here you can see these are the.
+If you check on the input image it is present.
+It is like the marks present on the pages which are behind this particular page.
+Right.
+So these are the marks present on that page.
+But if you check on like cv2 dot threshold where we have just mentioned a pivot point which is 150,
+and anything that is above 150 should be considered as white.
+But still we do have lot of noise here, okay, which is not even present on the original image, but
+in this one we do have noise.
+But if we check adaptive thresholding, none of the image which is mean or Gaussian has that particular
+noise.
+But in mean we do have this artifact which is present on the original image, which is present behind
+this particular page.
+We are able to see it here, but in the adaptive thresholding on the Gaussian, we are able to see it
+less.
+If we want to see like how the output looks like.
+If I change this C value, if I make it two, you are able to see that we are having a lot of noise
+and I don't want to change this particular 11 value, which is our block size, but I only want to change
+this constant value from which I will be able to change my output if I change it to 9 or 15.
+Let's mark it as 15.
+And it should be bracket and try to run it.
+And let's see the output.
+Now the output looks more clean.
+Okay.
+That particular artifact which was behind this page is not even visible here.
+But little bit of it is visible in mean.
+But in mean we are able to see more sharp, more, uh, like black borders.
+But here it is not that dark, but it is more clean as compared to mean from my point of view.
+But you can play around this values, which is this will be the block size, this will be that constant
+value which we have talked about in the theory, and everything will remain as it is.
+So this is how we apply simple thresholding as well as electric thresholding to get image segmentation.
+Now the next technique which I'm going to implement is K-means clustering.
+So let's create a markdown and let's write k means clustering.
+And I'm going to use K-means clustering not on grayscale image but on RGB image.
+What I'm going to do I'm going to read the image cv2.im read.
+And we will use that shapes image which is present in theory, which is images and shapes.
+Dot jpg and we will load into our image.
+Because we are not going to use this variable, we will replace it will overwrite the previous image
+variable.
+And then we will convert to cv2 dot cvt color.
+We will pass image, will mention cv2 dot bgr to RGB and here it will be color.
+underscore BGR to RGB.
+Okay, now it looks correct and there is something wrong here.
+That's why it is not giving us option.
+It is cv2 dot color underscore BGR to RGB.
+Everything looks good here, but still.
+Let's save the output in image.
+I think there is something wrong here.
+That's why we are not able to.
+Okay, c o l o r.
+That is BGR to RGB.
+Okay.
+This is how it will look like.
+It is not giving us that purple color.
+And then we will mention image dot resize.
+We will not receive image dot read.
+We will reshape our image so that we can directly use that input to our k means.
+So we'll mention minus one comma three.
+And by this we will get all pixel values.
+So I will store this image into pixel values.
+And then if you want to see the output, we can just print it here and see how the pixel values look
+like.
+You're able to see this is what pixel values is.
+We have reshaped and it is giving us this information.
+And what I want this time is I want to convert this to float 32 because everything is in int.
+It is unsigned integer eight.
+So what we will do we will convert this pixel values.
+With NP dot float.
+And I want to convert it to float 32.
+So this is float 32.
+And I will convert all the pixel values.
+And let's print it and see how the output looks like.
+You're able to see now all the values are in float.
+So it is ready to be like ingested by our K-means clustering.
+And if you are confused with this particular piece of code, it means what it does is you are able to
+see that it means that the reshape this image and keep only the three columns in a particular value,
+and you are able to see this three columns.
+It means r, g, b.
+So each inner list will have RGB values enclosed in a 2D list.
+Okay, this is image reshape.
+It is able to reshape because at the end what we need we need RGB values which means each pixel value.
+So it means this particular code is flattening your image.
+So once this is done we will apply this image.
+We will send this image to our K-means clustering.
+And we will mention few things like cv2 dot term criteria EPs.
+Plus cv2 dot.
+It should be small.
+The term criteria max iteration.
+And then we will mention hundred and then 0.2.
+So this is we are defining the criteria and applying K-means.
+Let me enclose this in a bracket and this will be the bacteria.
+This is the criteria.
+And we will mention the number of classes as well.
+The number of classes I want to divide this image.
+This color image is into three different categories.
+This will be the number of classes.
+So now let's understand what this criteria means because we already know what is k.
+But this criteria is not mentioned in the theoretical part.
+So this criteria means it defines the stopping criteria for your k means clustering algorithm.
+This CV two term criteria epsilon.
+Here we have defined it as 0.2.
+It means in your current iteration and your previous iteration, if you have lost smaller than or equal
+to 0.2, then it means we need to stop our k means clustering.
+Also, the maximum criteria maximum times our k means clustering should run is Henry.
+Here we have defined the criteria for to stop our K-means clustering, when it is training, when it
+is training on our data.
+And this is where we have defined our K-means.
+Total number of clusters.
+So once this is done, we will define our K-means and pass this criteria to our K-means.
+Let me define cv2.
+The function to define K-means is cv2 dot K-means.
+And I will define the pixel values.
+The first input it will take is pixel values.
+Second thing it will take is number of k.
+Then we have to mention num.
+It means number of placeholders.
+So I am not going to mention any placeholders.
+So it is there is no placeholder which we want to define.
+So it will be none.
+Then we have to mention the criterion which we have mentioned here.
+It is criteria.
+It means the condition to stop.
+Then we will mention ten.
+It means number of attempts to execute.
+It is number of times your k mean is going to execute with different initializations to find the best
+clustering okay.
+It means it will define ten different K-means clustering and whatever is best, it will be returned
+to us.
+So we are defining it.
+Ten then we will mention cv2 dot K-means random centers.
+It means how we want to define the clusters.
+When we are going to initialize this algorithm, we want to define the clusters randomly at random points
+in our data, and this defines our K-means.
+So we are going to run it and the best one will come to us in.
+We will get labels.
+We will get labels and centers.
+That is center of our centroid which we are going to initialize.
+We are going to initialize total number of three centroids.
+And it is going to return us the center the coordinates of those centroids with their labels.
+So what we are going to do let's run it and see it is very fast.
+So let's see what is present in this.
+Labels and centers.
+So let me print labels and print centers as well.
+In the labels.
+Okay.
+Because there are not enough values here.
+Let me print labels.
+Dot shape.
+What is the shape of these labels.
+Okay.
+So we have for each pixel we have a particular label.
+And there are a lot of pixels here.
+And for centers we have 7110 167 255 okay.
+So we have total number of three labels.
+You can see this is x y z.
+This is in x y z.
+This is again in x y z for RGB.
+For each RGB we have a centroid right.
+So we have total number of three values.
+And which means that it has done what we have asked for.
+That means categorize all of these pixels.
+Categorize all of these pixels into total number of three categories with the help of K-means clustering.
+So now let's create the image back with the help of the centers so that we can we can see how the output
+looks like.
+So what we will do first we will convert the centers.
+We will convert the centers to end it.
+We will mention NP dot Uint8
+Uint8 and then we will mention centers and they will store again back to centers.
+Then from the centers, which is a coordinate, we will mention that labels dot flatten.
+So this should be flat ten.
+So what this line of code is doing is that for each label which we got from our K-means clustering,
+this is a flatten part of it.
+That is labels dot pattern.
+Suppose we have a label of one for pixel number one for index number one.
+And because this pixel number one is the index and we have total number of three different centroids,
+if the pixel index is one, it will be assigned to value to 55 Cross 255.
+Cross 255.
+So let me write.
+It will be assigned to a value of 255, 255, 255, and we will store that value in another index okay.
+We will store that in segmented image.
+So just one by one for all the labels we have total number of three lakh 91,876 values for each values.
+We will pick there from the index because it will have an index of 012.
+Because we have total number of three values for each index, the centers will be selected because we
+have total number of three centers.
+Suppose if we have a label of one the center, the RGB value we will store is to 55 to 50 5 to 55.
+If we have zero in label, it will be assigned to a value of 70, then 110, then 167.
+So this will be assigned and we will store all of these values in a segmented image.
+Once we have all of these values, it means total number of three lakh 91,876 RGB values we will get.
+This will form a different kind of image, but we cannot plot it.
+This is not in the image format.
+So what we will do, we will reshape it.
+This is how we are going to reshape it, this as well as this.
+So let me comment it and then let me write the code to reshape this image.
+So it is segmented image.
+And then we will use this segmented image and then reshape it to what we will reshape to how the original
+input looks like.
+So we will mention image dot shape.
+And this will give us from all this RGB values, we will reshape it to how the image looks like.
+And then we will plot it and see how the output looks like.
+Side by side we will mention plt dot figure.
+And then fixed size of 12 comma seven.
+And then subplot that is plt dot subplot.
+It should be small.
+Yes.
+PLT dot subplot puts the method 1 to 1.
+And then plt dot I am show it's an image we don't need to mention because it's not a grayscale image,
+so there is no requirement of cmap.
+Here.
+Let me scroll a bit.
+We are at the center of the screen and then we will mention plt dot title.
+And the title is original image.
+Because the first part we will plot original image.
+And then we will see how the segmented image looks like.
+And the second subplot.
+Let me copy this part.
+And paste it here in the second plot part.
+In the second index we are going to mention our segmented image.
+And then I will mention it as segmented image.
+And at the end we need to mention plt dot show.
+So hopefully we will not see any error while I run this cell.
+Let's run it.
+Okay so there is no error and we are able to see this is our original image.
+And when we mention k equals to three, we are able to see that the image has been classified into three
+categories.
+But in the output we are only able to see two categories that is orange and blue.
+But why not the third one?
+The third one is the whole image itself.
+We are able to see in this segmented image the labels which we have mentioned, the centers, the centers.
+One of the colors it has mentioned is 255 to 50 5 to 55, which is a white color.
+So there is a third color which is all of this image.
+And we are able to see this white color.
+So this is also a part of the segmentation.
+Apart from all of these shapes.
+So by this we are able to segment our image into total number of three categories.
+The next algorithm we are going to implement is watershed algorithm.
+Let's get started.
+So here I will mention watershed algorithm.
+Watershed algorithm.
+And instead of this Python cell, we have to mention markdown because we are writing something in heading
+that is watershed algorithm.
+So I will start by reading image.
+So I will mention cv2 dot imread and I'm going to use our coin example.
+I already have an image and I will mention this is already coming as markdown which should be Python.
+So let me convert this cell to Python.
+And then I'm going to use image which is present again in my images folder.
+And the name is going to dot jpg.
+And then we will convert our image from BGR to RGB as well.
+We already have the code so we will not write that code again.
+And then this will be stored into image.
+So I will write image here and RGB.
+So I will keep this original image.
+A copy of this original image in original underscore image and we have to create a copy from image dot
+copy.
+This will create a separate memory for this image, not a shared one.
+And let's see how the image looks like.
+PLT dot I am show not I am save it should be I am show.
+And then we will mention image.
+And this is how the image looks like.
+This is what we are going to work with and see.
+Because there are a lot of it's not very simple that there is a particular threshold which is going
+to be applied on all the coins.
+And also there is a background.
+Okay.
+So we are going to apply watershed algorithm one by one.
+The first thing which is we need to convert this image to grayscale.
+So we will mention cv2 dot cvt color.
+Then we will mention our image.
+We already have the copy of the image, so it's fine if we even load it into the same variable we can
+change it.
+So let me write cv2 dot bgr to gray.
+We don't have any BGR to gray here I will just mention color underscore BGR.
+To gray, and I'm going to store it into a gray variable.
+And let's see how the output looks like it should be.
+PLT dot I am show g r e y.
+And then I will mention in cmap because it's a grayscale image we need gray okay.
+So this is the main input which we are going to use to create watershed lines and all of those markers.
+The next step is we are going to apply binary threshold, as I mentioned in the theory that for watershed
+the first step is going to convert into grayscale.
+The second step is create a mask out of it.
+So how we create the mask, it's up to us.
+I'm going to use cv2 the threshold For the base mask, and I will mention the gray image which we have.
+I'm going to measure 130 because this is something I've already played with, and I want to convert
+it into 255.
+And then I will mention cv2 dot threshold binary okay.
+And this time we can also use inverse I'm going to use inverse here you can check with both inverse
+as well as without inverse.
+And it is going to return us a mask that is going to be read well.
+And then here I will get threshold.
+This is going to be our mask.
+Let's see how the output looks like.
+PLT dot I am show.
+And then we mention thresh.
+And then cmap is equals to gray.
+If you run this cell you are able to see this output.
+And everything that is above 130 has been 255.
+But because this is inverse, it means everything that is below 130.
+Everything that is below 130 is considered as 255.
+If you change this instead of CV to binary like threshold binary, we will just mention binary and you
+will see the opposite of it out of it.
+Okay, this is what this type does.
+This is the method which we are going to apply.
+I'm going to stick with inverse here.
+I'm just going to mention inverse and all the white parts is all this is all the white parts and black
+part.
+Okay.
+The next thing we are going to do is we are going to remove noise that is also mentioned in the steps
+while we are learning theory.
+The one thing I'm going to mention is NP dot ones.
+That is three cross three.
+So it will create all the NP, all the numpy array of size three cross three filled with ones, and
+then it will be np dot you int eight, which is going to be the data type for this numpy.
+And I will create this as a kernel.
+This will serve me as a kernel.
+So what I'm going to do I'm going to use cv2 dot morph.
+It is morphology x.
+And this, this is the function which help us remove like noise from the image.
+So we are just going to use as it is we will mention cv2 dot morph open.
+It is.
+You can see this is morph close.
+We are looking for morph open.
+There are a lot of functions.
+We are just using it.
+We don't need to understand how this works, but we are just using it to remove the noise from the image.
+Then we will mention the kernel.
+The kernel is all filled with ones and then we will mention the iterations.
+Iterations we are going to run this morph for is two times, and then we will mention it as a opening.
+And then we will plot this opening.
+I'm just going to name this as opening.
+You will understand it later, but it is going to be PLT dot I am show and then we will mention opening.
+And then see a map of it is going to be great.
+If you run it, you are able to see that all the black things because it is a inverse.
+You are working with the inverse.
+There are a lot of noise if you want to just see circles and like simple shapes, not this kind of complex
+shape, we have to remove noise.
+Then we remove noise.
+What we are expecting that this should be a circle.
+This should be a circle.
+But there are a lot of white things.
+Also, it should be simplified and you are able to see the simplified version of it.
+All the circles, like the lot of the noise, has been removed with black, which was little bit black
+before, but all the voice has been white, has been converted with simpler shapes, so it has successfully
+removed noise.
+If you want to see the iterations more, if you run the iterations, you are able to see that it is
+removing lot of the noise.
+But this is not a want, it is even removing the components, removing the details which are present
+in the original image.
+Let's try for five and see the how the output looks like.
+But still we are able to see this output.
+Okay, I think this will work if we reduce it to four.
+And this looks much better.
+We are able to remove noise from the image.
+And after removing the noise what we will get.
+We need to make sure that we need to find two things.
+We need to find the background as well as the foreground.
+We will do I will use cv2 dot dilate.
+This is the function.
+Dilate is to make sure that we are getting only the sheer background.
+Okay.
+Where we are very sure about it.
+So we will use sure there.
+And then we will pass the opening and then the kernel size which we have mentioned.
+And then I will mention iterations again.
+So iterations I will mention it as three only.
+And this will return us the sheer background.
+And let's plot this shear bg which is plt dot I am show.
+And we will plot this shear background and mark it as cmap equals to gray.
+This is the sheer background.
+Okay.
+Whatever you think on this white part, it thinks as it is a pure background.
+So now we need to find out.
+Pure foreground.
+The pure foreground will represent the region that are definitely part of the object.
+Okay.
+That are definitely part of the object.
+So let's try to find out.
+The first thing we are going to mention is distance transform.
+As I mentioned distance from form.
+It means from the center of the object.
+Whatever it thinks the object, it will try to find the distance from the background.
+And we already have a background here, so we will use cv2 dot distance transform.
+Here we are able to see distance transform.
+We will pass it to the opening.
+We will pass the opening and we will mention the calculation.
+We are going to calculate the distance L2 okay not L1 distance L2.
+And then we will mention five okay.
+And five here means mask size, so the larger this number will be, that is in our case it is five.
+It will provide a more accurate distance estimation.
+The smaller the mask size is, the faster the computation, but it may result in less accurate distance
+estimation.
+We are going to stick with five and calculate the distance we are going to mention here.
+I am going to save into distance underscore transform.
+Dist underscore transform.
+Then what we are going to do from this transform.
+From this calculation we are going to convert the distance map.
+This is the distance map that we got and convert it into a binary mask.
+By keeping only those pixels where the distance is above a certain threshold.
+Okay.
+We are going to define that above threshold what the threshold is.
+We are going to define the distance I am going to mention cv2 dot threshold.
+I am going to mention okay, if you want to see how the plot looks like, let's see by plotting it.
+It is distance transform.
+Okay.
+You're not able to see this variable distance transform.
+And we are able to see this distance transform.
+Okay.
+Let's see in C map equals to gray.
+And this is what the distance transform looks like.
+Okay.
+It is a map.
+It has been calculated using this map size.
+This is like mask size is not map.
+This is mask size.
+And using this distance calculation it is able to create this distance transform.
+So we are going to use this particular map to create our sure foreground that which exactly.
+We are very sure that this is the part of our object.
+So we are going to mention cv2 dot threshold.
+And then I'm going to mention distance transform.
+And then we have to mention the criteria.
+The criteria we are going to mention is that anything that is 0.7.
+Into distance transform or max whatever the transform matrix is, whatever the total value, whatever
+the maximum of this particular mask is, I'm going to multiply with 0.7.
+That is I'm going to reduce a bit from the maximum value.
+And then I will replace with that particular maximum value.
+This will be 255 comma zero.
+Okay.
+I have named it something wrong here.
+It should be 255 comma zero.
+So what we are trying to do here is that we are going to create that pivot point, which we mentioned
+always in cv2.
+Threshold.
+So this is the 70% of the maximum distance value in our distance transform image.
+In this image the 70% of the maximum distance value, we will get the 70 percentile of that.
+That is whatever the max value is.
+We will multiply it by 0.7 and we will get 7,070% of the maximum value.
+And we are going to replace that particular value.
+Anything that is above that with 255 okay.
+So we are going to replace with 255 here.
+And the pixels below the threshold are considered background pixels below this threshold is going to
+be considered as a background assigned to a value of zero and pixel above this particular threshold
+is going to be assigned a value of 255 okay.
+And this is what it means.
+So now that we have defined our thresholding on the distance transform mask, we will store it and mention
+it as your background.
+I will mention it as sheer underscore background and it should be underscore.
+So the maximum value it will be replaced.
+Anything that is below this value will be replaced by zero.
+Anything that is above this value will be replaced by 255 which is white color.
+Once this is done, we will convert this value back to NP dot int8.
+So if the value is already in int8, you don't have to perform this operation.
+But I'm writing it so that we will not get any issue here.
+So sure, for sure this should be sure.
+Foreground not background because we already calculated the background.
+Now we are calculating what is the sheer background here.
+Okay, so NP dot Int8.
+And I'm going to mention again I'm going to save ensure foreground itself and then let's plot it.
+So I will mention PLT dot I am show and I will mention show underscore foreground and cmap is equals
+to gray.
+Let's plot it and we are able to see the cmap.
+Let's play with multiple values.
+Instead of getting this 0.7%.
+What happens if I mention 0.8?
+This is the background.
+So you can see it is now going.
+This is the foreground and it is going above.
+So it means whatever this max value is this value it is only sure about this part.
+Let me mention it to 0.4 okay.
+so all the parts which are correct, we are able to see on that one.
+And this is not the inverse.
+And also it is not the inverse.
+So I will mention it under inverse.
+Okay.
+Is it following the pattern.
+Our background is always white and our main subject was always in black.
+Yes it is following the pattern.
+It means whatever is present here in this part is a part of sure foreground.
+If you reduce it further and you are able to see this is actually the sheer foreground, we are sure
+about this particular part.
+Okay.
+So we are good with that.
+So now once it is done then we will mark the unknown region.
+What will be the unknown region?
+The unknown region is the area where it is unclear whether the pixels belong to the foreground or the
+background.
+So what we will do, we will use cv2 dot subtract.
+We will use cv2 dot subtract and mention.
+Sheer foreground.
+foregrounds your background minus your foreground.
+And then we will get the unknown region.
+It should be unknown.
+And then we will also plot this information.
+P l t dot I am show.
+Then this unknown I will mention.
+And then the cmap should be gray.
+Let's plot it.
+So the unknown region in the area where it is unclear.
+So it is showing us the area which it is unclear whether it belongs to the foreground or it belongs
+to the like the background.
+This is actually the actual foreground which are able to see on the black.
+And if you see on this part, this is the sheer background.
+We are very sure that everything here is actually a part of the background.
+We are going to use this unknown part to generate markers.
+Okay.
+We are going to use markers and the sheer foregrounds which we have mentioned CV2 dot connected components
+and I mentioned sure foreground and this will provide us with markers.
+So once we have the markers we'll mention markers plus one because from the index we want more.
+So whatever was zero will be one.
+Whatever was nine will be ten.
+It will be like that.
+So markers equals to markers plus one.
+And wherever in the markers I will mention when the unknown, when the unknown is equals to 255.
+When my unknown is equals to white, I will mark that as zero.
+Okay.
+Whenever my in my unknown when it is white my marker should be zero.
+Okay.
+My marker should be zero.
+This is what I'm doing.
+So based on my unknown region, whenever it sees white I will mark it as a class of zero.
+And then I will mention mentioned plt dot I am show.
+And then markers.
+Let's plot it and we are able to see this markers.
+Okay these are the markers.
+So we have this green color yellow color this like little gray color.
+And then purple.
+Also what we will do now once we have the markers marker will serve as the input to our finally the
+watershed algorithm.
+Watershed algorithm requires markers.
+So we will use CV2 dot markers, not marker cv2 dot watershed.
+We will pass our image and then we will pass markers.
+And we will store into markers a new markers where it will also create watershed lines.
+Then we will mention plt dot I am show.
+And then we are able to see all these watermarks, right?
+These are all catchment basins which are able to see.
+And these coins are pretty clear.
+Right.
+What we will do is we will do the circularity check.
+We will only keep the elements which are circular in nature, because there are a lot of components
+here which we are not interested in.
+This mark looks pretty clear, right?
+All the coins belong to the same category.
+But there are some things like, uh, this particular uh colour which is dark.
+This is green, this is light green.
+This is again a different dull green.
+But I only want to keep the components which I am interested in.
+And all the components is circular in nature.
+So what I will do I will create NP dot zeros like.
+NP dot zeros like.
+I will pass our gray image here which is our grayscale image.
+Let me scroll a bit.
+Then I will store it into coin underscore mask.
+So it means when we pass any image to our NP dot zero like it will try to copy the shape of this grayscale
+image.
+Whatever our image is, it will try to copy that shape and will create the same dimension as our input
+image.
+And this will be the coin image.
+If you want to see the dimension of both of it, even though we have not passed any dimension specifically
+to NP dot zeros, when we mentioned to NP dot zeros like it tries to copy the shape and create NP dot
+zeros.
+If I mention gray dot shape and print coin mask dot shape.
+You will see both of them have the same dimension.
+It means it is successfully copied the dimension and is created NP dot zeros from another image dimension.
+So once this is done, what I will do, I will try to find out how many unique markers I have.
+I will mention NP dot unique and pass markers into it, so I will get all the unique marker values.
+If I check unique labels.
+Here I will get all the unique labels.
+I will start from instance number one.
+So I will initialize a variable instance number one.
+And I will also check the font because this is the final thing.
+We already have the mask and we will process all the circular parts and we will start writing.
+This is the instance number one.
+This is coin one, coin two, coin three.
+This is what we are trying to do here.
+So we will filter it as well as we will try to like write on our segmentation mask.
+This is font and I will mention cv2 dot font which is complex.
+Or let's write it simplex okay.
+So for label in unique labels it should be unique for labels in unique labels.
+If label is equals to zero.
+If label is equals to zero, or label is equals to minus minus one.
+Because for all the labels, whenever we see we have already incremented it, right, we have already
+incremented the value.
+So minus one will become zero, or zero will become like zero is already one, right?
+So minus one can become zero.
+And there can also exist minus one still in our markers, in our labels, whenever we see 0 or -1,
+we are going to continue.
+We are not going to because there is no point of checking when there is a watershed line.
+We are going to ignore our watershed line and when it is not a watershed line, what we are going to
+mention np.int eight.
+Let me write it.
+NP dot you int eight.
+And when the markers is equal to the selected label.
+Okay.
+Because we are also whenever the marker is, we are checking the into the unique labels when the marker
+is equals to label.
+So it will create a mask.
+Okay.
+So first of all we are going to create separate mask for each of the label okay.
+If there are total number of 1010 different markers we are going to create ten different mask and iterate
+over them one by one.
+So what we are trying to do.
+First of all we will get a unique label.
+Suppose we got one.
+So from the marker what we are going to do we are going to create a matrix consisting only ones and
+zeros.
+Okay.
+So we are going to create NP dot int8.
+That is true or false.
+And because it is int8 from Boolean, it is going to convert to ones and zeros which will create a mask
+here.
+Once we get the mask here, for each of the label, we will get a separate mask.
+We will use cv2 dot find contours.
+We have already learned about how to find contours.
+We are going to use find contours.
+And then we will pass this mask, which is only having one of the label of each category.
+We will pass the parameters of it.
+It is ready our external.
+You've already learned about all these parameters.
+I'm just going to use it here.
+And then we will mention these are the methods by which it will save the data.
+So I'm going to mention chain approximation.
+Simple.
+And I will store all the contours.
+And here I will get the contours.
+Also it returns few more things which I'm going to store into this underscore which I'm not going to
+use it later.
+This is contours.
+The spelling is different.
+This is wrong and it should be contours.
+So once this is done, I will get lot of contours only which I'm interested in, which are circular
+in nature.
+I mentioned contours.
+Contour and contours.
+First I will check the area that is cv2 dot contour area and pass this contour here.
+And it will calculate our area.
+Also I need a parameter because later I'm going to use to check the circularity.
+Whether that particular contour is circular in nature I'm going to calculate few things.
+That is area and perimeter.
+And for perimeter I will use cv2 dot arc length.
+And here I will pass contour and true.
+Just calculate it.
+And then if perimeter is equal to zero let's Scroll if parameter is equal to zero.
+I will mention continue because if parameter is equal to zero, there is no need to check like the next
+line of code, right?
+We are going to continue it, but if parameter is not equal to zero we will check the circularity.
+So I will mention circularity as variable.
+And we will mention the formula that is four into pi.
+That is four pi square okay.
+That is four pi area divided by parameter into parameter.
+That is the formula I will mention np dot pi.
+That is a formula to check parameter.
+That is a circularity.
+Sorry about that.
+This is the formula to check the circularity we will mention area divided by parameter times parameter.
+Or you can mention parameter asterisk two.
+Okay, I will just make it simple for now.
+that is parameter.
+Times parameter.
+And that will give me circularity.
+So if 0.7 I'm going to mention a condition if circularity is greater than 0.7.
+And is smaller than 1.2
+and area is greater than 1000, then only I will consider this as circularity.
+Okay, so here I got some value and I'm processing on top of that particular value.
+So what this line of code is doing is that it is checking the perfect circularity means that the value
+will be one.
+So it is checking that if your value is greater than 0.7 and smaller than 1.2, it means the shape that
+we have calculated, the circularity which we have calculated is true.
+And if the area is greater than 1000, this condition checks if the area of the shape exceeds a minimum
+threshold, which is 1000 units.
+Then this exact unit depends on the context, right?
+Because right now we are only using 1000.
+You can play with like a smaller number as well.
+But our main focus should be on this particular unit.
+Okay.
+But I'm making sure that the area is greater than 1000 because of our image.
+If you think that you have smaller coins in the image, you should change this particular value because
+your area will not be 1000.
+It will be smaller than that.
+I'm playing with 1000.
+You can play with some other number as well.
+Once I'm sure that the contour which I'm working with is circular in nature, only then I'm going to
+draw a few things.
+I'm going to draw cv2 dot draw contours.
+I'm going to draw this contour on what on my original image.
+This is the copy of the image which I have not changed yet.
+And I'm going to mention the contour which I'm going to draw.
+This will be contour.
+Then I will mention few things like minus one.
+These are the parts of coordinates.
+It means I want.
+And then I will fill it with zero comma 255.
+This will be the color of that contour.
+And then this will be the thickness of it.
+So I will draw the contour on my original image.
+Then also I'm going to draw a bounding rectangle because I got the segmentation I will get the segmentation.
+And what happens if I want to draw the bounding box.
+Also to get that this object has been detected, or to get its x y x y coordinate.
+So I can also draw a bounding rectangle.
+So I will mention bounding rectangle here.
+And I will pass the contour and it will return me x y w h.
+So once I have this x y w h I will use this x y w h to plot cv2 dot put text.
+And then I want to put my text on original image and I want to put f this.
+I will put in f string.
+I will mention that this is coin.
+Coin should be outside and this is coin.
+And I will use our instance number which I have mentioned here.
+This will be instance number one.
+And we will keep incrementing this instance number after every detection of circular point or circular
+object.
+So I will mention this coin number and I will mention the coordinates by which I have to write.
+So I will mention cv2.
+I will mention in the same x from where the coin is starting, but y minus ten as I mentioned the font.
+Font we have already mentioned here.
+The font which we are going to use is font Hershey Simplex.
+And once I have defined the font I will mention 0.6.
+These are different components.
+Have I mentioned 250 Zero.
+Zero.
+And then two as well.
+Once this is done, I'm going to use cv2 dot bitwise or.
+As I mentioned coin mask.
+And this is where we have calculated our coin mask.
+Here is our coin mask.
+Yes this is our coin mask which we have created from our grayscale image.
+It will all be white okay.
+Because it's all like zero.
+Okay.
+So it will all be black.
+So it is bitwise or from our mask which we have just created.
+So this will create a mask.
+When both of them is zero it will be zero.
+When both of them will be one it will be one.
+And this is it will compare with this particular mask.
+And we will create a coin mask.
+So it will only be a coin mask.
+The only part in this image will be true will be white, when both of them will be of the same color.
+Right.
+Both of them will be same.
+So it will create a coin mask where we will only see coin.
+And then once this is done, I will draw cv2 dot rectangle.
+I will mention original image.
+X minus five I am going to draw the rectangle.
+I don't want to draw rectangle edge to edge.
+So that's why I'm making minus five on all the directions.
+I'm going to mention y minus five in the y.
+Also, I don't want to draw edge to edge.
+I will mention x minus five and then it should be the first tuple.
+Now in the second tuple I will mention x plus w plus five and the next one y plus h plus five.
+You can look at this code later And then the color of my rectangle, I'm going to mention it as one
+6150 and 250.
+And then the thickness of that is going to be two.
+And once this is done I will increment this instance number which I have just created.
+And that's it.
+So what we are doing in this code we are creating first a mask of all zeros.
+It means it will be a black mask.
+Then we have what we are doing.
+We are going to define a few things like what is going to be our instance number font from which we
+are going to start.
+Then we are going to define the font number because we want at the end to write the instance number.
+This coin is one, this coin is two, this coin is three.
+We are going to write this components on our image.
+So we need a font which we are going to define it before for each labels in unique labels.
+We have defined this from all the markers okay.
+Whenever we see in our marker either zero is present or minus one is present.
+It means this is the part which we are not interested in.
+Why?
+Because the markers will start making sense when the value is starting from zero, and we have already
+converted all the 0 to 1 1 to 2 because we have added a value of plus one to it.
+So this is just a check that whenever we get zero and minus one, we don't want to consider it.
+But any mass marker which we are going to consider is is greater than zero.
+So when the marker is greater than zero or not equal to 0 or -1, we are going to create a new mask
+only for that particular marker.
+It means.
+Suppose for all this gray and bluish color looking images, all the markers will be 2 or 3.
+So when I mention a marker of three, all these dark gray colors which are able to see a dark gray and
+bluish color will be considered in a single mask, all of them will be considered in a single mask,
+all the yellow will be considered in the single mask and everything will be zero.
+Just like that, we will get mask for each of those colors, and for each colors we will apply contour
+detection and from contour detection, we will calculate the area and perimeter and check circularity.
+Circularity will be one in the most ideal case, but it will not always be one because this might not
+be the most ideal circle we will get.
+So we will.
+We are getting a condition that when the circularity is greater than 0.7 and smaller than 1.2, and
+when the area is greater than 1000.
+If your image is big kind of circles, make sure that the area is bigger.
+But if you have a smaller coins or smaller circles or any shapes, make sure that the area is smaller.
+So this is the parameter which you have to play with.
+So once it is pretty clear that you have circular object, you can draw contours, you can draw text
+on it, or you can draw rectangle on it to get the object detection kind of vibe to your image.
+Let's try to run it and see if we get any error.
+So there is no error here.
+So now all of the things are present in our original image.
+We will plot it side by side to see how the output looks like.
+I will mention plt dot figure.
+This is plt dot figure.
+I will mention fig size and I will mention 15 cross ten because it is going to be a bigger image.
+And I'm going to mention plt.subplot.
+We already have this code, so there is no point of writing it again.
+I'm going to copy the code if we have already mentioned it here.
+Okay, so we have not mentioned any PLT dot subplot.
+Okay.
+So we have already mentioned in our previous algorithm we can take this part.
+Let me copy it and scroll it towards the end.
+I will mention it plt dot sub figure I don't need this line of code.
+I will remove it.
+I need total number of three images.
+And it is going to be index number three.
+So in the first part I'm going to plot our image okay.
+Which is our original RGB image.
+And the second one what we are going to do.
+The second one I'm going to plot this original image which we have just updated and drawn all of the
+components.
+This will be our original image here I will mentioned.
+Labeled coins because we are working on coins.
+If your object is different, you can label, you can change this particular title.
+And the third one we are just going to mention this coin mask which we have just created.
+Okay.
+We are going to change this coin mask and it is the global for this particular cell.
+So it will be keep on updating here and I will mention this coin mask.
+This is final coin mask.
+Let's try to run it and see whether it looks perfect or not.
+When we run it, we are able to see correct implementation.
+Okay, the parts which are not coins.
+This is also not coin, but is also a part of the same color as seen on our labels.
+This is also the part of the same same marker as our coins, but it is not circular in nature.
+And this line of code, which we have just created here, is able to remove those unnecessary shapes.
+And in the labeled coins we are able to see this is coin.
+We have total number of one two and there is coin.
+Okay.
+This is coin number 3456.
+We have total number of six coins.
+And we are able to do with just plain OpenCV.
+We don't need any deep learning techniques for this simple task.
+But if the environment changes, if there is a change in the background or change in the coin type,
+it might be possible that this particular line of code will not work.
+In order to make changes to how you are doing the thresholding, Need to check change components like
+what we have mentioned here.
+Let me scroll.
+You have to change the component like threshold how you are doing the threshold, the distance transformation.
+Whether you want to provide this 0.3 or 0.7, or how you're calculating the distance for transformation
+with some intensity, this is five I have selected.
+You can mention a smaller value or bigger value if you want to make more intensified distance transformation.
+And there are other things like dilate operation.
+Whether you want a iteration of 2 or 3 or iteration of one itself.
+Here to get a more like better cleaned image, this is the code which we have used to remove the noise.
+So the steps which we have covered here is.
+First we have read the image and converted it to black and white.
+So once the image has been converted, we are creating a binary mask out of it, which we are cleaning
+with the help of morphology X method.
+Once it is cleaned, what we are going to do, we are going to dilate it to get the sheer background.
+And once we get the sheer background, we need to get to the foreground.
+So what we are trying to do, we are trying to use distance transform which will give us like distance
+transform map, which we are going to use again in cv2 to the threshold to get Azure Foreground.
+Once we get the foreground we are going to use, we are going to find out the unknown regions in our
+mask.
+We are going to use your background and your foreground to get the unknown region.
+And once we have the unknown region, we are going to calculate markers.
+We are going to use your foreground to calculate the markers.
+Then from the unknown region we are going to update our markers.
+And whenever we see that the unknown region is all white, we are going to update markers with zero.
+Okay, we are going to update our markers with zero.
+And once that is done we will have this markers which is going to be input to our watershed algorithm
+which will which will refine our markers and will present with more segmented markers.
+Once we have these markers, now it's up to us whether we want to check rectangle, triangle or any
+other shape.
+But this is the final mask which we get.
+But once this final mask is, uh, like once we get this final mask, what we will do, we will update
+this final mask and change it to our like output, which we want.
+Here we wanted as an instance segmentation for each coins.
+We want to have a name a text on it also with the bounding box.
+And this is how the labeled coin.
+This is how our output of labeled coin looks like.
+So in this lecture we have implemented three major image segmentation techniques that is thresholding,
+K-means clustering, and watershed algorithms using OpenCV.
+All of the techniques has their pros and cons and solves a different problem statement from improving
+the clarity to your handwritten notes, to grouping the colors in an image, or to segment complex scenarios
+where there can be overlapped objects which needs to be segmented in separate instances.

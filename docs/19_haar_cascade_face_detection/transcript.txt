@@ -1,0 +1,933 @@
+
+Hey everyone.
+Welcome back.
+In this lecture we are going to learn how to detect facial features with the help of Haar Cascades.
+Let's get started.
+So Haar cascades are machine learning based object detection algorithms.
+So let me highlight few points.
+Haar cascades are machine learning based object detection algorithms introduced by Paul Viola and Michael
+Jones in 2001.
+So they rely on haar like features and use a cascade of classifiers to identify objects within an image.
+So there are two components here which we don't know about, which is Haar like features and cascade
+of classifiers.
+So Haar like features are rectangular patterns which we are going to see soon.
+You can see here these are like features.
+We are going to talk about it after some time.
+So these are haar like features.
+And they are rectangular patterns that compare the intensity of adjacent regions in an image.
+These features are used to detect contrast in pixel intensity, which help identify structures like
+edges, lines, and textures.
+Okay, so these are rectangular patterns and we will talk about it soon.
+So think of Haar like features as templates or filters that detect a specific pattern in an image.
+Okay.
+So these are like features.
+So let's talk about what do you what do we mean by cascading classifiers.
+So the algorithm applies multiple stages.
+And this multiple stages are called a cascade okay.
+So we apply multiple stages of classifiers sequentially.
+Suppose this is classifier number one classifier number two classifier number three.
+And we have set of classifiers.
+We have cascade of classifiers which are in sequence.
+And if any of them fails in the process, if in like whatever input we are processing, if anything
+in between fails, then we will not do step two and three and this is what it returns.
+So if a region fails in one stage in any of the stage, it's immediately discarded.
+So this makes Haarcascade computationally efficient.
+So if whatever the process which we are going to do fails in between, we will not process two and three
+because it is in a sequence.
+If any of them fails, we will not proceed further and we can say whatever the output which we are expecting,
+we cannot provide it.
+So suppose we are returning as false at the end.
+Okay, this is just an example.
+So this is what cascading classifier means.
+So these are the cascading classifiers which is mentioned in Haar cascade.
+These are boosted ML algorithms which are boosted cascade of weak classifiers.
+So it's not like one two and three one is strong.
+Two is again weak.
+Three is again a strong algorithm.
+So all of them are are weak classifiers.
+And this is what we do in boosted terminology in machine learning as well.
+So whenever we use boosted algorithms in machine learning It basically means we have a lot of weak classifiers,
+and whatever the first classifier is not able to predict can be predicted by the classifier number two.
+This is what it means.
+So these are boosted ML algorithms which are boosted cascade of weak classifiers and the choice of classifiers
+in this algorithm.
+If you see in OpenCV documentation the classifiers, we can choose from DAB, which is discrete AdaBoost,
+also Rab which is real AdaBoost and LP which is logit boost.
+And the final one is gab, which is gentle AdaBoost.
+So these are the four algorithms.
+These are the four classifiers which is mentioned in OpenCV documentation.
+And you can choose any of it for the Haar cascade.
+So this is what we mean by cascade classifier.
+So if you check again the definition.
+So har cascade are machine learning based algorithms.
+So machine learning here means the boosted algorithms which is useful for object detection task introduced
+by Paul Viola and Michael Jones in 2001.
+Okay, we now know what is haar like features.
+These are rectangular features which help us detect edges, lines, or textures as well.
+And we use the cascade of classifiers to identify objects within our image.
+So let's talk about the use cases of Haar cascade.
+Where do we use it.
+So Haarcascade is used in systems which have less computation power.
+We don't have deep learning based algorithms here.
+So and we need to use a system which uses less computation power.
+And this is where we use haarcascade.
+So the example is face detection based selfie camera applications.
+So in the older phones not in the current generation I have not seen this in the current generation.
+In the older phones, if you face your camera to some person and it will, it will, it will give you
+detections like on the face, the green boxes, just like we are able to see on the image.
+And those are possible with the help of Haar Cascades.
+You don't require a deep learning based algorithm because the camera application is also a very heavy
+application.
+It is continuously processing frames and visualizing it on your screen.
+And on top of that, if you apply a deep learning based any algorithm, it will be too much heavy on
+your camera app.
+So there we use Haar, Cascade or similar kind of framework to detect people's faces and what you can
+do from the faces.
+You can track that camera, you can track where people are moving, or you can track if people are smiling.
+If smile is visible on the face, you can click picture automatically.
+So face detection based selfie camera application is one of the use cases.
+Second use cases person and car detection and smart security system.
+So if you have a smart security system, you can check on the application.
+If you click on the video, sometimes it detects person, it draws a box on top of person and sometimes
+on top of car as well.
+And how does it do like it does not have a very heavy AI system inbuilt and it is working.
+It is giving you predictions.
+It is giving you those bounding boxes, those green or red boxes because of haarcascade.
+So person and car detection in smart security systems, they also use Haarcascade or similar frameworks.
+Now if I talk about person detection.
+Now the third example person detection in robotics for interaction like automatic greeting.
+If you see a person again if haarcascade is able to detect person.
+Now if a robot sees person, we can ask robot like whenever you see person, do the automatic greeting
+and also it can track person if it is able to see person, we can also track person or if there is wall
+in front of you, we can detect walls and can avoid collision.
+And these are all the examples of light algorithms, right?
+Where we don't need to apply deep learning based a heavy system.
+And we can rely on systems like Haarcascade algorithm, like Haarcascade to be able to detect person,
+car, face, smile, or even walls as well to avoid collisions.
+These are the use cases of cascade.
+As I mentioned before that I will explain what are Haar like features in more depth.
+So let's talk about it.
+So these are like features.
+And these are rectangular patterns which I've talked about in the definition.
+So let's see the definition again.
+So like features are rectangular patterns that compare the intensity of adjacent regions in an image.
+We will see how it compares and how it calculates with the adjacent regions in an image.
+But these are rectangular patterns.
+So first let's see what these patterns are.
+So you're able to see there are six patterns.
+There are there can be more than that.
+But these are the basic patterns from where these are.
+These are called as Haar like features.
+These are rectangle.
+Here you can see a chessboard kind of feature as well as a black color in between two.
+And then this is the opposite of this particular feature.
+And if you see this is a box by a white box.
+And in the center we have a small black box, you can have the opposite of that, that instead of this
+white box, everything will be black, and instead of white we will have.
+Instead of this black, we will have white as well.
+So we can have just the inverse of this as a feature as well.
+And in this example you can see on the left we have right color or white color.
+And on the right we have this black color.
+And the opposite of this is this part right.
+Whenever like when there was white now it is black.
+When there was black now it is white.
+This is again a black feature.
+So here we have mentioned the total number of six features.
+Let's talk about it.
+So how like features are rectangular patterns.
+Now we know that these are rectangular patterns from all of these six examples that compare the intensity
+of adjacent regions in an image.
+I will talk about it in an example.
+So these features are used to detect contrast in pixel intensity.
+So in pixel intensity it is able to find contrast which will help identify structures like edges lines
+as well as textures.
+So examples of Haar like features are edge detectors okay or edge feature.
+So it distinguishes a dark region from a bright region like the edge of the nose.
+So if you want to see this edge of the nose this is edge feature.
+So if you check this nose and let me draw this line.
+So if you see this line so on the on the top part of the nose we have this white region.
+And on the edge we have this black region okay.
+Or you can see you can also conclude things like to get this edge which is darker in color as compared
+to your overall image.
+This is a white feature.
+In between we have a black feature.
+And again we have a white feature.
+So it closely resembles the features which we have mentioned here.
+Okay.
+This is a horizontal feature for that.
+If you make it vertical you will see this kind of feature.
+This is white black white.
+And here also you have similarity like white black and white.
+So this is what we mean by edge features.
+And then we have line features as well.
+So it detects horizontal or vertical lines like the bridge of the nose or the mouth.
+So you can see on the mouth also we have black.
+If you cover this box this is black.
+And in the center we have a line.
+Then at bottom we have white.
+So it is if you check this black and white if you use this black and white if you make it vertical in
+the between you are able to see this line right there.
+This is a line.
+So if it is able to follow that particular pattern we are able to see features like the line and lips.
+Also this is also a vertical feature.
+And there are multiple modes.
+So you're able to detect features like this with the help of Haarcascade.
+And then there is for rectangle feature which helps detect diagonal differences.
+You can see this is a diagonal.
+And if you want to have a diagonal like this, you just need to rotate it 90 degree or rotate it 180
+degree so that this black boxes will come here and all the white boxes will come here.
+Okay.
+Just the inverse of this and we will get another diagonal.
+Right now we are getting this diagonal.
+At that time I am going to do the inverse of this.
+We will get a diagonal like this.
+We can have diagonals in both the directions.
+So for rectangle features detect diagonal features in pixel intensity.
+Often used for detecting eyes or windows as well.
+So Haar like features are calculated by summing up pixel intensities in the rectangular regions and
+comparing their difference.
+Let us understand what this line means.
+So think of this as our Haar like feature.
+This is the rectangle which we have picked and you are able to see this rectangle.
+This is the rectangle which we have picked that is on the right we have white and on the left sorry.
+On the left we have white.
+And on the right we have black feature.
+So suppose this is our black features.
+And I have divided and I have like mentioned it as like an image.
+So here I have divided into eight parts for this haar like feature.
+You can see whenever there is a white, the pixel intensity is one.
+I have normalized all the values to 0 to 1.
+It is not 0 to 255.
+You can see the white pixels will be white, and whatever is black will be zero, zero, zero and zero.
+So this is our Haar like feature.
+Let me scroll a bit.
+This is our Haar like feature.
+And think of on the image that is on right side, the figure that is on the right side as our input
+image.
+Okay, so I have different shades of white and different shades of black here.
+And let's see whether this has a similarity.
+This image has a similarity to Haar like feature okay here this is what we have mentioned.
+Haar features are calculated by summing up the pixel intensities in rectangular region and comparing
+their difference.
+So this is what we are going to do here.
+Let's see it closely.
+So this is our input image.
+You can see this particular shade of white I have mentioned it as 0.5.
+This particular shade of white I have mentioned it as 0.1.
+It means it is very bright.
+If it is one, it means it is the brightest we can get.
+If it is 0.9, this is not the white which is present here, but a different intensity of white.
+And this is a dull white.
+So this is 0.6.
+This is little brighter.
+So I have mentioned it as 0.7.
+This pixel value is 0.7.
+But the black also this dark pixel I have mentioned zero for this kind of gray mentioned 0.4.
+This is random okay, this is not the most accurate number, but just for the sake of example, I mentioned
+it and this particular gray is 0.3 this gray I have mentioned it as 0.1.
+So this is our input image.
+And how do we compare it.
+First we will do the features.
+We will write the differences of our white and black pixels and will note down in our variable.
+So if you if you add all the pixel values which are white, it will be four.
+If you add all the values of pixel values which are dark in nature, it will be zero four, -0 is four.
+So this is the value of this Haar like feature.
+Let's compare for image one.
+How do we compare which is bright or dark?
+We can make a condition like if in our image.
+If in our image, if a pixel value is greater than or equal to 0.5, I will mark it as bright.
+Else it will be a dark color.
+Okay, let me write it here more clearly.
+0.5 then I will say it is bright.
+Else it is a dark pixel.
+So if I have this kind of condition, it will give me which of the images I need to add for bright part
+and which of the images I need to add for dark part.
+To do this calculation, if I have this condition and I will check in my image to 0.50.90.70.6 will
+come under bright, bright.
+And this is this part, 0.5 plus 0.9 plus 0.6 plus 0.7.
+And we need to subtract from the darker region.
+So darker region is it's 0.1, 0.30 and 0.4.
+So if we add both of them, like if you have this bright minus the all the added values of dark, we
+will get to a value of 1.9.
+Okay.
+This is about this image.
+So how do we compare that whether this image is a good fit for our Haar or not.
+Okay.
+Is it similar to our Haar or not.
+So let's do the reverse of this image.
+This is our image.
+Let's flip this image, flip or rotate this image to 180 degree.
+Or you can flip it horizontally as well.
+So all the pixels, all the this black, this particular black pixel will come here.
+This particular gray will come here, the image will be flipped and you will get this bottom image.
+Okay.
+Let me mention it.
+If you rotate this 180 degree or flip horizontally, you can do both.
+You will get to this image.
+Let's compare the same with.
+Let's compare the same Haar like feature with this image which is flipped version of that and you can
+see all the black pixels are written here and all the white are written here.
+And if I check that is dark pixel or dark pixel minus this, whatever comes at first we will do it and
+then subtracting with the next set of pixels, which is this part, and I will get -1.9.
+So let's compare it.
+So this is our image one.
+This is our image one.
+This is our Haar like feature.
+This is our image two right.
+This is Haar like feature.
+Image one.
+This is image two.
+So R-like feature sits in between.
+And I will compare the value of R-like feature was for the value of image one is 1.9.
+The value of image two is -1.9.
+Which of the value that is either -1.9 or 1.9?
+Which of them is closer to my heart?
+Obviously my 1.9 value is closer to my Haar value.
+Image two is far, so I cannot say this is very clear, but from all of these two images.
+My image one is having closer resemblance to my Haar like feature.
+So I can say this image if I compare.
+If I find this kind of pixels in my overall image, this is just a set of eight pixels.
+Suppose I have thousands of pixels, and I want to compare set of pixels or all the pixels in a sliding
+window with this particular haar.
+So whatever is giving you true, it means you have find haar like features in your image.
+Okay, what I just said, I just said if you have suppose thousands of pixels in an image, you will
+take all the pixels, each eight pixels at a time.
+You will do.
+You will check the similarity from this haar, and if it is closer, you will say this particular set
+of eight pixels has closer resemblance to my Haar like features.
+Okay.
+This is how we do the calculation.
+Let's see the definition again.
+So Haar features are calculated by summing up the pixel intensities in the rectangular region.
+You can see in the rectangular region and comparing their differences, we have.
+This is what we are doing.
+We are comparing their differences.
+So now let's move forward and see how Haarcascade helps us to detect faces.
+What are the steps involved in it?
+So let's read the cascade definition again.
+So in the cascade definition it is written that these are cascade classifiers.
+It applies multiple stages of classifiers sequentially.
+And this is what we are going to see.
+Now we are going to get the intuition.
+Now suppose we have multiple stages from stages starting from one to stage n.
+If all of them are successful, we will say face detected.
+If in between.
+Suppose from one to n.
+If n is ten and in the stage three, we got that none of the cascade, none of our haar like features
+are matching in the image.
+Okay, we are not able to find any similarity from my features in an image.
+So it means three has failed.
+So we will not check for four.
+Five till ten.
+We will say no face detected.
+No face detected.
+So how complex we want this checks to be.
+We need to mention in multiple stages.
+It is up to us.
+OpenCV has already implemented all these stages so we don't have to create them.
+But if you want to create your own custom haarcascade for car person for face, we already have.
+But for person and other objects you need to create how much validation you want.
+If you want hundred steps of validation in order to say this is a person, because this is not a deep
+learning based approach.
+This is a machine learning based approach.
+So you need to have multiple stages.
+So suppose this is stage one.
+This is stage one and stage one.
+This is the person.
+This is the input image which we are working with.
+And this part we are comparing this first Haar like features.
+This is our first Haar like feature.
+This is first rectangle box which we are going to compare with this person face.
+And this feature will find similarity where this feature will find similarity in eyebrow region.
+Let me draw this.
+Eyebrow region.
+First it will try to plot.
+This will be the black region.
+Okay.
+This will be the black region.
+And then we will have a white region.
+Then again a black region.
+This is one one.
+And then let me write it as it is.
+Okay.
+This is zero okay.
+Or you can make there is no need for numbering here.
+So let me remove the numbering.
+This is this box.
+This box.
+Let me mention this is 123.
+This is 123.
+So if you are able to find this kind of similarity how we will be able to find similarity.
+We will be able to find similarity from this calculation.
+If whatever the features of this feature will be, it will give you a value, it will give you a value.
+And if you compare this particular R-like feature with the feature on the image.
+Suppose on the image from the eyebrow part it is giving you.
+This particular value is having six as the value from the image, you are able to get 4.8 as the value,
+and based on the comparison, it's up to you how much distance you want, how much distance you will
+accept from the feature to the feature which you are looking for on the image.
+If both of them are close enough, you will say I have found the feature, so this step is true.
+It is found this feature in the same stage.
+Validation.
+You have made another validation in stage one itself for the nose you can see on the nose we have this
+darker region on both left and right section.
+And in between let me drop the different color and in between you have a white color.
+So this is black white black.
+So if you are able to find this kind of features in the image then I will say in the stage one part
+two is completed.
+So we are able to find this is white region.
+Black region.
+And again, this might not be this node, but it might be correct for this part.
+Let me make.
+So this is white.
+You can see this is white.
+You can think all of them as black.
+This is again white.
+So if you are able to find this kind of features also then also you can say this part is validated.
+Now for the lips part this will be white.
+This will be white.
+And in between you will find some kind of features which is darker than other regions.
+So this will be dark.
+So this is kind of similar.
+You will not find if the values of this feature is six.
+You will not get an output from this black features.
+If you do the calculation you will not get an output of six.
+So how much similarity you are going to accept in stage one?
+This is still a stage one.
+We can have multiple stages.
+In stage one it will have more general haar like features.
+Okay.
+We want them to be true.
+If it is not true, it means the object.
+There is no possibility of object present in the image.
+So if all of them are three, we can say our stage one validation is correct.
+Stage one is passed.
+Then we will move to more complex checks.
+In stage two we will check.
+So for eyebrow I will check.
+This is my eyebrow as black and in bottom we have this white.
+For this eyebrow I have black and this one is white.
+So I will check for the both eyebrow if this feature is correct, and I will apply this Haar feature
+on the second image.
+On the second part of the eye.
+And also this is correct.
+This part of the validation part one of stage two validation is correct.
+Then I will check if I want to check on the eye this kind of feature okay.
+I want to check this kind of diagonal line in my eye.
+And suppose this value, this feature value is six and my eye is giving you 5.2.
+It means we have found this kind of features in our face.
+I will again say this is correct for the same image on the different eye on our right side of eye.
+I will just do the inverse of it.
+You can see this is the inverse of it.
+Or you can say this is rotate 180 degree as well.
+If you rotate it 180 degree you will get this feature.
+Okay.
+You don't need to just rotate 180 degree.
+You can rotate one.
+Let's see if we rotate to 90 degree.
+Also whether it will work or not.
+Yeah, it will work on 90 degree as well as 90 degree as well.
+Okay.
+So this is rotate 180 degree.
+Let me write for the sake of simplicity one degree.
+If I rotate it 180 degree it will be just flip off it.
+But it will still work.
+Okay.
+So I'm just going to write this part.
+Either you can do inverse or rotate and this features will already be present in OpenCV.
+This part will also be correct because this is the diagonal line which I am looking at.
+You can see this black line.
+And for this one, this is the black one, right?
+This is the diagonal present here.
+So it will try to find this kind of features.
+This part of validation is correct.
+Then I will say my stage two validation has also been approved.
+You can see at each stage, at each stage we are getting to a more complex kind of checks in order to
+check whether the person is present on my image or not.
+This is what we are looking at.
+So stage two validation is also passed in stage three where we are checking, we are checking I whether
+there is presence of presence of I or not.
+So you can see all these white regions here.
+And on the black in the center we have a black one.
+So everything will be white.
+And here we will have black, everything will be white, and here I will have black, and this stage
+will be passed for the lips also, you can see there will be black region and the center there just
+on the edge we will have white and again we will have black here this stage will pass just like that.
+We will have multiple parts in a particular stage and we will get to our stage and whatever stages we
+have defined.
+Okay.
+It is up to you what in what stages you want to do.
+What checks.
+In Cascade, they have defined what features they want to check in, what stages.
+And this is something from the example point of view I've mentioned here.
+And in stage three I want to perform this check.
+In stage one I want to perform this generalized check which will which should pass for any kind of person
+okay.
+This will be harder.
+This is more hard.
+If any of the eye is closed.
+This stage might give you false as answer and it will not say face detected because in stage three,
+if we have total number of ten stages, if stage three has failed in, it will directly go to the next
+part and say no face detected.
+Let me write it clearly.
+No face detected, but if all the stages are passed.
+I can have one stage, I can have two stage, I can have one stage as well based on how much validation
+I want to do.
+If all of them are correct, then it will say phase has been detected and it will give you bounding
+box as well.
+It is x, y.
+W and h.
+It will give you bounding box which which you can use to plot the rectangle on your image.
+Suppose this is your face and you got this rectangle.
+So you will plot the rectangle given by Haarcascade.
+After all the validation and you will see my face has been detected.
+This is what we do in Haarcascade.
+So let's head over to VS code and see how to implement this.
+So we are going to first start with importing our library.
+So I will mention import cv2.
+And the first thing we are going to do is facial detection.
+Okay let's not do the whole facial detection.
+But we will only do the face detection.
+We will not say the components of face, but we will say face detection.
+In the face detection, the first thing I will do is I'm going to use my webcam.
+So I will mention cv2 dot videocapture and I'm going to capture my webcam which is zero.
+Webcam is present in zero.
+And I'm going to store this object as cam.
+I'm going to use the features of cam like cam dot read to retrieve the frames from my camera.
+So I will mention cv2 dot cascade.
+You can see this is Cascade classifier.
+Then I will mention cv2 dot data dot cascade.
+Let me mention cv2 dot data dot har cascades.
+Plus I need to mention the path of the Haar cascade.
+So when you install OpenCV, Haar cascades are also being installed in your system, so you can directly
+use them.
+So if you need to mention the one haarcascade which I'm interested in, the rectangular boxes and multiple
+stages for phase I'm interested in.
+So I have to mention the haarcascade file for the phase, so I will mention haarcascade.
+This is the name of the file Haarcascade.
+Then I will mention frontal face.
+This is frontal frontal face underscore default dot XML.
+And now you might be asking that how I got to know about this file name, whether whether it exists
+in our system or not.
+If not, how can we download this particular file and from where?
+So let's head over to Chrome and go to our GitHub of OpenCV.
+And we will see this Haarcascade file there.
+So this is official GitHub repo.
+You can see this is OpenCV.
+And we are inside data inside Haarcascade.
+So if you go to OpenCV let it load.
+This is the main GitHub repo of OpenCV.
+And you need to go to data.
+And inside data you will find Haar cascades.
+You find this cascade.
+So if you click on this Haar cascade, you will find a lot of XML files in this XML file.
+For frontal face we are what we are going to use is we are going to use haarcascade frontal face underscore
+default dot XML.
+So it has all the stages mentioned inside it and it is already trained to use.
+We don't need to create any classifier, any boosting method to get these values.
+To get those similarity, we just need to use this file with the OpenCV and it will be able to detect
+faces.
+But if you are curious about what are the stages written, so you can see there are total number of
+25 stages for this particular face detection and there are multiple values for that okay.
+You don't need to worry about all these values.
+This is this is already trained and available to use by OpenCV.
+We are going to use this.
+And if you want to check the OpenCV this is the main OpenCV library.
+And here they have mentioned about working with boosted cascade of wheat classifier, including two
+major stages and the algorithms I talked about.
+You can see this is also this is where the algorithm is mentioned.
+You can see the type of boosted classifiers that is DAB, discrete, AdaBoost, Reb, real AdaBoost
+and there are multiple values for that.
+You can read about Haarcascade more, and if you want to work with lot of different cascades which is
+already present in OpenCV, you can head over this to this page that is official GitHub repo of OpenCV.
+Then inside data inside Haarcascade you of lot of haarcascade like smile as well like I as well, which
+we are going to use in this class.
+So now that we have seen where did I got this name of Haarcascade and everything that is present on
+the GitHub repo is already installed in your OpenCV.
+When you install OpenCV in your system, all the files also comes so you can directly write cv2 dot
+data dot haarcascade.
+Even though this file is not present, it will.
+It will check the data of Haarcascade and will consider this file from there.
+Okay, So we will initialize our cascade classifier and we'll mention as face underscore cascade.
+And once we have our cascade ready I will mention while true.
+And then I'm going to read frames from my camera.
+So I will create cam dot read.
+And this will return me read which will mention the state of my current frame.
+Whether it is retrieving or not, it is true or false.
+And then it will mention array t comma frame in cam dot read.
+So once this is done I will check.
+I will write a condition if there are no frames.
+If it is false I will mention failed to grab frame.
+Once this is done, I will break it.
+Okay, this will give me a print statement.
+This will print fail to grab frame in my terminal or in my cell of my interactive Python notebook cell,
+and then it will say it will like come out of this while loop because there are no frames present in
+my webcam.
+So once this is done, what I will do, I will mention cv2 dot cvt color.
+I'm going to convert this frame which is originally present in BGR.
+I will mention cv2 dot color underscore bgr to and I will convert to gray because again Cascade will
+work with gray images.
+I am going to mention it as gray.
+So I will save this new converted frame to my gray variable.
+So once this is done I will apply my face dot cascade.
+So I will mention face underscore cascade which is my this particular object.
+So I will mention face underscore cascade dot detect multiscale.
+So I'm going to detect face on multiple scales.
+It can be small, it can be large.
+There is no constraint to whether I'm close to my camera or far from my camera.
+So we are going to detect on multiple scales.
+I'm going to pass our image, which is this gray, and then mention this scale factor as 1.3.
+And then I'm going to mention this minimum neighbors is equals to five.
+So this is scale factor values which we have mentioned it as 1.3 helps in detecting faces at different
+scale.
+Okay.
+You can adjust it based on the size of the face of the Or like in present in your image and for minimum
+neighbors.
+This particular five value here means it helps reduce false positive.
+Increasing this value makes the detection more strict.
+Okay, it will make the detection more strict, but again it will take some computation.
+So the more higher the number will be, the more computation it will take, but it might miss some of
+the validation detection as well.
+Okay, if it is true too strict then it might miss your face itself.
+This is what it means.
+That is minimum neighbors.
+So this face cascade is going to return you few things which will be stored in which we will store in
+variable, that is faces.
+Let me scroll a bit.
+Then I will go to this faces.
+I will iterate over it and it will provide me few values like x, y, w, h, which I have already mentioned
+in our theory.
+So this will return us faces because it can have multiple faces.
+Our image can have multiple faces.
+So I am going to use our for loop and draw on this grayscale image or on our main camera image, because
+this is the main frame which is RGB.
+This is a grayscale image.
+So on our RGB image I am going to write, I am going to draw our x, y, w, h and create a rectangle.
+From that I am going to use cv2 dot rectangle.
+And we'll pass the frame.
+And I will pass the first coordinate of x and y which is x comma y.
+Sorry for that.
+This is x comma y.
+In the next frame I have to write x plus w which is our x two.
+Or you can say x dash.
+And then for y you need to mention y plus h.
+This is what you will mention.
+And then we have to mention the color of the box.
+The color of box I want to be 255 comma zero, comma zero, and the border width of of that particular
+rectangle.
+I want to be two.
+So once this is done I'm also going to write some text on the box that is like the face has been detected.
+So I'm going to mention that.
+So let's write cv2 dot put text.
+And we want to write text on frame.
+And the text we want to write is face detected.
+This is what we are going to write.
+And then we need to give the coordinates.
+So I'm going to have the same coordinate as x.
+But on the y I want it a little bit lower.
+So I want to write it as y minus ten okay.
+And then I will mention the font types I'm going to use cv2 dot font.
+And I'm going to mention font Hershey Simplex.
+This is Hershey Simplex.
+And then I will mention 0.9.
+These are the values which we have already learned before.
+Then the color that is 255 comma zero.
+Then I will mention two.
+Then cv2 dot.
+This is the method.
+This is line.
+It should be small.
+That is cv2 dot.
+Sorry for this.
+Yeah it should be cv2 dot line aa.
+This is the method and this particular line of code is going to put face detected on your frame.
+If rectangle is present, if any face is present, else it will not do.
+So if you have ten faces in image, this will run for ten times.
+It will draw the rectangle and will put into frame one by one.
+Okay?
+At each.
+At each iteration it will first pick the first face, then on the next for loop it will do the second
+frame.
+Just like that.
+It will keep on doing until we have all the faces covered.
+So once this is done we are going to show this.
+That is cv2 dot I am show.
+It should be small.
+That is cv2 dot I am show and I will mention the window name.
+The window name is camera and then I will mention frame.
+So this is our frame.
+Then I will make a condition.
+I will mark a condition that cv2 dot wait key.
+Wait Waitkey of one and zero x f-f.
+Just for the values, which is going to be, compare the Ascii values when I press a value of q.
+If it is compared with the value of q, then I want it to be break.
+So I want a condition because this is webcam.
+The frames will be infinite until I close this webcam.
+So I need to have that functionality to grow to close this while loop.
+So I will have this functionality here.
+So once everything is done I need to close I need to release the camera.
+So I will mention cam dot release.
+And I will say cv2 dot destroy all the windows which have been created and to destroy all those windows.
+So let's run this cell and see the output.
+So we have already imported our cv2.
+So if I try to run this cell, it should start my webcam and we will be able to see the face has been
+detected on my webcam.
+So if I run it, my camera will start.
+Just wait for a second.
+My camera is opening and it is present on my taskbar.
+You will be able to see the face has been detected.
+You are able to see this is the blue box which we have created, and this has been created from our
+cascade and the green text.
+This is the text which we have written right.
+This is the x coordinate.
+And from here if we do the x minus ten we will go a little above right.
+Because this is from x comma y.
+If we do minus ten.
+So this will go above right.
+This is where we are detecting the faces.
+So let's stop this.
+Let me press Q to make this process stop.
+And that's it.
+We are able to do face detection with the help of our cascade.
+So let's apply a bit of complexity here.
+Instead of just doing the face, we can do face plus eye detection.
+Let's get started.
+So let me write the next thing which we are going to do face.
+Let's also do I.
+Plus we will do mouth as well.
+Okay.
+We will mention face plus eye plus mouth.
+So a lot of the code is usable.
+We are just going to update few things and our code will be ready.
+So I'm going to copy this part paste it again.
+This is for face Cascade.
+Now we need two more cascades.
+So I'm going to mention this code because this is the same line which we are going to use but multiple
+times the cascade classifier for frontal face we have mentioned.
+Now we have to mention for.
+Eye here.
+So our cascade underscore eye dot XML.
+Now har cascade underscore smile dot XML.
+So you can see these are actually the XML files which is already present on the GitHub repo.
+And then I'm going to mention instead of face Cascade, I will mention it as I cascade.
+And here I will mention it as mouth cascade.
+So while true all the code will remain same.
+Now once I detected the face, I don't have to detect face, eye and mouth separately for and write
+this for loop multiple times.
+My eye will be only visible when the face is visible, right?
+My mouth will only be visible when there is existence of face.
+If there is no face, there will be no eye.
+If there is no face, there will be no mouth.
+So only when my face is detected I will go and detect for eye.
+I will go and detect for mouth as well.
+Okay, so after this part, when we detected the face, the first thing we are going to do is we are
+going to draw this rectangle.
+So this part is correct.
+We are going to draw a rectangle on the faces.
+Then what we are going to do, we are going to extract the gray part from the image.
+Okay.
+So I'm going to mention ROI underscore gray because now on the face, the extracted face we are going
+to detect I.
+Okay.
+Let's head over to our scribble.
+And then we will be able to see what I'm trying to say.
+This is our scribble.
+And let me mention what I'm trying to say here.
+So this is our original image and this is where we have detected face, right?
+We have detected what to detect face.
+This whole image name is frame.
+This whole image name is frame.
+And this particular part detected is face detected.
+So when we have to detect eyes and mouth, eyes and mouth are not present in this part of the image.
+Eyes and mouth are not present in this part of the image.
+So instead of passing this whole frame to detect eye and mouth, we can crop this particular part of
+the image.
+We can crop this particular part of the image.
+We can extract it and then send it to our eye cascade classifier as well as mouth cascade classifier.
+For that we first need to convert it to grayscale as well.
+So we will convert to grayscale as well.
+And we will also keep the original.
+So we will also store the RGB version that is the original version of our eye as well as mouth.
+So we will have two version and this is what we are trying to do here.
+So for cropping we are going to use numpy array slicing.
+So I'm going to mention because I want to slice from the frame.
+This is already in grayscale.
+So I'm going to mention gray.
+And then I will mention y one and then y two.
+So my y one is y.
+You can see this is y and I will get.
+This is my faces.
+I will get y2 from y plus h.
+So this is y1 y2.
+And then this is x.
+And we want x2 as well.
+So we will get x2 from x plus w.
+So this will create a cropped image and we will save into ROI gray.
+So this is the cropped image of the face itself.
+This is the cropped image from the main original face.
+So this will be cropped.
+And then I'm going to store the same thing from the frame as well.
+Because I want to have RGB from the RGB.
+RGB is stored in frame and I'm going to use ROI underscore color.
+Now I have cropped version of gray as well as color.
+So what I'm going to do, I'm going to just like I initialized four faces here.
+And I pass each frame to my face to my like whole image that is grayscale image.
+I need to pass each of the cropped image again to my eye cascade as well as my smile cascade.
+I'm going to copy.
+And I will mention instead of face Cascade, I will mention I Cascade.
+And here I will mention mouth cascade instead of gray.
+We will pass our ROI gray.
+And what we will get, we will get eyes here as well as we will get mouths here.
+Okay, smile.
+The Haar cascade name is smile, but it detects mouth, so we will have mouth here.
+So once it is detected, then we will do the same which we are doing here.
+That is in the for loop.
+We will do.
+We will check all the eyes present in my face.
+Okay.
+We as a human knows that we will have two eyes, but our model will predict.
+Wrong.
+It can have.
+It can predict three eyes, four eyes, whatever eyes it is predicting, we need to plot it.
+So what we will do for eyes?
+I will mention x, that is x for eyes, then y for eyes.
+So it will be e y.
+Then I will mention e w width and then e h.
+In eyes we will get all these values in eyes.
+Now I will plot a rectangle.
+So let me copy this code.
+And I also want to copy our cv2 dot put text.
+And I will say here only eyes because I don't want to like plot and put all the text, all the bigger
+text.
+I just want to put eyes there.
+Okay.
+So what frames I have to write.
+I have to write again in my original frames where I was writing the frame.
+So this part is correct.
+Instead of getting this x, y, we have to mention x plus x.
+Why is that?
+Let me open this part.
+We will mention if this is our x coordinate previously.
+This is the x coordinate of my face.
+And suppose this is where I'm getting my eyes.
+Whatever was x.
+And if my model is predicting given this image, because this is the image which will pass to our eye
+and mouth cascade instead of the full frame, we are going to pass the frame.
+So it will try to give you coordinate relative to this frame, right?
+The x and y coordinate you will you will get is going to be mentioned like this is zero comma zero for
+your eyes.
+Whatever x you will get.
+You have to add this x which you got and the new x which you get from x only then you will get x plus
+x as the coordinate of I with respect to your original image.
+Because this x is with is relative to this image, this particular x is related to your cropped image.
+So to make this inner x relative to your main image you need to add this particular x which is the second
+x of I.
+You got in order to get the I th coordinate.
+So you need to mention the main original x.
+This is what we are going to see here.
+Okay.
+So in this main x what we need to do in this main x we need to add x.
+In this main y we need to mention e.
+In this main x we need to add e x because that is the new x plus e w y.
+This will make it new y.
+So I will mention e y.
+So till this part is the new y.
+So that's why I have mentioned this part, then it will be e h for height of eyes and everything will
+remain same.
+For this coordinates of x and y.
+Also, I have to mention this part.
+Let me copy.
+So for x and y I will replace this whole thing.
+I'm not sure what happened.
+So I will make sure this is copy and I will paste it here.
+So now you will be able to see this is y plus x minus y minus ten.
+So this will do the subtraction from this value.
+So this part is ready.
+Just like that I have to do for mouth as well.
+So I will copy this whole thing and just change few of how I'm defining the variable.
+Just the names of it.
+So for eyes I was mentioning E for mouth I will just mention M, I'll mention m e m y m w m h.
+I will again consider the frame, but instead of this x, I will mention m x m y m x m w m y m h.
+And then here it will be m x m y.
+Then the final thing is going to be this is mouth.
+And this should not be eyes.
+This should be eye because at a time it will detect a single eye.
+This will detect a single mouth.
+So once the face is detected we have drawn the bounding box on our face.
+Then on the cropped region.
+With the help of cropped region, we are getting this eyes and mouth from the all the detectors of eyes.
+Relative to this frame.
+We have to write relative to the main original image.
+So on the x, whatever the new x we got, which is relative to our cropped image, we need to add it
+to our original X.
+And this will give us the rectangle of eye If you have three eyes, this will plot three eyes.
+Once all.
+All the eyes have been plotted.
+We will plot for mouth.
+So this should be mouth.
+This is mouth.
+So we will do for mouth.
+For all the mouths present in the image.
+We will plot them one by one.
+Once everything has been plotted, then what we will do?
+We will put the text on the original frame, given the x and y, that in this frame our text has been
+detected.
+So instead of placing it here, what I will do, I will cut it paste it here.
+Now it looks fine.
+Once the face is detected, I will also put the text, then in there, then for eyes, then for mouth
+and everything else is same.
+So this is very simple as compared to our deep learning approach which we are going to see.
+But there are pros and cons of this method as well as for deep learning.
+If I talk about computation, storage and a lot of other factors like accuracy as well.
+So let's run this cell and see how the output looks like.
+Let me try to run it.
+A new tab should open here, so let's wait because it will start the camera and will start the processing.
+You're able to see this is detecting a lot of mouth a lot of eyes.
+So this is eye.
+And it is able to detect mouth also.
+And which looks little weird.
+So let me stop this prediction.
+So one of the possible reasons why there are a lot of mouth and like eyes because of like inaccuracy.
+We want to increase the accuracy.
+And how can we increase the accuracy.
+We have multiple factors like scale factor and minimum neighbors.
+So if you want to like improve our scaling, that means our image should work on all the scales.
+Smaller image, larger image.
+We can make the scale factor.
+So for eyes and mouth, let's try to run it again and see if it changes the output when we try to change
+this value.
+If I try to run it, let's wait for the output again.
+So we are able to see that ice is detecting correctly, face detecting correctly.
+But mouth is not that accurate because of whatever the Haar like features are matching, they are not
+that accurate.
+So let's try to change not eyes, but just the mouth part.
+So I want to work with this part to increase.
+I want this scale factor to increase and minimum number of neighbors.
+Right now it is predicting anything, but I want it to be more accurate and more strict.
+So instead of five I will go with something like 20.
+Okay.
+And let's try to run it.
+Let's see if there is any change in the output.
+It will run in few seconds.
+Yes.
+So now it looks very correct, right?
+If you like.
+We didn't change any code, but we have just changed the parameter.
+Even though this approach is not the best approach and you can see it works real time.
+I'm talking.
+You are able to see the voice is matching, the current space is matching, my mouth is clearly visible.
+It is going in and out.
+But still in this given pH it is probably more than 25 pH.
+It is able to detect correctly most of the time in all the faces, but you are able to see.
+Sometimes it detects it.
+It detects face around here, right?
+If I try to move it, it sometimes detects it because of inaccuracy on the face.
+If I want to improve accuracy on the face, I need to have better lighting conditions.
+If not, I need to increase the accuracy of face, just like I've increased for the mouth.
+And this wraps up our detailed exploration of haar cascades.
+So in this lecture we have covered everything from foundation concepts like Haar like features and the
+cascade of classifiers to their practical applications such as facial features like face, mouth, and
+eyes as well.
+And that's it!
+Thank you so much for watching this lecture.
+I'll see you in the next lecture.
+Complete Computer Vision Bootcamp With PyTorch & Tensorflow

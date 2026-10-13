@@ -1,0 +1,1025 @@
+Hey everyone.
+
+Welcome back.
+
+In this lecture we are going to explore color spaces using OpenCV.
+
+Let's get started.
+
+So when we work with images, the way we represent color of each pixel plays a critical role in how
+
+we process, analyze, and manipulate those images.
+
+Different applications and systems may use different color space, and OpenCV provides multiple ways
+
+to convert between them.
+
+So why there is a need for color space conversion?
+
+Let's understand this with the help of an example.
+
+So this is a camera.
+
+This camera outputs frames or images in RGB color space in RGB format.
+
+As we can see this is our general color space red, green and blue.
+
+Now there is a television.
+
+This television expects a color space of BGR.
+
+Okay.
+
+But there is an issue.
+
+The compatibility is not good here.
+
+The camera footage is in RGB and the television is expecting the footage in BGR, right?
+
+So now there is a need for color space conversion from RGB to BGR.
+
+This is where we require OpenCV.
+
+So OpenCV provides multiple ways to convert between from one color space to another color space.
+
+Let's explore some of the most common color spaces present in OpenCV.
+
+One by one we will start with RGB RGB color space.
+
+RGB stands for Red, green and blue.
+
+As you can see in this diagram, this R means red.
+
+This green here means green, and this B means blue.
+
+So the three primary colors used to represent color images are present in RGB.
+
+In this model, each color is a combination of these three primary colors only.
+
+Okay so this is an additive model.
+
+Let me write.
+
+This is an additive model.
+
+Additive model.
+
+The channel one here always represents red.
+
+Second channel represents green and third channel represents blue here.
+
+From this if we wanted to create a white color okay.
+
+If we wanted to create a white color.
+
+And because this is a additive model, if we add the highest intensity of red, plus highest intensity
+
+of blue and highest intensity of green, we will get a white bright pixel.
+
+As you can see, r g b r means 250 500, g means zero comma, 255 comma zero, and b means zero comma
+
+zero comma 255.
+
+That is, r g, b.
+
+Each value of this r, g, and b ranges from 0 to 255 255 means the brightest of red for in case of
+
+red in case of green 255 others will be zero, and only green will be starting from 0 to 255.
+
+And for red and for blue, others will remain zero and for only for blue.
+
+This range will be 0 to 255.
+
+So this is for pure red, pure green and pure blue.
+
+Okay.
+
+Pure red will be 255 comma zero comma zero green will be zero comma, 255 comma zero and blue will be
+
+zero comma zero comma 255 okay, I'm talking about pure colors, but if you want to mix, if you want
+
+to get some kind of pink in here, we have to have some values of R.
+
+It will not be 255.
+
+Suppose it will be okay.
+
+Let's think 255 of R and little bit of blue and some amount of green.
+
+And suppose this is the color code for this pink color.
+
+Here it is making from R, G and b.
+
+Let me erase it.
+
+This is just an example here.
+
+So this is for a particular color.
+
+So if you want to create a white we want the pure color of red, pure color of blue and pure color of
+
+green.
+
+As you can see in the center we will get a white color.
+
+White color is 255 comma, 255 comma 255.
+
+And because of this additive model, we are able to get white by adding pure red, pure green and pure
+
+blue.
+
+Why we use it.
+
+Why there is a use of RGB.
+
+So RGB corresponds closely to the way humans perceive color, right?
+
+Monitors.
+
+Digital devices usually use RGB model to display the color images.
+
+The next color space in our list is grayscale.
+
+Grayscale represents color in the shade of gray.
+
+You can see this is a pure white.
+
+This is a pure white.
+
+And the value of this white will be 255.
+
+This is a pure black.
+
+The value of this is going to be zero.
+
+Okay.
+
+The value of this is going to be zero.
+
+Same here.
+
+This is zero and this is going to be.
+
+255.
+
+So grayscale range from 0 to 255.
+
+Let me change our color.
+
+So grayscale range from 0 to 255.
+
+This is basically the same thing but one is reversed and others is like the reverse of that.
+
+Okay.
+
+So 0 to 255.
+
+Zero means black and 255 here means white.
+
+And anything in between is a is some kind of gray.
+
+Okay.
+
+Anything in between is some combination of gray, but not that pure white and pure black.
+
+So it only uses one channel.
+
+As in RGB, we are able to see it has red, green and blue, but in grayscale we only have values of
+
+gray.
+
+You can see we only have values of gray.
+
+Either it is pure white, pure black, or it is in between with multiple intensity with only one channel.
+
+So why there is a need of grayscale?
+
+Grayscale is used because of computational efficiency.
+
+Okay, so instead of RGB it has only one channel.
+
+So they are lighter in terms of memory and processing.
+
+Okay.
+
+Because of one channel they are lighter in terms of memory and processing.
+
+The second thing is simplification.
+
+So when color information is not required suppose we are looking for cars only cars we are not uh,
+
+like we don't care about the color of the car, whether the car is red, black or white.
+
+We only care about car, right?
+
+So in that kind of, uh, problem statement, we should use grayscale because there is no need of color
+
+and we are only working with one channel.
+
+So that will be computationally inexpensive as compared to an RGB image.
+
+So second thing is going to be the simplification.
+
+Okay.
+
+The third thing is it saves space.
+
+Suppose RGB image is taking three MB of your space.
+
+Same image.
+
+Okay.
+
+The same image in grayscale.
+
+Might take one MB because it has two less channels than RGB, but it captures all the details.
+
+So I said might take because there are other informations in grayscale.
+
+But we are only considering one MB because we have RGB in three channels and here we have only one channel.
+
+So this is all about grayscale color space.
+
+The next thing we have in our list is HSV.
+
+The first channel here is hue.
+
+So hue is the color of the image.
+
+Okay humans the color type.
+
+The second is going to be saturation.
+
+The second is saturation.
+
+Saturation means purity of color.
+
+Purity of color.
+
+The third channel is value.
+
+It defines the brightness of the color.
+
+Brightness of color.
+
+As you can see in this diagram, this is a cone shape.
+
+Right.
+
+Inverted cone.
+
+And you can see there is three axis v h s or h s and v h means the color.
+
+H is the circular part of the cone okay, as is direction in this code, you can see if you pick from
+
+the center and go to this direction.
+
+This is saturation.
+
+And if you move above and below this cone, that will be your V channel.
+
+That will be your value channel.
+
+So what this HSV and means.
+
+So as I mentioned H is the color type.
+
+You can see on this wheel.
+
+If you go on a particular degree starting from 0 to 360, okay, starting from zero to 2 to 3 6180 degree
+
+to 240 degree means blue okay.
+
+At 270 degree we are able to see kind of pink around 300 to 0.
+
+We are able to see a warm kind of colors red, pink and other colors around 120 to 60.
+
+We are able to see this green hues.
+
+So this color wheel shows what is the type of the color based on the degree we are in.
+
+Okay, so it has divided the color based on the degree.
+
+Now suppose I want red but I don't want a pure parade.
+
+I want little impure red.
+
+It means it has some yellow.
+
+It has some blue, some green.
+
+So this kind of pinkish red I want that is the saturation.
+
+I will move.
+
+If I move the saturation to very high, it will be pure red.
+
+If I move the saturation to a bit, it will be a it is, it will be mixing other components on a particular
+
+degree.
+
+Okay.
+
+Suppose I want to target this color here.
+
+It means it is red at zero degree.
+
+It means my hue is at zero degree.
+
+But now my saturation is not hundred percent saturation.
+
+Hue goes from 0 to 360.
+
+Degree saturation goes from zero to hundred.
+
+Okay.
+
+But it is percentage saturation is in percentage.
+
+So let me write saturation here.
+
+Saturation goes from 0 to 100%.
+
+Value also goes from 0 to 100% okay.
+
+This is about value.
+
+So my hue is currently zero degree but my saturation.
+
+Suppose this is zero and this is 100%.
+
+My saturation is around 50%.
+
+And let's talk about value.
+
+What should be the value of this color.
+
+So value is nothing but how much bright I want okay.
+
+How much bright I want that color to be.
+
+If I want this color to be same as this color, I want value to be hundred 100%.
+
+If I want this color to be dull, I will increase this brightness so I can show you this.
+
+With the help of the tool that I have.
+
+You can see I can pick multiple colors, right?
+
+Suppose this blue.
+
+The saturation of this blue is hundred.
+
+If I decrease the value.
+
+Value means the brightness you can see for the same color.
+
+I'm.
+
+It is getting dull and dull and dull.
+
+Right.
+
+It is getting darker.
+
+So this is the value of that color.
+
+This is the saturation.
+
+The saturation is hundred percent.
+
+I am decreasing the saturation.
+
+If I decrease the saturation to very zero, it will be a white color.
+
+At center you can see this white color, right?
+
+This is a white color.
+
+If I increase the saturation of this particular degree, this blue okay I will be able to get this color
+
+okay.
+
+I will be able to get the saturated of that particular degree.
+
+Understood.
+
+So this is how HSV looks like.
+
+So why do we use HSV.
+
+So HSV is used where we want segmentation based on color okay.
+
+It is used where we want segmentation based on color.
+
+Let me write uses R if we want to segment our image based on color.
+
+Suppose in my image this is.
+
+My photo okay.
+
+And all of the background of this photo is made with green color is made with green color.
+
+So let me create that green color.
+
+Let me increase the opacity.
+
+Okay.
+
+Let me create this green color and let me draw a person.
+
+Okay.
+
+Suppose this is a person portrait photo for now that I want to replace all of this green with some color.
+
+So instead of using deep learning techniques, I can use HSV for color thresholding.
+
+I will be able to select a particular color with the help of HSV.
+
+For this green, I will be picking somewhere around 120 and I will decrease the value, not the saturation.
+
+I think saturation is pretty good here.
+
+If I decrease it, I will be getting to this color a little dull color, right?
+
+So I will use variety degree in my hue saturation same and value I will decrease to 30 or 40%.
+
+Then I will be getting to range where I will be getting this kind of green color right.
+
+So I can select that green color and ask my Python and OpenCV to remove this green color from my image
+
+and replace with something else.
+
+Okay, to replace with something else.
+
+The problem statement we are solving is we are able to segment the image based on some color.
+
+Okay.
+
+You will be understanding what is segmentation in detail.
+
+But we are able to find a particular range of color and we are removing it.
+
+So for now this is the meaning of segmentation.
+
+Okay.
+
+So HSV is more intuitive for tasks like object tracking or segmentation as it separates color from intensity,
+
+making it easier to define color ranges.
+
+The next color space we have in our bucket is lab.
+
+Okay, lab.
+
+As you can see on the diagram we have multiple diagrams for lab here.
+
+So lab is the first channel of lab is L.
+
+It means brightness.
+
+The second channel means a a handles green to red component.
+
+Okay.
+
+Green to red component.
+
+And B here means blue to yellow component.
+
+Blue to yellow component.
+
+So here we can see this sphere.
+
+Right here we can see this sphere.
+
+And at the center we are not sure what is happening.
+
+But we will understand this with the help of this particular diagram okay.
+
+So let me switch a color color a little bit so that we will be having more clarity on this diagram.
+
+So as we can see I've made changes to this diagram to be able to better understand what lab is.
+
+So as we can see on this sphere diagram on the very right we can see this red color.
+
+Right.
+
+This whole area is red.
+
+And on the very left we can see this green gradient colors.
+
+There are a lot of greens here.
+
+On the top there is white.
+
+On the bottom there is black.
+
+On the third axis we can see yellow and blue color.
+
+But how all this color works how to interpret this.
+
+So the first channel of lab is L means brightness.
+
+So we can see this vertical line where on the top as we are moving to the top we are able to see white.
+
+And as we are going to the bottom we are able to see black.
+
+So it is same as we are able to see on HSV.
+
+That is value the brightness.
+
+But it is not brightness.
+
+It is with respect to white and black.
+
+Okay, you can think of this as white and black.
+
+That is grayscale kind of factors here.
+
+And on the horizontal line you can see a plus and a minus.
+
+That is the second channel of lab.
+
+That is a.
+
+So a here means when the number is on positive direction, it will become more redder.
+
+When the number is on very negative direction, it will become more greener and everything will be in
+
+between.
+
+So read somewhere of this.
+
+White and black will create some kind of grey color, some kind of very dull purple color green.
+
+And this particular white and black thing will create this kind of blue color.
+
+And on this third axis that is yellow, that is B, third channel is on lab is B.
+
+So as we go to the positive direction on this third axis, we will see more of yellow.
+
+And as we go to the negative direction of this third axis we will be getting to blue okay.
+
+Pure blue.
+
+So now all of this axis it is not in a 2D direction, it is in a 3D.
+
+This is a sphere, but in HSV only the top color means is responsible for color.
+
+Others are saturation and value.
+
+But here it is a sphere.
+
+So every component of this sphere is made from all of these three combinations.
+
+That is lab okay.
+
+Brightness green to red, blue to yellow.
+
+This is what we can see.
+
+So why do we why do we use lab as well.
+
+Right.
+
+Let's define.
+
+So lab is also used because it is very close to how humans see the world.
+
+Lab is designed to be more aligned with how humans perceive the color.
+
+Right.
+
+And it can be useful for color corrections and adjustment.
+
+Okay.
+
+So this is used for color corrections.
+
+And adjustments.
+
+But personally I feel like whatever I can do with lab I can also do with HSV, but with in more control
+
+because it is separation in color saturation and brightness.
+
+But here I only have saturation, I only have separation of brightness, but not to colors.
+
+So it will be very hard if I want to target a particular green.
+
+But in HSV it will be very easy because I know the color of uh, I know the degree of particular green
+
+If I want to target a particular saturation level, I can target with the help of percentages.
+
+But in lab it will be very hard because it is a 3D sphere, and each pixel or each degree in this lab
+
+color space belongs to either green to red or blue to yellow.
+
+The next color space in our bucket is BGR.
+
+BGR is essentially the same as RGB.
+
+We can see this is an RGB and this is BGR.
+
+The red has been replaced with blue, and blue has been replaced with red.
+
+Other things remain same.
+
+So this may seem odd at first, but this is the default color space used by OpenCV.
+
+We will see in implementation as well.
+
+Okay, so each pixel in the image has three values.
+
+The first value represents the blue color, second is the green and third is the red.
+
+Okay, so why OpenCV is using BGR when all of the softwares which we use still uses RGB, right?
+
+There are some reasons to it because OpenCV is very old and at that time they were all the manufacturers
+
+and software providers were using BGR.
+
+So to have compatibility because of historical reasons.
+
+OpenCV is still today using BGR as its default color space of OpenCV.
+
+Okay.
+
+This is the reason why BGR is still used in OpenCV as the default color space.
+
+So let's jump to implementation and see how to convert from one color space to another.
+
+So this is our VS code and I have already connected to the kernel.
+
+We are going to perform color conversions on this image itself.
+
+You can see mountain dot jpg.
+
+Let's start by importing cv2.
+
+The first thing we are going to do is read an image.
+
+As we have already know, the default color space of OpenCV is BGR.
+
+Right?
+
+So I'm going to write BGR underscore image.
+
+It means we are reading our image in BGR.
+
+So cv2 dot imread.
+
+And then we are going to pass the path of our image that is mountain dot jpg.
+
+So now we have successfully read our numpy array from this given path.
+
+The first thing we are going to do is convert to grayscale.
+
+I'm going to start with grayscale and we will see how to convert it.
+
+The code to convert from BGR to grayscale is cv2 dot CVT color.
+
+Okay this is color.
+
+And then we need to pass our BGR image.
+
+And we have to mention which color format we want to change to which color space we want to change to
+
+cv2 dot color.
+
+Underscore BGR to gray.
+
+Okay, when we mention this, cv2 will know that this color space is coming for BGR and we have to convert
+
+to gray, and we have to store this into a different numpy.
+
+I'm going to write it as gray image to see how the output looks like.
+
+We are going to save it here cv2 dot I am right and then the name of image we are going to save it as
+
+gray underscore image dot jpg and then our gray underscore image.
+
+If we run it you'll be able to see a grayscale image here.
+
+Let's open it and see how it looks like.
+
+Perfect.
+
+We are able to convert our RGB image, which we have loaded with the help of OpenCV as a BGR, and convert
+
+it to a grayscale image.
+
+We will talk about RGB and BGR later, but first we started with grayscale.
+
+The next thing we are going to do is convert to HSV from BGR.
+
+So convert to HSV.
+
+HSV is a color space which humans are not familiar with.
+
+Humans are familiar with RGB space, but not with HSV and lab, so the output of HSV and lab will look
+
+weird to us because this is not how we are used to see the world, right?
+
+I'm going to copy all this command and change the name here.
+
+I'm going to replace HSV and I'm going to pass the same image, BGR image that is the main input.
+
+And we are going to write BGR to HSV.
+
+And I'm going to save here as HSV, HSV And pass the numpy array, and this will make the code for converting
+
+to HSV.
+
+Variable to HSV.
+
+So if we open it we will see a very weird image you can see.
+
+All the white and blue has been replaced with pink.
+
+And there is some lot.
+
+Of pixels and other intensities here which does not look pleasing.
+
+Right.
+
+This is the main image and this is how HSV looks like.
+
+As I already mentioned, this is not how humans perceive the world.
+
+That's why it looks weird.
+
+HSV is not for visualization.
+
+HSV is mostly used for calculation, doing the thresholding of color and other things, so we should
+
+not plot it.
+
+But for the sake of visualization, we have plotted this HSV here.
+
+Same goes for lab.
+
+Lab color space.
+
+Okay I'm going to mention lab.
+
+Let's change the variable name.
+
+Same goes for here.
+
+We have to mention lab and we have to change the name of our output image and the numpy array as well.
+
+So if I do it, you'll be able to see lab.
+
+And lab will also look weird.
+
+You can see this is lab.
+
+This lab color space also looks weird because it should not be used for visualization.
+
+It should be used for calculation.
+
+Okay.
+
+This is about lab color space.
+
+So now let's talk about BGR and RGB.
+
+There is some weird combination of code going on there, but we will understand that with the help of
+
+diagrams as well.
+
+So let's first convert to RGB.
+
+Convert to RGB as you mentioned.
+
+BGR and RGB both are similar, so BGR is nothing like we are doing a separate calculation like HSV and
+
+lab, BGR is just swapping of R and B channel of RGB and that will give you BGR.
+
+We are not doing any other calculation here.
+
+So if I write this code and make it as RGB underscore image, let's replace this first.
+
+So BGR to RGB and save this as RGB.
+
+And save this as RGB.
+
+You can see this is RGB image right.
+
+But why.
+
+It looks weird.
+
+Why this code looks weird.
+
+Why this looks all the red has been replaced with blue.
+
+So there is some issue here.
+
+Let's try to do save the image as it is right?
+
+As I mentioned, the by default color space of OpenCV is BGR, but when I'm trying to convert BGR to
+
+RGB, it should be an RGB image.
+
+But instead I got that blue image.
+
+Let's try to save what OpenCV picks by default that is BGR.
+
+So here should be a BGR image.
+
+Let me replace this because OpenCV by default reads in BGR and we are just going to save it.
+
+You're going to see if the image actually been accepted by OpenCV as a BGR color space.
+
+If yes, we should see that Blue mountain again, right?
+
+This is BGR, but why we still see a RGB image?
+
+You got to know that when opens with the help of OpenCV, when we read a image, it converts by default
+
+to BGR, right?
+
+Then why?
+
+Saving this BGR image is still looks like an RGB image.
+
+This is the main image which is RGB but BGR and the original image looks same.
+
+But the image which we converted to RGB from BGR looks blue.
+
+Why all of this is happening?
+
+Let's understand this with the help of diagram.
+
+So this is our RGB to BGR and BGR to RGB conversion.
+
+Okay.
+
+Suppose this is our input.
+
+We have our input image in form of RGB okay.
+
+This is the input image color space.
+
+The input image color is space itself is RGB.
+
+When we read it with the help of OpenCV, then we read it with the help of OpenCV.
+
+OpenCV will convert to BGR.
+
+Okay, till this part we are clear but it not matches with the practical.
+
+It will match okay.
+
+So OpenCV converted this RGB image to BGR.
+
+Okay, so now what is the expected?
+
+If we do any perform whatever algorithm we pick whatever software we pick.
+
+When we added our when we added our RGB image, what is the expected output we require?
+
+The expected output we require is RGB itself.
+
+We don't want any other color space if you are editing something on RGB, we want output in RGB as well.
+
+So same thing happens with OpenCV, right?
+
+So we have our input image in RGB.
+
+OpenCV inputted it and convert it to BGR.
+
+So the functions like I am show and I am right also works with BGR.
+
+Okay.
+
+Functions like Imshow and I am right also expects that whatever input we are given is working with BGR
+
+image.
+
+So this is the expectation that we are giving them a BGR image.
+
+So whatever we show them okay, if we show BGR image image show knows that I'm getting a BGR image and
+
+I will show as RGB because that is what humans see.
+
+Same for I am right.
+
+So if I'm expecting if OpenCV already read a BGR image, they will by default during image showing and
+
+image writing to disk convert to RGB.
+
+So this is what the usual flow is.
+
+But what is happening?
+
+We have converted our image to BGR.
+
+This is the step till this part.
+
+We have our BGR image.
+
+We have written a code when we are writing with I am right, we are getting an RGB image.
+
+This part is correct, right?
+
+But when we are changing from BGR to RGB then there is some issue.
+
+So see this.
+
+This is our RGB image, right?
+
+If we convert our BGR with the help of cv2 dot CVT color to BGR to RGB or RGB to BGR, which will only
+
+swap channels if we.
+
+Even if we have RGB image and we will write RGB to BGR.
+
+That is, RGB is input.
+
+We are using RGB to BGR.
+
+It will just swap the channels irrespective of what is.
+
+The original input is okay irrespective of whether the image is BGR or RGB.
+
+If you are converting from RGB to BGR or BGR to RGB, the only operation this function will do is swap
+
+the channels of zeroth index and second index okay.
+
+R g b.
+
+Zeroth index and second index.
+
+So we have passed BGR as input and we have passed the code of BGR to RGB.
+
+So now we have swapped.
+
+Now we have swapped.
+
+I am show and I am right expects a BGR image.
+
+They expects a BGR image and they save and show in RGB.
+
+So if we are changing the format here itself, we are not passing BGR.
+
+We are giving them RGB by default.
+
+So when they try to show and right we see a BGR image.
+
+Okay we see our BGR image.
+
+So when we mention this code that our image is BGR.
+
+That is, OpenCV has read it correctly, but we are changing the channels and writing it.
+
+Okay, we are changing the channels and writing to an RGB or whatever it is.
+
+This is just swapping the channels.
+
+So I am right by default expects a BGR so that it can write it to RGB.
+
+But what we are doing, we are giving it a RGB image, which should have been a BGR.
+
+So that's why we are able to see when we are converting from BGR to RGB, that is this image.
+
+We are able to see this blue color because we have changed the channels internally, which we should
+
+not do.
+
+Okay, so by default is BGR which is correct.
+
+And when we are saving a BGR image, the image is still a BGR, but cv2 dot imwrite is writing to RGB.
+
+Okay, cv2 dot imwrite is writing to RGB.
+
+As we can see here, OpenCV is converting to BGR.
+
+CV2 dot I am writing is expecting that BGR and converting to RGB.
+
+So when we save a BGR image with the help of Imwrite, we will get our RGB image itself.
+
+Okay there is.
+
+This is little confusing to understand at first, but if you watch this video carefully again, you
+
+will be able to grasp the concept that.
+
+Why when getting a RGB image, we are still getting RGB as output, even though OpenCV converts to BGR
+
+and when we change the channels of it internally using cv2 dot CVT color, we are getting a different
+
+weird output which we are not expecting.
+
+Okay, this is a little concept on BGR and RGB conversion.
+
+So understanding this color space is crucial for many image processing tasks in OpenCV.
+
+Converting between them is straightforward as we have to just use cv2 dot cvt color.
+
+So in this lecture we have covered multiple color spaces using OpenCV.
+
+Thanks for watching.
+
+I'll see you in the next one.

@@ -1,0 +1,629 @@
+
+Hey everyone.
+Welcome back.
+In this lecture we are going to learn about contours.
+We'll be looking at how to find contours.
+And once they are found how to use them for tasks like object detection.
+Let's get started.
+So contours are curves that join the continuous point along a boundary that has the same color or intensity.
+So think of this as an input image.
+And I want to find contours I want to find boundary of this object.
+So if I pass this to our OpenCV contours function it will be able to find contours.
+And it will look like this green boundary which we can see in this in this output.
+So we will be learning about how to find this contours and how to use them in applications like object
+detection.
+So there are a few things about contours which we need to understand before implementing.
+So let me write it here.
+So contours are let me write.
+So contours are curves or shapes which are closed in nature, which are closed.
+So this is very important part.
+If you have a shape like this and it is not closed, if you want to try to plot a controls on here,
+this will not become a contour because it is not closed, so it will not be able to find contours.
+So this is very important.
+The contours are closed curves or shapes which are closed okay.
+Which are closed.
+That represents the boundary or object in an image.
+So how can you find that?
+How many objects are present in an image?
+You will be passing that image to find contours.
+And if you get three contours, it means you have three objects in your image.
+And if you get total number of four contours, it means total number of four closed boundaries.
+It means you have that many objects in an image.
+Think of them as a pencil lines.
+You draw around objects in a picture, right?
+So they are extremely useful for three things.
+Let me mention it.
+You can do more, but I'm mentioning three things.
+They are extremely useful in tasks like object detection.
+So once you find the contour of an object you will be able to detect.
+You will be able to find how many objects are present.
+And you can also draw a bounding box just like an object detection does.
+The next thing is shape analysis.
+Shape analysis.
+So if you found a contour.
+Suppose these are green lines.
+These are green boundaries which I found on my input image.
+This is my contour.
+This is my contour.
+This is my contour.
+So based on the shape based on the shape analysis I can find out that this one has total number of three
+edges.
+This one is a circle.
+This one has total number of four edges.
+And it makes it square or rectangle.
+We can we can for square and rectangle we can pass.
+Other things like the width and height are very close to each other, so it looks like a square, but
+if it has three edges, it means this is a triangle.
+And for circle we can find out area and circumference like this.
+And the next point is related to area itself.
+That is it is it is used to measure object properties like area.
+So if you are able to get the contour that is a boundary of an object, we can find things like let
+me draw an image.
+We can find things like suppose this is our image and this is the contour we have found from our image.
+So we can find out things like how much of percentage this particular object is taking in my image.
+Also the area what is the area of the object with respect to my image?
+Because everything will be respect to your image, right?
+With respect to our image.
+So we can find out things like area and perimeter as well with the help of contours.
+So let us see the algorithm of how contour detection works.
+So this is our algorithm.
+First of all we need to convert our image to grayscale.
+So since contour detection works on a single channel you need a grayscale image.
+Second thing is we apply edge detection or thresholding because we need a mask, which is going to be
+the input for that contour function.
+So contour detection requires a binary image which is a mask consisting of black and white only.
+So we use thresholding or canny detection to pre-process the images, because canny detection and thresholding
+gives you that mask as an output.
+You will use that output to find our contours.
+So OpenCV provides cv2 dot find control function.
+So let me write it here.
+The function name is cv2 dot find contours.
+So this will find the contours in our image.
+And this is the function we are going to use to extract our contours.
+Next thing is we are going to draw contours or create bounding boxes.
+We can do both.
+Once detected, contours can be drawn directly on the image used to calculate properties like bounding
+box as well.
+So let's head over to VS code and see how to implement this.
+So I'm going to start by importing our libraries.
+So I'm going to use import cv2.
+And this is not the kernel is not selected.
+So let's select our kernel.
+And this looks good now.
+So also I'm going to do import matplotlib dot pyplot as plt.
+This is the two libraries which I need.
+Let's see.
+There is no issue.
+I'm going to read a image which is present in my directory.
+So cv2.im read.
+Then I'm going to mention from my current directory go one directory behind and in the images folder
+I have shapes dot jpg.
+This is what I'm going to use.
+So this image has all the shapes And let me plot this as well for the better clarity that how this image
+looks like.
+I'm going to store into image BGR, or just let's just write it as image because we know this is how
+it looks like.
+Then I will mention cv2 dot cvt color and I will mention this image.
+Then mention cv2 dot color underscore bgr to RGB.
+I will also copy this code because we also need to convert from BGR to gray as well, because that is
+what our contour detection will do.
+I will mention g r a y BGR to gray.
+So I will store this image into image underscore RGB.
+And this should be small.
+So let me make it as small for the good naming convention.
+It should be image underscore RGB.
+And this will be image underscore gray or image underscore grayscale.
+I'm going to mention just image underscore gray.
+Let's run them.
+And I only want to plot image RGB because we want to see that what is the image which we are going to
+work with.
+This is the image.
+This is shaped JPG.
+And it has a lot of shapes.
+And I want to find boundary of this shapes.
+And at the end I also want to find the bounding box on this shape.
+The next thing I need is I need a mask of this image.
+I need a binary mask that I can do thresholding or I can use scanning.
+So I'm going to use scanning.
+This time I will mention cv2 dot canny.
+This is canny.
+And I will mention our image gray because it expects a grayscale image as an input.
+And we need to mention that any values above this value, that is threshold one.
+Any values that is above this threshold value we want to make to some other values.
+I will mention threshold one.
+So this is the lower threshold for the gradient intensity.
+Can you accept two different gradients.
+Right.
+This is the lower threshold for the gradient intensity values below this are considered noise and ignored.
+So whatever is below 80 will be ignored.
+And I will mention that is threshold two.
+That is 150 here.
+So this is the upper threshold of the gradient.
+Intensity gradients that fall below the threshold one and threshold two are only considered as the strong
+edges.
+So I am looking for values between 80 and 50.
+And it will give us a image in gray.
+So let's plot this as well and see if it is giving us the expected output.
+I will plot this gray and also this should be cmap because this is a binary map binary image.
+So I will mention it as gray.
+So you can see this is working pretty good.
+When I applied this canny with the threshold one and threshold two on this gray scale image.
+It is already giving us a boundary, but this boundary is just the edges.
+It has not been detected by contours.
+These are not contours, just the edges of your image.
+So what I'm going to do, I'm going to pass this gray binary image to our contour detection.
+I'm going to mention cv2 dot find contours.
+You can see this find contours is already here.
+And first thing we have to mention is that grayscale image not just grayscale image, that gray binary
+image.
+That is the first argument.
+Then we need to mention cv2 dot r e t r dot underscore list.
+You can see we have mentioned rtr underscore list.
+And then the next argument is going to be cv2 dot chain underscore approx underscore simple.
+So there are multiple components.
+This cv2 dot r t r list means that retrieves all the contours without any hierarchy.
+Okay, so there are multiple things like cv2.
+RTR underscore list, cv2, rtr underscore tree and cv2 rtr underscore external.
+And also there is other component like cv2 rtr underscore comp.
+Okay but I'm going to use RTR list.
+You can you can find out about those later.
+But this is all you need.
+That is our TR list.
+And the next thing is method.
+This is the mode and this is the method.
+So the mode we have mentioned is that is control retrieval mode.
+This determines the hierarchical relationship between the contours.
+So let me write it mode.
+So mode determines hierarchical.
+Relationship between contours.
+Between contours.
+And there are multiple methods for it.
+And the next one is method.
+So the method we are picking is chain approx.
+Simple.
+So this method compresses the horizontal, vertical and diagonal diagonal segments and only stores their
+external points.
+Okay, this is the method.
+And method decides how contours how contours points are stored.
+So a lot of the time you can see that you you are you will be able to get the results by using this
+two arguments, but you need to make sure that the better your binary mask is going to be, the better
+you are going to get.
+Clarity.
+So this is the only argument you should worry about.
+So cv2 dot find contours of gray.
+That is what we are going to find out.
+And I'm going to get contours in return.
+So I will write contours and returns.
+And then we will also get hierarchy which we are not going to use.
+Okay.
+This is what we are going to get.
+What I'm going to do I'm going to plot this contours.
+The spelling is wrong.
+I'm going to plot this contours on the original image.
+This is our original image.
+So what I'm going to do, I'm going to copy our original image.
+I'm going to create image dot copy.
+This will create a new copy in the memory.
+And it is it will not be a view.
+It will be a totally new copy.
+So I will mention this as contour image contour underscore image.
+And I'm going to plot our new contours on this contour image itself okay.
+So the function which I'm going to use to draw on that to draw contours on my contour images cv2 dot
+draw contours.
+And I'm going to use our contour image.
+This is our contour image.
+And we have to pass contours.
+You have to pass contours.
+This will provide us all the contours.
+We will.
+Okay.
+I will print this contour after we draw this part.
+So we will be able to see what this contour means.
+It is a list which have lot of x, y, x, y for each particular shape.
+For each particular object, this is the contour.
+The next argument is minus one which defines that index of the contour.
+This returns multiple contours.
+We have one, two, 3456, 789, and there can be another one which is a screen itself.
+So there can be ten and 11 controls present which controls we want to plot.
+We have to give the index here.
+So when we provide minus one it means we are not going to specify any contours.
+We want to plot all of them.
+And that's what minus one means.
+We are going to use minus one here.
+And then I will use zero comma 255 comma zero which is going to be the color.
+And then five.
+Okay.
+So everything is in BGR.
+So right now green color well like with respect to any BGR or RGB will remain same.
+So this is the thickness, this is the color, this is the index, and this is the contours which we
+have just calculated.
+We have just found using find contours.
+And this is the image which we want to plot.
+So let's plot our results.
+So first thing we have to mention is plt dot figure.
+And then we will mention fig size.
+Our fixed size is ten comma five.
+I want a little longer one.
+Then I will mention plt dot subplot plt dot subplot.
+Not this one.
+We need a smaller one, which is a method.
+Yes, the plt dot subplot.
+Then we have to mention 131, because I want to draw original image and this binary mask and this contour
+mask where we have applied, where we have drawn contours in our image.
+I will mention total number of three images.
+So this is one, three one.
+Then I will mention plt dot I am show and then cv2 dot CVT color.
+Then this image.
+Our original image is actually BGR, so we have to convert to cv2 dot color underscore BGR to RGB.
+We will use this code in multiple places because we have contour image which is also a BGR image.
+This will create our first image.
+And then there is another thing left is plt dot title.
+Again the caps is on.
+So let me write plt dot title and the title is original image.
+Original image.
+So this covers our code for first plot.
+I'm going to use this and copy multiple times.
+And the second index what I want.
+I want my mask.
+And where we have mask we have mask in gray.
+So I'm going to paste this gray here, and we have to mention cmap because it is not an image, it is
+just a binary image.
+It is a binary mask.
+So cmap equals to gray and this is mask.
+I will just mention mask.
+And then the final thing we will get in contour image.
+We again need to convert from BGR to RGB.
+But the index will be three.
+And this is.
+Contours.
+Finally I will just mention plt dot show and we will see all the output.
+So let's see if everything looks correct then we will run this code.
+This is image original image contours plt.subplot and everything looks correct.
+Let's try to run it and see how the output looks like.
+So the output looks looks little small.
+So let me try to save it here in the directory itself.
+And yes this is our directory.
+And we can zoom in it many here.
+This is our original image.
+And this is our mask, which we have found out with the help of canny edge detection.
+And this is the contour.
+It means it is able to it is able to find the boundary of each of the objects present.
+Present here.
+So you can see total number of objects are 123456789.
+So based on the color information based on this mask, it is able to find out this boundary which are
+closed in nature.
+This is the power of contour detection.
+We will we will see the more uh usability of this.
+When we are trying to find the bounding boxes, we can count how many objects are there in our image
+and we can do a lot more there.
+So let's head over to our notebook and implement with a different method.
+So I will copy and paste this whole code which I have mentioned here.
+Let me try to copy everything.
+And in our gray image we have the gray.
+But we have found this gray image with the help of canny.
+So this time we will not use candy.
+We will use.
+Let me copy this and paste it here.
+We will use thresholding.
+We will use thresholding technique.
+So we will use cv2 dot threshold.
+Instead of this image we will mention cv2 dot threshold.
+We will pass our grayscale image that is image underscore gray.
+And we will mention the threshold.
+Okay.
+The threshold value.
+The first thing we have to mention is the threshold value.
+We want the threshold value to be 200.
+It means all the pixel intensities greater than this will be treated differently.
+And how we want to treat it.
+Any value which is greater than 200 should be white.
+This is what I want to mention and I will mention cv2 dot binary.
+That's it.
+I want to create a binary image.
+That means anything that is greater than this will be one.
+And anything that is below than this one will be treated as zero.
+Okay.
+So this will create threshold binary.
+So I will store this image again into a gray because we have used it.
+So I will get this image as gray.
+Same variable I will use.
+Let's mark it as mask.
+This will give us mask and also binary.
+Binary is the mask and this will be red will.
+Which we are not going to use.
+So we are interested in this binary mask which we are going to use in our findcontours.
+Let me copy this and paste and see how the output will look like.
+We have changed this value here.
+That is binary and we have to also mention binary.
+Here.
+This contour will remain same because now we are not using canny, but we are using our threshold technique
+to find this contour.
+So let's try to run it and see the output.
+Think of this as our image.
+If this is our image, all the pixels that are white or that are in white color, right?
+Everything is in white color.
+This is a grayscale image.
+And whatever is not grayscale, whatever is not white will be some kind of gray.
+Suppose this is black.
+This is our black color and this is another color of gray.
+So all this pixel intensities are below 200 or like 150 or 120.
+But everything else is like higher than 200 or 255.
+So you have to play with the image you are working with.
+So what I mentioned anything that is above 200 should be called, should be treated as anything that
+is above 200 should be treated as one.
+And anything that is below 200 values like this value like this should be treated as zero and zero means
+black, one means white, and this is what we are able to see on that mask which is here.
+So you can see this mask, we are able to see this white and black thing from here.
+We have passed this, our black and white binary mask to our contour detection.
+And it is able to find the same results.
+So previously we are doing this with the help of canny, and now we are able to find the same contours
+with the help of thresholding techniques.
+And you can see both of the masks are different.
+Previously this was the mask and now this is the mask.
+So I think this plot is wrong.
+This should be binary.
+Let me copy and paste it here and it will show us the correct input.
+So this is the binary mask which we got.
+Now the next problem statement I want to work with RGB image.
+So we can also do that.
+So let me copy this whole code and we'll be using something called that we have used in color thresholding
+that is in range.
+So instead of creating binary with the help of thresholding or canny we will be creating a mask with
+the help of different method.
+So let me write our image.
+Our original image is BGR.
+What I'm going to do I'm going to create lower bound that is lower bound.
+And I will mention with with numpy array np dot array.
+But before that we have to import numpy because we have not used numpy.
+Before that I will mention import numpy as np, and I'm going to use np dot array and define the upper
+bound of my image of my BGR image.
+I will mention 120 comma 100 comma zero and the dtype should be uint8 that is unsigned integer eight.
+It is a precision of it that is np dot u int eight.
+I'm going to copy this whole code and create a upper bound as well.
+Upper bound.
+So let me see our image.
+If our origin okay.
+This is our image and it is in BGR.
+So we have created a upper bound and we have to mention this upper bound.
+So we want this blue color to be in the range of 160.
+And this should be 185.
+I have already experimented with that.
+If you have a different image, you have to experiment with your lower and upper bound to get a correct
+mask.
+So this is something that you have to play with.
+And we have defined upper and lower bounds.
+I'm going to use cv2 dot in range.
+This is the function which we are going to use.
+And we are going to pass our image HSV.
+Because when we try to work with colors, when we try to work with colors, it is better to work with
+HSV image.
+So I will mention where is our code where we have converted this code I will copy.
+I will have two different versions of my image.
+One is RGB and one is HSV.
+So this will create us RGB image and this will create us a HSV image.
+I will mention HSV.
+And I will store into.
+Image underscore RGB equals to and here image underscore HSV.
+And that is it I'm going to use this cv2 dot in range in my HSV image because I have a separate channel
+which is.
+H which handles all the colors.
+I will mention HSV and these are my HSV.
+Range.
+You can talk about this HSV range later, but this is related to.
+The color wheels of my HSV one, 20 to 6000 to 185 and 0 to 280.
+So all the colors I can see is red, blue, green and other things.
+But I don't want to target all of it.
+I only want to target a certain RGB from my color.
+So I'm going to use image HSV and I will mention lower bound and then upper bound.
+This is upper upper bound.
+So we will get a mask.
+So we will get our mask here.
+So we are getting a mask.
+And this is the method three.
+The first method was canny edge detection.
+Second method was thresholding.
+And this is in range.
+And we are only targeting certain color of our RGB image and creating a mask.
+So we are not using any edge detection here.
+We are solely depending on the HSV color space, and we want to target a specific color in our image.
+Once this is done, we are going to pass this mask.
+Let me copy and paste.
+We want to see that.
+And we want to copy the same thing in our findcontours.
+And we will ask our findcontours to whatever the mask we got.
+We want to have the contours detected on that.
+Once this is done, we have used the current red list chain approximation.
+Simple and everything looks good.
+And also let's first plot it and then I will show you a few more things.
+Let me try to run this.
+Okay.
+So we are able to see that I was targeting blue purple and somewhere around that blue hue color.
+Okay.
+Anything on that blue color range I wanted to target?
+These are darker blue.
+This is purple.
+And this is dark purple.
+I'm not going to target a higher saturation value here.
+So if you want to target that brightness, I can increase the brightness of this value.
+Previously it was 0 to 200, but instead of 200 I want to target 255.
+And let's see the output.
+And we are able to see this output more clearly.
+Previously it was not defined like this.
+This was not covered based on this saturation because the value, the brightness, the intensity of
+this particular shape is higher.
+So it is covering in the range of 200 to 255.
+And now this is getting targeted more.
+So you can play with more and try to target this blue color as well.
+But for now we are going to stick with the colors which we have mentioned here.
+As you can see, we are able to target colors based on what is present in my RGB image, not what my
+edge detection is seeing.
+So if you want to target a color of the car and want to detect the edges of it, you can do that with
+the help of this third method using cv2 dot in range.
+Now you might be thinking that I'm able to draw this boundary, but I want to do something more with
+it.
+I just want to get this boundary all over this detected object so I can do that.
+This is called this is the thickness of the contours which we are drawing.
+And if I mention it minus one it will fill.
+This is called if you mention values that are like minus one.
+Instead of drawing the boundary it will fill this whole contour.
+So if I run it, you will be able to see this green color all over the detected boundary.
+This was the boundary.
+It has not covered all the things here, as you can see, and we are able to fill all of this with the
+selected color.
+So we have mentioned this green color here.
+And this is how you can fill the boundary of the contours as well.
+And if you think that you don't want to work with RGB image, and you also want to don't want to use
+canny edge detection and thresholding, and you still want to use inrange, but for a grayscale image,
+you can still do that.
+Let me copy this whole code and show you how to perform this Inrange in the grayscale.
+It is pretty straightforward.
+So instead of getting this lower and upper bound in this HSV color space.
+We will just mention for a single channel.
+So anything that value is between 200 and 255.
+Let me mention 255 here.
+It should be 255.
+That is my upper and lower bound.
+I will also convert instead of RGB and HSV.
+I will also create.
+New and I will create a grayscale that is BGR to gray okay.
+And I will store that in image underscore.
+Gray.
+This is my grayscale image.
+So I will use this image underscore gray and put it here.
+This.
+Is my lower bound which I have already said.
+That is 200.
+And this is my upper bound.
+That is 255.
+So any values that is in in between if I want to create, let me plot few things I want to plot.
+This grayscale image instead of this original image.
+Here, let me try to replace it here.
+First thing I will plot is grayscale image, and the second thing I will plot is this mask.
+Mask needs to be as a cmap gray.
+And then I will plot this contours which we have created here.
+So that is already a contour image.
+And I want to convert from this contour image which we got here is a copy of image.
+And let's see how it looks like.
+So if I run it you will be able to see this grayscale image.
+It is of single channel.
+So I have to mention that Cmap as well.
+Cmap is equal to gray and you are able to see this is what the mask looks like.
+Okay.
+Mask looks like means with the help of cv2 dot in range, when we pass a grayscale image, it is very
+simple to target a particular version of gray or a particular range of gray because we only have 0 to
+255, so any values which is greater than 200 and is smaller than 255, we will be considering as in
+range, we will be getting that mask is true.
+One for that.
+Okay, so here we are getting that.
+And you can see this is our original image.
+This is our mask and this is our contour image.
+But in the output we can see there is some weird green color, which might be because the contour has
+been all this image as well.
+We have more than nine contours.
+So let me mention instead of minus one, let me mention five and see the output.
+You can see now the output works and we were correct.
+The the image has also been taken as the contour.
+The borders has been also be detected as a object.
+So now we have total number of 123456789.
+And this ten as total number of contours okay.
+You can have more.
+We cannot see a smaller objects because it might not be visible, but it is a closed loop.
+So it can be detected as a contour.
+But right now we will focus on the version which has been detected.
+Later.
+We can figure it out how to remove the controls which we are not interested in.
+This is how we can work with grayscale image with the functions that is in range.
+The next thing we are going to do is next thing we are going to draw.
+Instead of this green boundary, we can draw the bounding box with the help of contours.
+And also there is one improvement here which we can do is remove this green border which we don't want.
+So what we will do, I will copy this whole same code and will make the changes here itself.
+So when we get this contours, when we get contours from here we can use sorted.
+We can use sorted function to sort our contours.
+Okay.
+So I will mention sorted.
+And I will pass the contours which we have calculated.
+And then I want to sort by what I want to sort by.
+I will mention in the key I want to sort my contours by cv2 dot contour area.
+This is the function I want to sort by, and I want to make by reverse equals to true.
+It means in ascending order.
+I want this to be solved and I will store all of that in sorted contours.
+Sorted contours.
+So let's see how many contours we have.
+Then I will use this code to plot it.
+Let me cut and create a new cell and paste it here.
+So I will mention print.
+Length of sorted contours.
+We are able to see that it has total number of 32 contours.
+But how many objects which we are interested in?
+In this image we have total number of nine objects.
+That is 123456789 that we are interested in.
+So I will mention only the nine components here out of the sorted list.
+So I will make I will change this contours which we were using.
+So I will mention this as contours is equals to sorted contour.
+Sorted contours of 0 Zero 210.
+So this will give me total number of nine values.
+Right.
+This will give me total number of ten values.
+So let's see how it will look like if I want to plot it later.
+So I want to plot this and let's plot it here.
+So we're able to see still this big box is here right?
+Still this big box is here.
+Let me try this with 1 to 10 and how the output looks like.
+Now, you can see, uh, this big box is not here.
+And it was in descending order.
+It means the biggest one was coming.
+First.
+We have made the reverse equals to true.
+So from descending, it is taking, not the ascending one.
+So if I take from the behind, it means the largest one will be at the zeroth position.
+And from one I'm getting the biggest position of the controls biggest area contours, which is all the
+visible shapes which we can see after that big image one.
+So from contour 1 to 10 we are able to get this shapes.
+Now the next thing is we are able to solve the first problem that is to remove the image boundary.
+Next thing is we want to plot the bounding box on the detected contours.
+So what we will do?
+We will create a for loop here.
+That is for contour and contours.
+We have total for contour and contours we have lot of contours.
+In total we have total number of nine contours which we want to plot.
+And for each contour I will use cv2 dot bounding rectangle.
+This is the function in OpenCV and where if I pass a polygon value, if I pass lot of x, y x y x y,
+it will give me a bounding box for that.
+If it is closed only, I will get this contour which we have mentioned here c o n t o u r.
+And this will return me coordinates of my rectangle.
+So this will return me x comma y comma w comma h.
+So once I got this x y w h I will use another function of OpenCV to draw a rectangle that is cv2 dot
+rectangle where I want to draw this rectangle.
+So I want to draw this rectangle.
+Let me cut it first I will create the image copy and I want to create my rectangle in contour image
+itself.
+So I will mention this contour image and mention the first coordinate which is x comma y and then the
+second coordinate second point which is x plus w comma y plus h.
+And this will give me X2Y2.
+And the color I want I want the contour color the bounding box color to be zero comma zero comma 255,
+which will give me a red color when I convert from BGR to RGB and the thickness of that particular rectangle,
+I want to be two.
+So once this is done, I will not draw the contours on the image because it is already done right.
+We are drawing a rectangle, not the contours.
+Let me try to run this and see.
+And if you want to see this, let me save it here.
+And this should be output hyphen one dot png.
+And let's see the output.
+So this is our original grayscale image.
+We are still working on the grayscale image.
+We have created the mask and we got a lot of contours.
+Total number of 32 contours by which we are only interested in the largest contours present in our image,
+but not the first one because the first one is covering the whole image.
+So we are getting everything from one till ten, which is giving us total number of nine objects.
+So this is how we can draw a bounding box.
+And we can count number of bounding box.
+We can because we can count contour as well as seen in the notebook.
+Total number of contours we can count from here.
+And we can also plot.
+We can also write text on our image that this is one.
+This is two, this is three till this is nine.
+And this is how we find contours.
+And we plot bounding boxes on top of contours.
+So this is it for this control class.
+Thanks for watching.
+I'll see you in the next one.

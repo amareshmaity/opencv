@@ -1,0 +1,783 @@
+Hey everyone.
+
+Welcome back.
+
+In this lecture we are going to understand how to draw lines and shapes using OpenCV.
+
+Let's get started understanding how to draw lines and shapes like rectangles and circles and other shapes
+
+is crucial for visualizing data and for annotating images and creating visual graphical overlays as
+
+well.
+
+Let's head over to VS code and understand how to implement this with the help of OpenCV.
+
+Before drawing any lines and shapes, we need a canvas.
+
+We need a place where we can draw these things.
+
+So we will be creating a blank canvas first.
+
+But before that we need to import our libraries which we are going to use.
+
+So first thing is import cv2.
+
+Next thing is matplotlib.
+
+We are going to use matplotlib and matplotlib.pyplot as plt.
+
+We'll be using it to visualize our shapes and lines where we are putting all those shapes and lines
+
+in empty canvas.
+
+And then we also need numpy.
+
+So once this is done, we will create a empty canvas.
+
+And we will start with giving its width and height.
+
+So I will mention height width as 500 cross 700.
+
+You can choose any number but I'm going with this height and width.
+
+This will give us a traditional rectangle.
+
+I want the canvas color to be blue.
+
+This is what I am picking.
+
+You can pick white, orange, whatever color you want.
+
+So I want to go with blue.
+
+So this is BGR blue.
+
+You can see the highest intensity is for B then G.
+
+Then R is totally zero.
+
+So it will have no intensity of R and it will give us a blue color.
+
+Then I will be using numpy to create.
+
+The canvas.
+
+I will be using width.
+
+First of all it should go with height, then width.
+
+Then the number of channels.
+
+I will be passing the color for which I want to create this.
+
+So I will be passing blue and then I will mention dtype equals to NP dot uint8.
+
+So all my numbers are going to be np dot int8 all the integers of this image which we are creating on
+
+this canvas, which we are creating, are going to be integer.
+
+As always, we are going to fill all the values of this dimension, that is height, width and number
+
+of three channels with this pixel value.
+
+This is the pixel value, and NP dot full will fill all of those values with this exact value.
+
+And then we will get a numpy array or numpy matrix.
+
+So this is our canvas.
+
+And here you can see.
+
+Import numpy as np.
+
+We need NP.
+
+So now we don't have any error.
+
+To see how this canvas looks like we will use plt dot imshow and we need to see it in RGB.
+
+Okay.
+
+This is blue color.
+
+We will see in RGB.
+
+So I will mention cv2 dot cvt color.
+
+And then canvas and then cv2 dot color bgr to RGB.
+
+Why?
+
+I have mentioned BGR to RGB because matplotlib expects a RGB image.
+
+Expects a RGB image.
+
+This should be BGR to RGB.
+
+BGR to Argb.
+
+This seems correct.
+
+Now if I run it you will be able to see.
+
+I can see this is saying BGR to RGB.
+
+Okay, this part is wrong.
+
+It should be only color.
+
+And then let's run it so we can see this blue canvas.
+
+If I don't write this particular line of code and I will only write canvas.
+
+Capstone, then we will see this orange color because matplotlib expects a RGB color.
+
+So even though we are passing a BGR image, it will convert to RGB.
+
+And in RGB like this is expecting RGB.
+
+It is expecting our channel first.
+
+So here you can see this will be R, this will be G, this will be B.
+
+But we are passing something BGR.
+
+So we need to convert it first.
+
+We are converting from BGR to RGB.
+
+And this will give the exact color what we have intended.
+
+So once this is done we will draw a line.
+
+Let me draw.
+
+Let me write in the markdown to draw a line, draw a line.
+
+We will be using method of cv2, that is, cv2 dot line.
+
+Where do I want my line to be placed?
+
+I want my line to be placed in this matrix in this numpy array that is canvas.
+
+The initial point.
+
+This is the starting point I want.
+
+My starting point is from 50 cross 50.
+
+And now that we understand the coordinate system well, it means this 50 comma 50.
+
+This x comma y will be somewhere around top left corner of the image.
+
+Right.
+
+And then I want the next point because to create a line I need two points right.
+
+First point is 50 cross 50.
+
+And another point is 650 comma 450.
+
+You can choose any value, but it should be between this range which we have created.
+
+Right.
+
+So this is 50 cross 50 x.
+
+And this is again X2Y2.
+
+We have 700in x because in OpenCV x travels in horizontal direction y travels in vertical direction.
+
+So we have total number of 700 pixels in x axis, and we are picking 650 of that.
+
+So this should be somewhere around bottom right corner.
+
+Okay.
+
+This will give us a bottom right corner of different x and y pair.
+
+And I want this line to be of color.
+
+This is where we mentioned color.
+
+This is the canvas which we mentioned starting point ending point.
+
+And then we mentioned the color.
+
+The color I want is all white.
+
+So to all white in RGB or in BGR both are same here because all the intensities are full.
+
+And then I will mention the thickness of the line I want.
+
+So this will draw this line on this canvas.
+
+And to show that this will update in the same canvas itself.
+
+So I will be using the same code again.
+
+To visualize it let's see.
+
+You can see this line.
+
+And if I want to change this line and make something as three and let's change the color.
+
+I want this color, you'll be able to see we are getting this cyan kind of blue right.
+
+So let's stick with five.
+
+And you can play with this thickness of the line.
+
+And this will give us the white line okay.
+
+So that's it.
+
+You can make it one as well.
+
+Let's see what one does.
+
+And we want to make.
+
+This as zero.
+
+This as zero.
+
+And that's it.
+
+So why you are able to see this red line.
+
+Because we have already drawn the white line on the canvas.
+
+This canvas is already updated and we are running a different line.
+
+It means we are running a different line of code on the same canvas which we have updated.
+
+If you only want a red line, you have to update this whole creating a canvas code and running this
+
+part again.
+
+You will now only see this red line.
+
+Okay, so I hope this part is clear.
+
+I want this to be overwrite with white because if the we are giving the same coordinates and we are
+
+giving a more thickness.
+
+This should override on top of red and we are able to see a white line.
+
+Next thing is how to draw a rectangle.
+
+So let me create a new markdown and we will mention draw a rectangle.
+
+It will draw a rectangle.
+
+We will again use cv2 dot rectangle.
+
+The first thing is we want rectangle in our canvas.
+
+And now it's time for pair of x and y.
+
+This is pair one.
+
+This here will be pair two.
+
+And here we will mention the color of our rectangle which we want.
+
+Let me define the color first.
+
+I want this color.
+
+It will be kind of yellow.
+
+And I want minus one.
+
+Whenever we mention minus one in thickness it means we want to fill the whole thing.
+
+Okay let me first mention with two and then I will I will mention what does minus one means the coordinate
+
+which I want is little lower than the line, so it will be somewhere around 100 comma 100, and here
+
+it will be around.
+
+I want this to be kind of square, so I will mention width and height to be same.
+
+That is 100 comma, 103 hundred comma 300 for different pair of x and y.
+
+Now I will copy this same code to show it and this will show a rectangle.
+
+Again we have mentioned something.
+
+It is rectangle and it will run.
+
+So we are able to see this yellow boundary square or rectangle because the function is rectangle.
+
+And we are creating a square from it because the width and height are same, the thickness is two.
+
+If I increase this thickness to suppose five, you will be able to see a more bright yellow because
+
+there are a lot of pixels, and it is very clear if I mention minus one.
+
+Minus one here means we want to fill this whole rectangle we want to fill with whatever color we have
+
+mentioned.
+
+So if you mention minus one, you will be able to see this rectangle is filled.
+
+Now this is how we draw a rectangle with the help of OpenCV.
+
+And this is the argument which we can use to fill your box or to fill your shape.
+
+Next thing in line is drawing a circle.
+
+Let's see how to draw a circle.
+
+Again, it will be pretty straightforward cv2 dot circle.
+
+This is what we want.
+
+The first coordinate is again going to be canvas and then the center point.
+
+We only need a center point to draw a circle.
+
+So I want to draw around 500 cos 150.
+
+So it will be something around 500 cross 150 circle center point will be something around here.
+
+This is where I want my circle to be.
+
+But circle also need radius.
+
+How much my circle is going.
+
+What is going to be my circle radius?
+
+The bigger the radius, the bigger the circle will be.
+
+So I just want to give hundred radius.
+
+Hundred means this much radius will be my circle.
+
+Total diameter will be 200.
+
+Right.
+
+So circle radius is hundred and same I want to pass a color.
+
+This will be 255.
+
+And I don't want the circle to be filled at first.
+
+So I will mention five.
+
+So I'm drawing on the same canvas.
+
+And to see that shape I have to copy and paste the same command.
+
+And let's see the circle.
+
+As you can see, this is the circle.
+
+We have drawn the circle and the diameter is almost around like 200.
+
+Right.
+
+Because the radius we have given is hundred.
+
+And this is how we draw a circle in OpenCV.
+
+Let's see some more shapes.
+
+Now what happens if I want to draw an ellipse.
+
+Let's see how to do that.
+
+Draw an ellipse.
+
+It is again going to be pretty straightforward.
+
+CV2 dot ellipse.
+
+Okay, this is not ellipses.
+
+We want ellipse.
+
+I hope this is the function and that.
+
+Okay.
+
+This should be comma.
+
+Yes.
+
+Now it looks correct.
+
+Again we need canvas.
+
+For ellipse we need some angle as well.
+
+But we need a starting point.
+
+So I want my center of an ellipse to be 350 cross 350.
+
+The next thing is we have to mention axis, the axis of our ellipse.
+
+And axis has two things.
+
+Axis length of the major and minor axis.
+
+So we will mention again in a tuple.
+
+And we will mention this will be our major and this will be our minor.
+
+The next thing we need is the angle of our ellipse.
+
+I want my ellipse to be to be tilted towards 45 degree.
+
+And then we need to mention what will be our start angle and what will be our end angle.
+
+So it will consider this start and end angle.
+
+And we'll consider 45 in that starting and ending okay.
+
+That will be my starting and ending.
+
+The next thing is again same as usual we want color.
+
+This time I will pick this color.
+
+It should be somewhere around green and it will be green.
+
+And then I want a thickness of three.
+
+So if I put this code with plt dot, I am show will be able to see an ellipse.
+
+And you can see this is of 45 degree right.
+
+This is a 45 degree in hole 0 to 360 degree.
+
+And it has major and minor axis.
+
+And the center of this is this will be 350.
+
+This will be 350 from here.
+
+And we are getting a thickness of three as well.
+
+So let's move over to a more complex shape if you want something more, if you want to draw uh shapes
+
+more than four, right.
+
+Four sides.
+
+What we will do the shapes more than full size is called as polygons, right?
+
+So let's see how to draw a polygon in OpenCV.
+
+Draw a polygon.
+
+Draw a polygon.
+
+How to draw a polygon.
+
+Polygon has multiple points.
+
+Polygon does not have a pair of like x, y.
+
+If we have two pairs of x and y, we can get a rectangle.
+
+If you have a single x and y, we can draw an ellipse, or we can draw a circle, but not with polygon
+
+and polygon.
+
+It consists of multiple x and y.
+
+It can be x.
+
+And let me draw.
+
+It can be x n y n where where n can be greater than two and can be greater than three, and can be greater
+
+than ten as well.
+
+And that will consider it as a polygon.
+
+So let me just write where n is greater than two, because only then we can create a shape when n is
+
+equal to two.
+
+We will be getting a line right.
+
+We need more than two points for a polygon.
+
+So let me mark it as comment and mention some lot of x and y points.
+
+Right.
+
+Lot of x and y pairs.
+
+So we will be creating NP dot array.
+
+We will be creating an array with the help of numpy.
+
+And we will mention pair of x and y.
+
+The first point I will be getting is 150 comma 400.
+
+This is what I want.
+
+Second point in a second list I will mention 300 comma 400.
+
+So this is my first pair of x and y.
+
+This is going to be my second pair of x and y.
+
+I will mention three pairs to 25 comma 300.
+
+And then I will mention NP dot int32 because these are just x and y on my image.
+
+This is not the image and this is still an int value.
+
+And then I will mention this as just points, even though it is a triangle, I'm just mentioning it
+
+as a point so that we can add more points later.
+
+And then I will mention three shape.
+
+I will use this point points dot reshape.
+
+And I will use a shape of minus one comma one comma two.
+
+I will mention why we are reshaping to this exact dimension, and I will also like mention what it looks
+
+like.
+
+Let's see.
+
+So these are our new points.
+
+Let's mention new reshaped points and see how it looks like.
+
+You will now understand why we are doing this part.
+
+So before doing anything let's print this part.
+
+I want to print how this reshape looks like.
+
+And there is something wrong here.
+
+Object is not susceptible.
+
+Which object is not susceptible?
+
+Okay.
+
+We are doing something wrong here.
+
+It should be here.
+
+This is where it should close.
+
+And this point we have not covered this one.
+
+This should be the end of this array.
+
+Right.
+
+And then we need to mention NP dot int32.
+
+Let me remove this.
+
+And NP dot array should have a starting bracket as well.
+
+So this is now completed.
+
+If I run it you will be able to see this is the kind of shape your OpenCV requires to create a polygon.
+
+So that's why we have mentioned minus one, one and two.
+
+It means in a single in a single row I want two values.
+
+This is where it is okay.
+
+And this minus one means auto okay.
+
+Minus one means auto.
+
+So we have two dimension here in our main one.
+
+And we are mentioning that we want one row and two columns here in each data.
+
+and other things you should reshape automatically, and this is what you will get.
+
+Okay.
+
+The total dimension now here is one, two, three.
+
+But in a single dimension we have two values.
+
+We have two dimensional matrix.
+
+Here we have pair of two dimensional matrix.
+
+And this is what OpenCV expects.
+
+So we'll be using this matrix.
+
+We will be using this reshaped matrix and using cv2 dot polylines okay we need polylines.
+
+We will be passing our canvas.
+
+And also in a list.
+
+We need to pass this new reshaped point again.
+
+It needs to be present in a list.
+
+And then we need to mention arguments.
+
+The next argument is is closed whether our polygons is closed or not.
+
+It means 150 comma 400 is going to be first point, second point, and third point.
+
+We want all of these points in a closed loop or not.
+
+Okay, it might be possible.
+
+Let's head over to our screen and see how it will look like there.
+
+So we have three points.
+
+This is point number one.
+
+Let me write it as point number one.
+
+Point number two.
+
+And we have point number three.
+
+We can if we start drawing from point one to point two we will get this line from point two to point
+
+three we will get this line.
+
+So if we have three points this is all we can do.
+
+But to get in shape to get a triangle we also need to connect point one with point three.
+
+We also need to connect point one with point three.
+
+But this will not happen automatically because from 1 to 2 we have created a line from 2 to 3 we have
+
+created a line.
+
+And we are like we have used all the points that we got.
+
+So when we mention true, when we mention true in, do we want our polygon to be closed?
+
+This is the main argument and we can set is closed to be true or false.
+
+By default it is false.
+
+When you mention is closed to be true, then only it will select the first point and the last point
+
+and will create this final line which will make this loop closed.
+
+This loops of x and y pairs will be closed and will be getting a shape of triangle.
+
+So we also have to mention this shape while we are creating a polygon.
+
+Whether you want this is closed to be true or is closed to be false.
+
+So the next thing after mentioning our new reshaped points, we need to mention we want is closed to
+
+be true or false.
+
+We want it to be true.
+
+We have mentioned true.
+
+The next thing is we want to mention the color of the polygon.
+
+I want this time 255 comma zero comma zero.
+
+This should be comma.
+
+This is looking correct.
+
+And then as always the width the thickness of my polygon.
+
+Once this is done I will use our above code.
+
+Plot it.
+
+Okay.
+
+We will plot on our canvas.
+
+So this triangle blue on blue will look a little weird.
+
+So let's make something like.
+
+I also want red component and a blue component, but not green.
+
+Let's see what color we will get.
+
+We're getting some kind of a pink color.
+
+And you can see we have created a triangle.
+
+If I don't mention this true if I mention false here, it will still become it is still okay because
+
+we have already cleared our canvas.
+
+So if we want to, let's clear our canvas and see how it will look like.
+
+I have cleared our canvas and let's plot the triangle so we can see this triangle is not closed because
+
+we have mentioned is closed to be false.
+
+So to make it complete, we want it to true.
+
+And let me plot with a different color this time.
+
+Let's add a little bit of 255 and let's remove.
+
+This blue component a bit.
+
+I want this red.
+
+So now we will see this yellow box right.
+
+And we want to see true true nature of this.
+
+We can plot this pink box on top of it to see how true and false will look like.
+
+Right now I want false.
+
+And this was zero before.
+
+So now you can see this is the part portion of false.
+
+When we are mentioning our argument as false and yellow, one will remind us that what we have created
+
+before.
+
+Right?
+
+This is the full closed mask that we will get full closed shape we will get when we mention this.
+
+True.
+
+Okay, so this is how we draw a polygon.
+
+This is how we draw a lot of shapes, different shapes and straight lines as well with the help of OpenCV.
+
+So in this lecture we have learned how to draw lines, rectangles, circle, ellipse and polygons using
+
+OpenCV.
+
+So this is it for this lecture.
+
+Thank you for watching.
+
+I'll see you in the next one.
