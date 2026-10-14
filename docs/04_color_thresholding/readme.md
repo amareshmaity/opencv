@@ -2,11 +2,13 @@
 
 Detailed notes based on `transcript.txt`.
 
----
+<br/>
 
 ## 1. What Is Color Thresholding?
 
-Color thresholding is a technique used to filter out a specific range of colors in an image.
+Color thresholding is a technique used to **filter out a specific range of colors** in an image.
+
+![alt text](images/color-threshold.png)
 
 The main idea is simple:
 
@@ -23,7 +25,7 @@ This allows us to:
 
 In short, color thresholding is a color-based filtering and segmentation technique.
 
----
+<br/>
 
 ## 2. Why Is Color Thresholding Useful?
 
@@ -39,7 +41,7 @@ Examples:
 
 The lecture specifically gives the idea of replacing one color with another, such as selecting skin or background color and modifying it.
 
----
+<br/>
 
 ## 3. Color Space Matters
 
@@ -52,18 +54,13 @@ Some common color spaces are:
 - BGR
 - LAB
 
-The lecture focuses mainly on comparing:
-
-- RGB
-- HSV
-
 Why?
 
 - BGR is basically a reordered form of RGB in OpenCV.
 - LAB is more complex.
-- HSV is one of the easiest and most practical choices for color targeting.
+- HSV is one of the **easiest** and most practical choices for color targeting.
 
----
+<br/>
 
 ## 4. Why RGB Is Not Ideal for Color Targeting
 
@@ -88,7 +85,7 @@ So in RGB:
 
 This is the main reason RGB is not the best choice for color thresholding.
 
----
+<br/>
 
 ## 5. Why HSV Is Better for Color Thresholding
 
@@ -108,7 +105,7 @@ Meaning:
 
 The key advantage is:
 
-- color is handled separately through the Hue channel,
+- color is handled separately through the **Hue** channel,
 - brightness is handled separately through the Value channel.
 
 So if brightness changes:
@@ -118,7 +115,7 @@ So if brightness changes:
 
 This is why HSV is usually preferred for color thresholding.
 
----
+<br/>
 
 ## 6. HSV Intuition
 
@@ -138,11 +135,11 @@ Top-view intuition:
 
 Because Hue directly represents color, it becomes the most important channel for thresholding.
 
----
+<br/>
 
 ## 7. Actual HSV Range vs OpenCV HSV Range
 
-This is a very important point from the lecture.
+This is a very important point.
 
 In theory, HSV is often described as:
 
@@ -175,7 +172,7 @@ Example from the lecture:
 
 So whenever we choose threshold values in OpenCV, we must think in the OpenCV HSV scale, not the textbook HSV scale.
 
----
+<br/>
 
 ## 8. Main Goal of Thresholding
 
@@ -203,7 +200,7 @@ This is important because real images have:
 
 So selecting a range works better than selecting a single fixed value.
 
----
+<br/>
 
 ## 9. Understanding Lower Bound and Upper Bound
 
@@ -234,7 +231,7 @@ If no:
 
 - reject it.
 
----
+<br/>
 
 ## 10. What Is a Mask?
 
@@ -258,14 +255,14 @@ Meaning:
 - white = selected region,
 - black = unselected region.
 
-The lecture explains this as:
+We can explain this as:
 
 - if the target color is present, mark it as `1`,
 - otherwise mark it as `0`.
 
 This is why the mask is also called a binary mask.
 
----
+<br/>
 
 ## 11. Why the Mask Has One Channel
 
@@ -287,11 +284,10 @@ It only needs one binary decision per pixel:
 
 That is why the mask is one-channel.
 
----
+<br/>
 
-## 12. Example Workflow from the Lecture
+## 12. Example Workflow
 
-The lecture uses a conceptual example:
 
 - an image contains people in the foreground,
 - the background is brown,
@@ -309,7 +305,9 @@ The workflow is:
 
 This is the core practical pipeline for color thresholding.
 
----
+practical: [click here](./color_thresholding.ipynb)
+
+<br/>
 
 ## 13. Why Convert the Image to HSV First
 
@@ -326,7 +324,7 @@ So even if the input image starts in OpenCV as BGR:
 
 This makes the color selection more reliable.
 
----
+<br/>
 
 ## 14. Matrix Interpretation of Thresholding
 
@@ -353,7 +351,7 @@ So thresholding can be understood as:
 - comparing each pixel against the allowed range,
 - producing a binary answer.
 
----
+<br/>
 
 ## 15. Interpreting the Mask Visually
 
@@ -369,7 +367,7 @@ So in the brown-background example:
 
 This makes it easy to see exactly which region has been selected.
 
----
+<br/>
 
 ## 16. How Color Replacement Works After Mask Creation
 
@@ -389,7 +387,7 @@ The lecture describes the logic in words as:
 
 This gives a clean way to perform selective editing.
 
----
+<br/>
 
 ## 17. Important Detail About the Replacement Color
 
@@ -411,7 +409,7 @@ Why?
 
 This avoids mixing color spaces incorrectly.
 
----
+<br/>
 
 ## 18. Final Visualization Step
 
@@ -430,7 +428,7 @@ This is important because:
 - humans understand RGB-like display output,
 - while HSV is mainly a processing space.
 
----
+<br/>
 
 ## 19. End-to-End Conceptual Pipeline
 
@@ -448,7 +446,7 @@ A complete conceptual pipeline for this lecture is:
 
 This is the full logic behind practical color thresholding.
 
----
+<br/>
 
 ## 20. Core Idea to Remember
 
@@ -466,7 +464,7 @@ So the mask is the bridge between:
 - color selection,
 - and actual image editing.
 
----
+<br/>
 
 ## 21. Key Advantages of Color Thresholding
 
@@ -476,7 +474,7 @@ So the mask is the bridge between:
 - Great for segmentation, replacement, and isolation tasks.
 - Works especially well in HSV because color is separated from brightness.
 
----
+<br/>
 
 ## 22. Important Practical Cautions
 
@@ -487,7 +485,7 @@ So the mask is the bridge between:
 - Do not visualize HSV directly if you want human-friendly output.
 - Keep the working color space consistent during replacement.
 
----
+<br/>
 
 ## 23. Summary
 

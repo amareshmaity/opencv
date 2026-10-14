@@ -2,7 +2,7 @@
 
 Detailed notes based on `transcript.txt`.
 
----
+<br/>
 
 ## 1. What This Lecture Covers
 
@@ -19,7 +19,7 @@ By the end, the goal is to understand:
 - how OpenCV fills or adjusts pixels during resizing,
 - which interpolation method to choose based on speed and quality.
 
----
+<br/>
 
 ## 2. What Is Image Resizing?
 
@@ -32,6 +32,8 @@ Example from the lecture:
 
 If we directly convert an image from one size to another without caring about whether the original proportions stay the same, that is image resizing.
 
+![alt text](images/resiaing.png)
+
 Important idea:
 
 - resizing changes dimensions,
@@ -39,13 +41,15 @@ Important idea:
 
 So resizing is the more general operation.
 
----
+<br/>
 
 ## 3. What Is Image Scaling?
 
 Image scaling is also a size change, but with one important rule:
 
 - the aspect ratio is maintained.
+
+![alt text](images/scaling.png)
 
 Example from the lecture:
 
@@ -63,7 +67,7 @@ In simple words:
 - all scaling is resizing,
 - but not all resizing is scaling.
 
----
+<br/>
 
 ## 4. Resizing vs Scaling
 
@@ -83,7 +87,7 @@ Image scaling:
 
 This distinction is one of the most important ideas in the lecture.
 
----
+<br/>
 
 ## 5. Understanding Aspect Ratio
 
@@ -99,7 +103,7 @@ If we move from a `4:3` image to a `16:9` image without cropping, the image cont
 
 That is why preserving aspect ratio matters in many tasks.
 
----
+<br/>
 
 ## 6. Upscaling and Downscaling
 
@@ -117,7 +121,7 @@ Downscaling:
 
 The lecture emphasizes that both are useful depending on the requirement.
 
----
+<br/>
 
 ## 7. Why We Resize or Scale Images
 
@@ -133,7 +137,7 @@ The lecture mentions several practical reasons:
 
 This is why resizing and scaling are very common preprocessing steps in computer vision.
 
----
+<br/>
 
 ## 8. Why Aspect Ratio Matters Visually
 
@@ -161,7 +165,7 @@ So:
 - resizing may distort content,
 - scaling preserves the natural look of the image.
 
----
+<br/>
 
 ## 9. Core Idea Behind Interpolation
 
@@ -172,13 +176,16 @@ This matters because:
 - in upscaling, new pixels need to be created,
 - in downscaling, some original pixel information must be combined or discarded.
 
-So interpolation is the rule that decides how OpenCV computes the new pixel values.
+So interpolation is **the rule that decides how OpenCV computes the new pixel values**.
 
----
+
+<br/>
 
 ## 10. Intuition with a `2 x 2` to `4 x 4` Example
 
 The lecture explains interpolation using a tiny image.
+
+![alt text](images/interpolation.png)
 
 Suppose the original image is:
 
@@ -200,7 +207,7 @@ Similarly, when shrinking an image:
 - multiple original pixels may need to be represented by fewer pixels,
 - so OpenCV must decide what information to keep.
 
----
+<br/>
 
 ## 11. Interpolation Methods in OpenCV
 
@@ -219,7 +226,7 @@ Each one handles pixel calculation differently, so each produces a different tra
 - sharpness,
 - computational cost.
 
----
+<br/>
 
 ## 12. `cv2.INTER_NEAREST`
 
@@ -240,7 +247,7 @@ Main effect:
 
 This is why enlarged images often look rough when nearest-neighbor interpolation is used.
 
----
+<br/>
 
 ## 13. `cv2.INTER_LINEAR`
 
@@ -262,7 +269,7 @@ So `INTER_LINEAR` is a balance between:
 - better visual quality,
 - and reasonable speed.
 
----
+<br/>
 
 ## 14. `cv2.INTER_CUBIC`
 
@@ -281,7 +288,7 @@ Practical takeaway:
 
 In the lecture's visual comparison, `INTER_CUBIC` appears smoother and richer than `INTER_LINEAR`.
 
----
+<br/>
 
 ## 15. `cv2.INTER_AREA`
 
@@ -299,7 +306,7 @@ The key point for notes is:
 - it behaves differently from nearest, linear, and cubic,
 - it is often chosen when shrinking images.
 
----
+<br/>
 
 ## 16. `cv2.INTER_LANCZOS4`
 
@@ -320,7 +327,7 @@ Practical takeaway:
 
 In the lecture comparison, this method is presented as one of the best-looking options.
 
----
+<br/>
 
 ## 17. Visual Comparison from the Lecture
 
@@ -338,7 +345,7 @@ This comparison helps build intuition:
 - faster methods often look rougher,
 - higher-quality methods usually need more computation.
 
----
+<br/>
 
 ## 18. Choosing the Right Interpolation
 
@@ -360,7 +367,7 @@ So the "best" interpolation depends on:
 - how much time you can spend,
 - whether you want speed or image quality.
 
----
+<br/>
 
 ## 19. Why Interpolation Matters in Practice
 
@@ -378,7 +385,7 @@ So resizing is not just about changing numbers like width and height.
 
 It is also about deciding how the image content should be reconstructed at the new size.
 
----
+<br/>
 
 ## 20. Important Study Points
 
@@ -392,7 +399,7 @@ It is also about deciding how the image content should be reconstructed at the n
 
 These are the main ideas to remember from the lecture.
 
----
+<br/>
 
 ## 21. Summary
 
