@@ -1,4 +1,4 @@
-opencv_venv
+.venv
 data/*/videos
 data/processed
 notes
