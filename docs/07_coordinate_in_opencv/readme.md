@@ -2,7 +2,7 @@
 
 Detailed notes based on `transcript.txt`.
 
----
+<br/>
 
 ## 1. What This Lecture Covers
 
@@ -12,7 +12,7 @@ This lecture explains one of the most foundational ideas in OpenCV:
 
 This concept is essential because many image operations depend on knowing exactly where something is located in the image.
 
----
+<br/>
 
 ## 2. Why Coordinates Matter in Computer Vision
 
@@ -28,7 +28,7 @@ The lecture highlights that coordinates are important for tasks such as:
 
 Without coordinates, OpenCV would not know where to perform these operations.
 
----
+<br/>
 
 ## 3. Cropping Requires Coordinates
 
@@ -50,7 +50,7 @@ Usually, a crop is defined using:
 
 Those points tell OpenCV which rectangular portion should become the new image.
 
----
+<br/>
 
 ## 4. Drawing Shapes Requires Coordinates
 
@@ -65,7 +65,7 @@ So even for simple annotation tasks, coordinates are necessary.
 
 This is why coordinate understanding is a basic requirement in image processing.
 
----
+<br/>
 
 ## 5. Placing Text Requires Coordinates
 
@@ -85,11 +85,13 @@ The ending point may depend on the width of the text, but the initial placement 
 
 So text annotation is also coordinate-based.
 
----
+<br/>
 
 ## 6. OpenCV Uses a Cartesian-Style Coordinate System
 
-The lecture describes the OpenCV image coordinate system as a Cartesian-style coordinate system.
+The lecture describes the OpenCV image coordinate system as a **Cartesian-style** coordinate system.
+
+![alt text](images/coordinate.png)
 
 This means positions are represented using:
 
@@ -98,7 +100,7 @@ This means positions are represented using:
 
 However, the image layout is slightly different from the standard graph layout many students first learn in mathematics.
 
----
+<br/>
 
 ## 7. Where the Origin Starts
 
@@ -113,7 +115,7 @@ This is a very important rule to remember.
 
 Unlike the usual mathematical graph where the origin is often drawn at the bottom-left or center, OpenCV starts from the top-left corner.
 
----
+<br/>
 
 ## 8. How the `x` Axis Works
 
@@ -129,7 +131,7 @@ So:
 
 If the image width increases across the row, the `x` coordinate increases along that direction.
 
----
+<br/>
 
 ## 9. How the `y` Axis Works
 
@@ -145,7 +147,7 @@ So:
 
 This is one of the biggest differences from the standard plotting intuition many learners already have.
 
----
+<br/>
 
 ## 10. Key Difference from Standard Graphs
 
@@ -161,7 +163,7 @@ But in OpenCV:
 
 So OpenCV image coordinates should be understood in terms of image rows and columns, not the usual classroom graph direction.
 
----
+<br/>
 
 ## 11. Understanding a Point in the Image
 
@@ -183,7 +185,7 @@ For example:
 - a shape corner can be placed there,
 - or a crop boundary can start there.
 
----
+<br/>
 
 ## 12. Coordinates in Cropping
 
@@ -201,7 +203,7 @@ So for cropping:
 
 Everything inside that rectangular area becomes the cropped output image.
 
----
+<br/>
 
 ## 13. Coordinates in Rectangles
 
@@ -216,7 +218,7 @@ So the rectangle is not just a shape drawn freely.
 
 It is mathematically defined using coordinates.
 
----
+<br/>
 
 ## 14. Coordinates in Text Placement
 
@@ -228,7 +230,7 @@ That starting coordinate tells the library where to place the first character.
 
 So text placement is also tied directly to the coordinate system.
 
----
+<br/>
 
 ## 15. Region of Interest Thinking
 
@@ -244,7 +246,7 @@ then coordinates give us the precise control needed to work only on that region.
 
 This is why coordinates are at the heart of region-based operations in OpenCV.
 
----
+<br/>
 
 ## 16. Core Rule to Remember
 
@@ -256,7 +258,7 @@ The entire lecture can be summarized into three key rules:
 
 If these three rules are clear, most OpenCV coordinate tasks become much easier to understand.
 
----
+<br/>
 
 ## 17. Why This Topic Is Foundational
 
@@ -273,7 +275,7 @@ It is foundational because it is needed before we can properly understand:
 
 So this lesson is one of the building blocks for practical OpenCV work.
 
----
+<br/>
 
 ## 18. Key Takeaways
 
@@ -284,7 +286,7 @@ So this lesson is one of the building blocks for practical OpenCV work.
 - Coordinates are required for cropping, drawing shapes, and placing text.
 - A rectangular region is usually defined using two coordinate pairs.
 
----
+<br/>
 
 ## 19. Summary
 

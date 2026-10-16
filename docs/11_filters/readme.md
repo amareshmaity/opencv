@@ -2,7 +2,7 @@
 
 Detailed notes based on `transcript.txt`.
 
----
+<br/>
 
 ## 1. What This Lecture Covers
 
@@ -18,11 +18,13 @@ The main focus is on:
 
 The lecture also briefly shows that we can create custom filters, but the core theory is the main idea.
 
----
+<br/>
 
 ## 2. What Is an Image Filter?
 
 An image filter is a set of rules applied to an image to emphasize, suppress, or extract certain features.
+
+![alt text](images/filtering.png)
 
 Filters can be used for tasks such as:
 
@@ -34,7 +36,7 @@ Filters can be used for tasks such as:
 
 A filter changes pixel values in a way that highlights the kind of visual information we care about.
 
----
+<br/>
 
 ## 3. Examples of What Filters Can Do
 
@@ -46,7 +48,7 @@ The lecture gives intuitive examples:
 
 So filters are not just one technique. They are a broad family of operations used for different image-processing goals.
 
----
+<br/>
 
 ## 4. Filter vs Kernel
 
@@ -63,7 +65,7 @@ A kernel is usually a small matrix such as:
 
 So the kernel is the core mathematical object, and the filter is the named operation built from that kernel.
 
----
+<br/>
 
 ## 5. Why Kernels Matter
 
@@ -78,13 +80,15 @@ That means the kernel controls:
 
 Changing the numbers inside the kernel changes the behavior of the filter.
 
----
+<br/>
 
 ## 6. How a Kernel Is Applied to an Image
 
 The lecture explains filtering using a small image matrix and a `3 x 3` kernel.
 
 Even though the image may be much larger than the kernel, the kernel is not applied to the whole image at once.
+
+![alt text](images/kernel-operation.png)
 
 Instead:
 
@@ -97,7 +101,7 @@ Instead:
 
 This is the core idea behind filtering.
 
----
+<br/>
 
 ## 7. Convolution
 
@@ -111,7 +115,7 @@ In simple terms, convolution means:
 
 So convolution is the operation that turns the input image and kernel into a filtered output image.
 
----
+<br/>
 
 ## 8. Why the Output Size Can Shrink
 
@@ -124,7 +128,7 @@ This happens because:
 
 The lecture notes that this shrinking can be handled later using padding, and in OpenCV the library usually handles this for us when using its filter operations.
 
----
+<br/>
 
 ## 9. Stride
 
@@ -140,7 +144,7 @@ Stride affects:
 
 The lecture mentions that OpenCV manages these low-level details for common usage.
 
----
+<br/>
 
 ## 10. Padding
 
@@ -160,7 +164,7 @@ With padding:
 
 The lecture notes that OpenCV usually handles this automatically in practice.
 
----
+<br/>
 
 ## 11. Pixel Value Range Problem
 
@@ -177,7 +181,7 @@ For example:
 
 This is normal during filtering, especially for edge-detection-style kernels.
 
----
+<br/>
 
 ## 12. Two Ways to Handle Out-of-Range Values
 
@@ -199,7 +203,7 @@ This keeps relative contrast information while mapping the result back into the 
 
 So clipping is simpler, while normalization can preserve more of the relative intensity structure.
 
----
+<br/>
 
 ## 13. Why Filters Can Detect Edges
 
@@ -217,7 +221,7 @@ For example:
 
 So filters designed for edge detection are built to respond strongly when neighboring areas differ a lot in intensity.
 
----
+<br/>
 
 ## 14. Intuition Behind the Horizontal Kernel
 
@@ -245,7 +249,7 @@ If the top and bottom parts of the image patch are very different in intensity, 
 
 That strong response suggests the presence of a horizontal intensity transition, which corresponds to a horizontal edge.
 
----
+<br/>
 
 ## 15. Role of the Neutral Middle Row
 
@@ -261,7 +265,7 @@ Because the middle row does not contribute directly:
 
 This is why the kernel is direction-sensitive rather than just computing a generic brightness value.
 
----
+<br/>
 
 ## 16. Strong Edge vs Weak Edge
 
@@ -276,7 +280,7 @@ For example:
 
 So the magnitude of the output tells us something about how prominent the edge is.
 
----
+<br/>
 
 ## 17. Direction-Specific Filters
 
@@ -290,7 +294,7 @@ The lecture discusses custom kernels for:
 
 This means filter design is closely tied to spatial arrangement inside the kernel.
 
----
+<br/>
 
 ## 18. Horizontal, Vertical, and Diagonal Detection
 
@@ -302,7 +306,7 @@ The core idea is simple:
 
 So the same convolution process stays the same, but the kernel layout decides which pattern becomes most visible.
 
----
+<br/>
 
 ## 19. Custom Filter Design
 
@@ -316,7 +320,7 @@ We can create our own custom kernels by choosing values that:
 
 Larger positive or negative values can increase sensitivity to a feature, though they may also make the result harsher or noisier.
 
----
+<br/>
 
 ## 20. What the Output Represents
 
@@ -330,7 +334,7 @@ So after applying a directional filter:
 - darker areas may indicate weak or no response,
 - the result is more like a feature map than a normal photograph.
 
----
+<br/>
 
 ## 21. Key Takeaways
 
@@ -346,7 +350,7 @@ So after applying a directional filter:
 - Kernel layout determines whether horizontal, vertical, or diagonal structures are emphasized.
 - Custom filters can be designed by arranging negative, zero, and positive values intentionally.
 
----
+<br/>
 
 ## 22. Summary
 

@@ -1,9 +1,5 @@
 # OpenCV - Edge Detection
 
-Detailed notes based on `transcript.txt`.
-
----
-
 ## 1. What This Lecture Covers
 
 This lecture introduces edge detection in image processing and explains how OpenCV can be used to detect important structural boundaries in an image.
@@ -16,11 +12,13 @@ The theory focuses on three common edge detection methods:
 
 The lecture also explains what an edge is, why edges matter, and how different algorithms detect them.
 
----
+<br/>
 
 ## 2. What Is an Edge?
 
 An edge is a sharp change in intensity or color in an image.
+
+![alt text](images/edge.png)
 
 In practice, an edge often appears where:
 
@@ -31,7 +29,7 @@ In practice, an edge often appears where:
 
 So an edge is not just any pixel. It is usually a transition region where the image changes strongly.
 
----
+<br/>
 
 ## 3. Intuition Behind Edges
 
@@ -47,7 +45,7 @@ then the boundaries between those regions are edges because the intensity change
 
 So edge detection is really the process of finding strong transitions in image values.
 
----
+<br/>
 
 ## 4. Why Edge Detection Matters
 
@@ -57,7 +55,7 @@ Instead of focusing on full color and shading information, edge detection highli
 
 This makes it useful when we care more about structure than appearance.
 
----
+<br/>
 
 ## 5. Main Uses of Edge Detection
 
@@ -71,7 +69,7 @@ The lecture highlights several key uses:
 
 These uses all depend on the same idea: edges summarize important structural information in a simpler form.
 
----
+<br/>
 
 ## 6. Edge Detection as Structural Simplification
 
@@ -85,7 +83,7 @@ This analogy is useful because edge detection behaves similarly:
 
 So edge detection can be thought of as converting a detailed image into a more abstract structural representation.
 
----
+<br/>
 
 ## 7. Why This Helps in AI and CNN Workflows
 
@@ -99,7 +97,7 @@ This is why edge detection is commonly used in preprocessing:
 - it emphasizes boundaries and form,
 - it can make later analysis easier.
 
----
+<br/>
 
 ## 8. Common Edge Detection Methods in This Lecture
 
@@ -111,7 +109,7 @@ The lecture covers three methods:
 
 All three try to find regions of strong intensity change, but they do so in different ways and with different levels of sophistication.
 
----
+<br/>
 
 ## 9. Gradient-Based Edge Detection
 
@@ -126,7 +124,7 @@ If the change is:
 
 So many edge detectors try to estimate the strength and sometimes the direction of intensity change.
 
----
+<br/>
 
 ## 10. Sobel Filter
 
@@ -135,11 +133,13 @@ The Sobel filter detects edges by estimating image gradients in two directions:
 - horizontal direction,
 - vertical direction.
 
+![alt text](images/sobel-filter.png)
+
 In practice, Sobel computes directional changes separately and then combines them.
 
 This makes it useful for detecting edges that have strong orientation along the image axes.
 
----
+<br/>
 
 ## 11. Sobel Kernels
 
@@ -155,7 +155,7 @@ The result is two intermediate gradient images:
 - one showing change along `x`,
 - one showing change along `y`.
 
----
+<br/>
 
 ## 12. Sobel Output Components
 
@@ -168,7 +168,7 @@ Each of these tells us how strongly the image is changing in its own direction.
 
 But to get an overall edge strength, the two must be combined.
 
----
+<br/>
 
 ## 13. Sobel Gradient Magnitude
 
@@ -184,7 +184,7 @@ This is done pixel by pixel.
 
 The resulting magnitude matrix tells us how strong the edge is at each location, regardless of whether the change came more from the `x` direction or the `y` direction.
 
----
+<br/>
 
 ## 14. Thresholding After Sobel
 
@@ -199,7 +199,7 @@ So thresholding converts a continuous edge-strength map into a more usable edge 
 
 The exact threshold usually needs tuning depending on the image.
 
----
+<br/>
 
 ## 15. Strengths of Sobel
 
@@ -211,7 +211,7 @@ Sobel is useful because:
 
 It is often a strong baseline when we want to detect edges without using a more advanced multi-stage detector.
 
----
+<br/>
 
 ## 16. Laplacian Filter
 
@@ -219,11 +219,13 @@ The Laplacian filter detects edges by finding regions of rapid intensity change.
 
 Unlike Sobel, Laplacian does not separately compute `x` and `y` gradients and then combine them afterward in the same way.
 
+![alt text](images/laplacian-filter.png)
+
 Instead, it uses a single operation that captures intensity variation more directly.
 
 The lecture describes it as relying on a second-order derivative approximation.
 
----
+<br/>
 
 ## 17. Laplacian as a Second-Order Derivative
 
@@ -236,7 +238,7 @@ The main idea is:
 
 This makes Laplacian very sensitive to sudden intensity changes, which is why it can highlight edges strongly.
 
----
+<br/>
 
 ## 18. Laplacian Kernels
 
@@ -246,7 +248,7 @@ These kernels are different discrete approximations of the same general idea and
 
 So there may be multiple valid Laplacian kernels depending on the exact formulation being used.
 
----
+<br/>
 
 ## 19. Why Laplacian Can Look Noisy
 
@@ -262,13 +264,15 @@ Since edges are about change strength rather than sign alone:
 
 So Laplacian is often powerful, but it can be noisier than more refined approaches.
 
----
+<br/>
 
 ## 20. Canny Edge Detector
 
 Canny is presented as the most advanced of the three methods covered in the lecture.
 
 It is not just a single convolution step. Instead, it is a multi-stage algorithm designed to produce cleaner and more reliable edges.
+
+![alt text](images/canny-edge-detector.png)
 
 It combines several ideas:
 
@@ -278,7 +282,7 @@ It combines several ideas:
 - double thresholding,
 - edge tracking by hysteresis.
 
----
+<br/>
 
 ## 21. Step 1 of Canny: Grayscale Conversion
 
@@ -288,7 +292,7 @@ The lecture emphasizes that edges are about changes in intensity structure, not 
 
 So grayscale simplifies the image while preserving the information needed for edge detection.
 
----
+<br/>
 
 ## 22. Step 2 of Canny: Gaussian Blur
 
@@ -302,7 +306,7 @@ The purpose is to:
 
 This makes the later gradient calculations more stable and less sensitive to small noisy changes.
 
----
+<br/>
 
 ## 23. Step 3 of Canny: Sobel-Based Gradient Computation
 
@@ -321,7 +325,7 @@ theta = arctan(Gy / Gx)
 
 So Canny uses not only edge strength, but also the direction in which the edge changes.
 
----
+<br/>
 
 ## 24. Why Gradient Direction Matters
 
@@ -331,7 +335,7 @@ Without direction, we would only know that a pixel has a strong change.
 
 With direction, we also know how that change is oriented, which makes later refinement possible.
 
----
+<br/>
 
 ## 25. Step 4 of Canny: Non-Maximum Suppression
 
@@ -346,7 +350,7 @@ The idea is:
 
 This removes thick or redundant edge responses and keeps only the strongest edge points.
 
----
+<br/>
 
 ## 26. What Non-Maximum Suppression Achieves
 
@@ -360,7 +364,7 @@ With it:
 
 This is one of the main reasons Canny usually looks sharper than basic edge detectors.
 
----
+<br/>
 
 ## 27. Step 5 of Canny: Double Thresholding
 
@@ -383,7 +387,7 @@ In general:
 
 This gives Canny a more flexible decision process than a single threshold.
 
----
+<br/>
 
 ## 28. Step 6 of Canny: Edge Tracking by Hysteresis
 
@@ -398,7 +402,7 @@ The rule is:
 
 This helps preserve meaningful edge continuity while removing isolated weak responses caused by noise.
 
----
+<br/>
 
 ## 29. Why Canny Usually Produces Cleaner Edges
 
@@ -412,7 +416,7 @@ The lecture suggests that Canny often gives the best visual result because it co
 
 This makes Canny both selective and robust.
 
----
+<br/>
 
 ## 30. Sobel vs Laplacian vs Canny
 
@@ -424,7 +428,7 @@ A useful comparison from the lecture is:
 
 So although all three detect edges, they differ in complexity, noise sensitivity, and output quality.
 
----
+<br/>
 
 ## 31. Noise Sensitivity
 
@@ -436,7 +440,7 @@ The lecture makes it clear that noise is an important issue in edge detection.
 
 So the choice of detector often depends on how noisy the image is and how clean the output needs to be.
 
----
+<br/>
 
 ## 32. Computational Trade-Off
 
@@ -449,7 +453,7 @@ So there is a trade-off:
 - simpler methods may be faster,
 - more advanced methods may give cleaner edges.
 
----
+<br/>
 
 ## 33. What the Edge Map Represents
 
@@ -459,7 +463,7 @@ Instead, it is a structural map showing where strong boundaries or important tra
 
 This output is useful because it compresses visual information into a simpler form that highlights shape and form rather than full appearance.
 
----
+<br/>
 
 ## 34. Key Takeaways
 
@@ -474,7 +478,7 @@ This output is useful because it compresses visual information into a simpler fo
 - Canny usually gives cleaner and more noise-resistant edges than simpler methods.
 - More advanced edge detection often costs more computation.
 
----
+<br/>
 
 ## 35. Summary
 

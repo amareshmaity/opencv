@@ -2,7 +2,7 @@
 
 Detailed notes based on `transcript.txt`.
 
----
+<br/>
 
 ## 1. What This Lecture Covers
 
@@ -14,7 +14,7 @@ This lecture introduces three basic image manipulation operations:
 
 These are fundamental image processing techniques and also serve as a foundation for image augmentation in computer vision and deep learning.
 
----
+<br/>
 
 ## 2. Why These Operations Matter
 
@@ -25,11 +25,11 @@ They are important because they help us:
 - understand how images can be transformed,
 - prepare data for computer vision tasks,
 - build intuition for later geometric transformations,
-- support image augmentation for machine learning.
+- support **image augmentation** for machine learning.
 
 The lecture also connects these ideas to future topics such as affine and projective transformations.
 
----
+<br/>
 
 ## 3. Role in Image Augmentation
 
@@ -45,15 +45,17 @@ This is especially useful when:
 
 So even though this lecture focuses on the basics, these operations become very important later in deep learning workflows.
 
----
+<br/>
 
 ## 4. What Is Flipping?
 
-Flipping means reflecting an image across an axis.
+Flipping means **reflecting** an image across an axis.
 
 It creates a mirrored version of the image.
 
 This can change the orientation of objects while keeping the visual content mostly the same.
+
+![alt text](images/flipping.png)
 
 Flipping is commonly used in:
 
@@ -61,7 +63,7 @@ Flipping is commonly used in:
 - augmentation,
 - mirroring-based transformations.
 
----
+<br/>
 
 ## 5. Horizontal Flip
 
@@ -78,7 +80,7 @@ So:
 
 The image appears mirrored sideways.
 
----
+<br/>
 
 ## 6. Vertical Flip
 
@@ -95,7 +97,7 @@ So:
 
 This creates an upside-down version of the image.
 
----
+<br/>
 
 ## 7. Flip on Both Axes
 
@@ -106,6 +108,8 @@ This means:
 - first performing one flip,
 - then performing the other flip as well.
 
+![alt text](images/both-axis.png)
+
 In effect, the image is flipped:
 
 - horizontally,
@@ -113,7 +117,7 @@ In effect, the image is flipped:
 
 This changes both left-right and top-bottom orientation.
 
----
+<br/>
 
 ## 8. Key Axis Understanding
 
@@ -129,7 +133,7 @@ So remember:
 
 This naming can feel confusing at first, so it is worth remembering clearly.
 
----
+<br/>
 
 ## 9. When Flipping Is Useful
 
@@ -142,15 +146,17 @@ Flipping is useful when we want to:
 
 This is one of the simplest augmentation techniques in computer vision.
 
----
+<br/>
 
 ## 10. What Is Rotation?
 
 Rotation means turning the image by a fixed angle.
 
+![alt text](images/roatation.png)
+
 In this lecture, the focus is on **basic rotation**, not more advanced geometric rotation methods.
 
-The lecture specifically discusses rotation without affine transformation.
+The lecture specifically discusses rotation **without affine transformation**.
 
 This basic rotation includes:
 
@@ -158,7 +164,7 @@ This basic rotation includes:
 - `90` degrees counterclockwise,
 - `180` degrees.
 
----
+<br/>
 
 ## 11. Basic Rotation vs Advanced Rotation
 
@@ -179,7 +185,7 @@ Advanced rotation:
 
 So this lecture focuses on the simpler and more intuitive version of rotation.
 
----
+<br/>
 
 ## 12. Rotation by 90 Degrees Clockwise
 
@@ -190,7 +196,9 @@ When an image is rotated `90` degrees clockwise:
 
 This is one of the most common image orientation changes.
 
----
+![alt text](images/rotation-90-180.png)
+
+<br/>
 
 ## 13. Rotation by 90 Degrees Counterclockwise
 
@@ -201,7 +209,7 @@ When an image is rotated `90` degrees counterclockwise:
 
 This gives another standard orientation change that is often used in image processing.
 
----
+<br/>
 
 ## 14. Rotation by 180 Degrees
 
@@ -211,7 +219,7 @@ Conceptually, this can be thought of as a complete reversal of orientation.
 
 The lecture also notes that this effect is similar to applying both horizontal and vertical changes together in terms of final orientation.
 
----
+<br/>
 
 ## 15. When Rotation Is Useful
 
@@ -224,17 +232,19 @@ Rotation is useful when we want to:
 
 It is one of the most common operations used before further processing.
 
----
+<br/>
 
 ## 16. What Is Cropping?
 
-Cropping means selecting only a specific region of an image and removing the rest.
+Cropping means **selecting only a specific region of an image and removing the rest**.
+
+![alt text](images/cropping.png)
 
 Instead of working with the full image, we keep only the part we are interested in.
 
 This creates a new smaller image from the selected region.
 
----
+<br/>
 
 ## 17. Main Idea Behind Cropping
 
@@ -246,7 +256,7 @@ The lecture explains cropping as:
 
 So cropping is really a way to focus attention on only the useful part of the image.
 
----
+<br/>
 
 ## 18. Coordinates in Cropping
 
@@ -259,7 +269,7 @@ These two points define the rectangular area to extract.
 
 Once those coordinates are known, that selected box becomes the cropped output image.
 
----
+<br/>
 
 ## 19. Region of Interest
 
@@ -275,7 +285,7 @@ then cropping helps isolate that meaningful region.
 
 This selected part is often called the **region of interest**.
 
----
+<br/>
 
 ## 20. Why Cropping Is Useful
 
@@ -288,7 +298,7 @@ Cropping helps us:
 
 It is a very practical preprocessing step in many computer vision tasks.
 
----
+<br/>
 
 ## 21. Conceptual Workflow of Cropping
 
@@ -300,7 +310,7 @@ The lecture gives a simple conceptual order:
 
 This is the full idea of cropping at the theory level.
 
----
+<br/>
 
 ## 22. When to Use Flip, Rotate, or Crop
 
@@ -312,7 +322,7 @@ The lecture gives a useful practical intuition:
 
 This is a great mental shortcut for deciding which operation fits the task.
 
----
+<br/>
 
 ## 23. Connection to Future Topics
 
@@ -326,7 +336,7 @@ They help build understanding for later topics such as:
 
 So this lecture is not just about simple edits, but about preparing for more advanced computer vision concepts.
 
----
+<br/>
 
 ## 24. Key Takeaways
 
@@ -339,7 +349,7 @@ So this lecture is not just about simple edits, but about preparing for more adv
 - Cropping uses two coordinate pairs to define the region.
 - All three operations are important in preprocessing and augmentation.
 
----
+<br/>
 
 ## 25. Summary
 
